@@ -847,3 +847,31 @@ if ( ! function_exists('function_usable'))
 		return FALSE;
 	}
 }
+
+/*
+ * 自定义方法
+ */
+function p($arr){
+    echo '<pre>';
+    print_r($arr);
+    echo '</pre>';
+}
+
+function success($url,$msg){
+    header('Content-Type:text/html;charset=utf-8');
+     $url = site_url($url);
+     echo"<script type='text/javascript'>alert('$msg');location.href='$url'</script>";
+     die;
+}
+
+function error($url,$msg){
+    header('Content-Type:text/html;charset=utf-8');
+    $url = site_url($url);
+    echo"<script type='text/javascript'>alert('$msg');location.href='$url'</script>";
+    die;
+}
+
+function wrong($msg){
+    header('Content-Type:text/html;charset=utf-8');
+    echo"<script type='text/javascript'>alert('$msg');</script>";
+}
