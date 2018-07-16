@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单签批 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>表单驳回 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="" />
+		<meta name="description" content="and Validation" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -14,8 +14,6 @@
 		<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="assets/css/bootstrap-duallistbox.min.css" />
-		<link rel="stylesheet" href="assets/css/bootstrap-multiselect.min.css" />
 		<link rel="stylesheet" href="assets/css/select2.min.css" />
 
 		<!-- text fonts -->
@@ -48,7 +46,7 @@
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default ace-save-state">
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
@@ -481,7 +479,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="form_sign.html">
 									<i class="menu-icon fa fa-caret-right"></i> 签批
 								</a>
@@ -489,7 +487,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="form_reject.html">
 									<i class="menu-icon fa fa-caret-right"></i> 驳回
 								</a>
@@ -659,7 +657,7 @@
 			</div>
 
 			<div class="main-content">
-			    <div class="col-xs-6">
+                <div class="col-xs-6">
                     <div class="widget-box">
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title smaller">
@@ -682,19 +680,19 @@
                                             <td class="">设计开发计划表</td>
                                             <td class="">甲</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">查看</button> <button href="#">重新提交</button></td>
                                         </tr>
                                         <tr>
                                             <td class="">设计开发计划表</td>
                                             <td class="">乙</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">查看</button> <button href="#">重新提交</button></td>
                                         </tr>
                                         <tr>
                                             <td class="">设计开发计划表</td>
                                             <td class="">丁</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">查看</button> <button href="#">重新提交</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -702,14 +700,14 @@
                         </div>
                     </div>
                 </div>
-				<div class="col-xs-6">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="widget-box">
-								<div class="widget-header widget-header-flat">
-									<h4 class="widget-title smaller">表单属性</h4>
-								</div>
-								<div class="tabbable">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">表单属性</h4>
+                                </div>
+                                <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li class="active">
                                             <a data-toggle="tab" href="#home1">常规</a>
@@ -860,11 +858,11 @@
                                         </div>
                                     </div>
                                 </div>
-							</div>
-						</div>
-					</div>
-					<div class="space-6"></div>
-				</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
 			</div>
 			<!-- /.main-content -->
 
@@ -915,11 +913,12 @@
 		<script src="assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.bootstrap-duallistbox.min.js"></script>
-		<script src="assets/js/jquery.raty.min.js"></script>
-		<script src="assets/js/bootstrap-multiselect.min.js"></script>
+		<script src="assets/js/wizard.min.js"></script>
+		<script src="assets/js/jquery.validate.min.js"></script>
+		<script src="assets/js/jquery-additional-methods.min.js"></script>
+		<script src="assets/js/bootbox.js"></script>
+		<script src="assets/js/jquery.maskedinput.min.js"></script>
 		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/jquery-typeahead.js"></script>
 
 		<!-- ace scripts -->
 		<script src="assets/js/ace-elements.min.js"></script>
@@ -928,113 +927,183 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
-				var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-					infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-				});
-				var container1 = demo1.bootstrapDualListbox('getContainer');
-				container1.find('.btn').addClass('btn-white btn-info btn-bold');
 
-				/**var setRatingColors = function() {
-					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-				}*/
-				$('.rating').raty({
-					'cancel': true,
-					'half': true,
-					'starType': 'i'
-					/**,
-					
-					'click': function() {
-						setRatingColors.call(this);
-					},
-					'mouseover': function() {
-						setRatingColors.call(this);
-					},
-					'mouseout': function() {
-						setRatingColors.call(this);
-					}*/
-				}) //.find('i:not(.star-raty)').addClass('grey');
+				$('[data-rel=tooltip]').tooltip();
 
-				//////////////////
-				//select2
 				$('.select2').css('width', '200px').select2({
-					allowClear: true
-				})
-				$('#select2-multiple-style .btn').on('click', function(e) {
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					else $('.select2').removeClass('tag-input-style');
-				});
+						allowClear: true
+					})
+					.on('change', function() {
+						$(this).closest('form').validate().element($(this));
+					});
 
-				//////////////////
-				$('.multiselect').multiselect({
-					enableFiltering: true,
-					enableHTML: true,
-					buttonClass: 'btn btn-white btn-primary',
-					templates: {
-						button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-						ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-						filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-						filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-						li: '<li><a tabindex="0"><label></label></a></li>',
-						divider: '<li class="multiselect-item divider"></li>',
-						liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-					}
-				});
-
-				///////////////////
-
-				//typeahead.js
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
-
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if(substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({
-									value: str
-								});
+				var $validation = false;
+				$('#fuelux-wizard-container')
+					.ace_wizard({
+						//step: 2 //optional argument. wizard will jump to step "2" at first
+						//buttons: '.wizard-actions:eq(0)'
+					})
+					.on('actionclicked.fu.wizard', function(e, info) {
+						if(info.step == 1 && $validation) {
+							if(!$('#validation-form').valid()) e.preventDefault();
+						}
+					})
+					//.on('changed.fu.wizard', function() {
+					//})
+					.on('finished.fu.wizard', function(e) {
+						bootbox.dialog({
+							message: "Thank you! Your information was successfully saved!",
+							buttons: {
+								"success": {
+									"label": "OK",
+									"className": "btn-sm btn-primary"
+								}
 							}
 						});
+					}).on('stepclick.fu.wizard', function(e) {
+						//e.preventDefault();//this will prevent clicking and selecting steps
+					});
 
-						cb(matches);
+				//jump to a step
+				/**
+				var wizard = $('#fuelux-wizard-container').data('fu.wizard')
+				wizard.currentStep = 3;
+				wizard.setState();
+				*/
+
+				//determine selected step
+				//wizard.selectedItem().step
+
+				//hide or show the other form which requires validation
+				//this is for demo only, you usullay want just one form in your application
+				$('#skip-validation').removeAttr('checked').on('click', function() {
+					$validation = this.checked;
+					if(this.checked) {
+						$('#sample-form').hide();
+						$('#validation-form').removeClass('hide');
+					} else {
+						$('#validation-form').addClass('hide');
+						$('#sample-form').show();
 					}
-				}
+				})
 
-				$('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				}, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
+				//documentation : http://docs.jquery.com/Plugins/Validation/validate
+
+				$.mask.definitions['~'] = '[+-]';
+				$('#phone').mask('(999) 999-9999');
+
+				jQuery.validator.addMethod("phone", function(value, element) {
+					return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+				}, "Enter a valid phone number.");
+
+				$('#validation-form').validate({
+					errorElement: 'div',
+					errorClass: 'help-block',
+					focusInvalid: false,
+					ignore: "",
+					rules: {
+						email: {
+							required: true,
+							email: true
+						},
+						password: {
+							required: true,
+							minlength: 5
+						},
+						password2: {
+							required: true,
+							minlength: 5,
+							equalTo: "#password"
+						},
+						name: {
+							required: true
+						},
+						phone: {
+							required: true,
+							phone: 'required'
+						},
+						url: {
+							required: true,
+							url: true
+						},
+						comment: {
+							required: true
+						},
+						state: {
+							required: true
+						},
+						platform: {
+							required: true
+						},
+						subscription: {
+							required: true
+						},
+						gender: {
+							required: true,
+						},
+						agree: {
+							required: true,
+						}
+					},
+
+					messages: {
+						email: {
+							required: "Please provide a valid email.",
+							email: "Please provide a valid email."
+						},
+						password: {
+							required: "Please specify a password.",
+							minlength: "Please specify a secure password."
+						},
+						state: "Please choose state",
+						subscription: "Please choose at least one option",
+						gender: "Please choose gender",
+						agree: "Please accept our policy"
+					},
+
+					highlight: function(e) {
+						$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+					},
+
+					success: function(e) {
+						$(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+						$(e).remove();
+					},
+
+					errorPlacement: function(error, element) {
+						if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+							var controls = element.closest('div[class*="col-"]');
+							if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
+							else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+						} else if(element.is('.select2')) {
+							error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+						} else if(element.is('.chosen-select')) {
+							error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+						} else error.insertAfter(element.parent());
+					},
+
+					submitHandler: function(form) {},
+					invalidHandler: function(form) {}
 				});
 
-				///////////////
+				$('#modal-wizard-container').ace_wizard();
+				$('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
 
-				//in ajax mode, remove remaining elements before leaving page
+				/**
+				$('#date').datepicker({autoclose:true}).on('changeDate', function(ev) {
+					$(this).closest('form').validate().element($(this));
+				});
+				
+				$('#mychosen').chosen().on('change', function(ev) {
+					$(this).closest('form').validate().element($(this));
+				});
+				*/
+
 				$(document).one('ajaxloadstart.page', function(e) {
+					//in ajax mode, remove remaining elements before leaving page
 					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
 				});
-
-			});
+			})
 		</script>
 	</body>
 

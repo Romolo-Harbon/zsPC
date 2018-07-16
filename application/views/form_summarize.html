@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单签批 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>表单归集 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="" />
+		<meta name="description" content="Drag &amp; drop file upload with image preview" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -14,9 +14,7 @@
 		<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="assets/css/bootstrap-duallistbox.min.css" />
-		<link rel="stylesheet" href="assets/css/bootstrap-multiselect.min.css" />
-		<link rel="stylesheet" href="assets/css/select2.min.css" />
+		<link rel="stylesheet" href="assets/css/dropzone.min.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
@@ -48,7 +46,7 @@
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default ace-save-state">
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
@@ -481,7 +479,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="form_sign.html">
 									<i class="menu-icon fa fa-caret-right"></i> 签批
 								</a>
@@ -505,7 +503,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="form_summarize.html">
 									<i class="menu-icon fa fa-caret-right"></i> 归集
 								</a>
@@ -659,7 +657,7 @@
 			</div>
 
 			<div class="main-content">
-			    <div class="col-xs-6">
+                <div class="col-xs-6">
                     <div class="widget-box">
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title smaller">
@@ -702,14 +700,14 @@
                         </div>
                     </div>
                 </div>
-				<div class="col-xs-6">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="widget-box">
-								<div class="widget-header widget-header-flat">
-									<h4 class="widget-title smaller">表单属性</h4>
-								</div>
-								<div class="tabbable">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">表单属性</h4>
+                                </div>
+                                <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li class="active">
                                             <a data-toggle="tab" href="#home1">常规</a>
@@ -860,11 +858,11 @@
                                         </div>
                                     </div>
                                 </div>
-							</div>
-						</div>
-					</div>
-					<div class="space-6"></div>
-				</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
 			</div>
 			<!-- /.main-content -->
 
@@ -915,11 +913,7 @@
 		<script src="assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.bootstrap-duallistbox.min.js"></script>
-		<script src="assets/js/jquery.raty.min.js"></script>
-		<script src="assets/js/bootstrap-multiselect.min.js"></script>
-		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/jquery-typeahead.js"></script>
+		<script src="assets/js/dropzone.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="assets/js/ace-elements.min.js"></script>
@@ -928,111 +922,86 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
-				var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-					infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-				});
-				var container1 = demo1.bootstrapDualListbox('getContainer');
-				container1.find('.btn').addClass('btn-white btn-info btn-bold');
 
-				/**var setRatingColors = function() {
-					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-				}*/
-				$('.rating').raty({
-					'cancel': true,
-					'half': true,
-					'starType': 'i'
-					/**,
-					
-					'click': function() {
-						setRatingColors.call(this);
-					},
-					'mouseover': function() {
-						setRatingColors.call(this);
-					},
-					'mouseout': function() {
-						setRatingColors.call(this);
-					}*/
-				}) //.find('i:not(.star-raty)').addClass('grey');
+				try {
+					Dropzone.autoDiscover = false;
 
-				//////////////////
-				//select2
-				$('.select2').css('width', '200px').select2({
-					allowClear: true
-				})
-				$('#select2-multiple-style .btn').on('click', function(e) {
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					else $('.select2').removeClass('tag-input-style');
-				});
+					var myDropzone = new Dropzone('#dropzone', {
+						previewTemplate: $('#preview-template').html(),
 
-				//////////////////
-				$('.multiselect').multiselect({
-					enableFiltering: true,
-					enableHTML: true,
-					buttonClass: 'btn btn-white btn-primary',
-					templates: {
-						button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-						ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-						filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-						filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-						li: '<li><a tabindex="0"><label></label></a></li>',
-						divider: '<li class="multiselect-item divider"></li>',
-						liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-					}
-				});
+						thumbnailHeight: 120,
+						thumbnailWidth: 120,
+						maxFilesize: 0.5,
 
-				///////////////////
+						//addRemoveLinks : true,
+						//dictRemoveFile: 'Remove',
 
-				//typeahead.js
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
+						dictDefaultMessage: '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+				<span class="smaller-80 grey">(or click)</span> <br /> \
+				<i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>',
 
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if(substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({
-									value: str
+						thumbnail: function(file, dataUrl) {
+							if(file.previewElement) {
+								$(file.previewElement).removeClass("dz-file-preview");
+								var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
+									var thumbnailElement = this;
+									thumbnailElement.alt = file.name;
+									thumbnailElement.src = dataUrl;
 								});
+								setTimeout(function() {
+									$(file.previewElement).addClass("dz-image-preview");
+								}, 1);
 							}
-						});
+						}
 
-						cb(matches);
+					});
+
+					//simulating upload progress
+					var minSteps = 6,
+						maxSteps = 60,
+						timeBetweenSteps = 100,
+						bytesPerStep = 100000;
+
+					myDropzone.uploadFiles = function(files) {
+						var self = this;
+
+						for(var i = 0; i < files.length; i++) {
+							var file = files[i];
+							totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+							for(var step = 0; step < totalSteps; step++) {
+								var duration = timeBetweenSteps * (step + 1);
+								setTimeout(function(file, totalSteps, step) {
+									return function() {
+										file.upload = {
+											progress: 100 * (step + 1) / totalSteps,
+											total: file.size,
+											bytesSent: (step + 1) * file.size / totalSteps
+										};
+
+										self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+										if(file.upload.progress == 100) {
+											file.status = Dropzone.SUCCESS;
+											self.emit("success", file, 'success', null);
+											self.emit("complete", file);
+											self.processQueue();
+										}
+									};
+								}(file, totalSteps, step), duration);
+							}
+						}
 					}
+
+					//remove dropzone instance when leaving this page in ajax mode
+					$(document).one('ajaxloadstart.page', function(e) {
+						try {
+							myDropzone.destroy();
+						} catch(e) {}
+					});
+
+				} catch(e) {
+					//					alert('Dropzone.js does not support older browsers!');
 				}
-
-				$('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				}, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
-				});
-
-				///////////////
-
-				//in ajax mode, remove remaining elements before leaving page
-				$(document).one('ajaxloadstart.page', function(e) {
-					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
-				});
 
 			});
 		</script>

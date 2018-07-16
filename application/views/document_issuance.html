@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单模板类型设置 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>签发 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="overview &amp; stats" />
+		<meta name="description" content="404 Error Page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -42,14 +42,6 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
-		<style type="text/css">
-			/*无法点击*/
-			.disabled {
-				/*color: gray;*/
-				/*cursor: pointer;*/
-				pointer-events: none;
-			}
-		</style>
 	</head>
 
 	<body class="no-skin">
@@ -69,7 +61,7 @@
 					<a href="index.html" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
-							中山建设监理建筑工程文档协同管理系统
+							Ace Admin
 						</small>
 					</a>
 				</div>
@@ -407,7 +399,7 @@
 				<!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li >
+					<li class="">
 						<a href="index.html">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
@@ -429,14 +421,6 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							
-							<!--<li class="">
-								<a href="affiar_project.html">
-									<i class="menu-icon fa fa-caret-right"></i> 我的工程
-								</a>
-
-								<b class="arrow"></b>
-							</li>-->
 
 							<li class="">
 								<a href="affair_todo.html">
@@ -476,7 +460,7 @@
 					
 
 					<li class="">
-						<a href="#" class="dropdown-toggle disabled">
+						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 表单管理 </span>
 
@@ -530,8 +514,8 @@
 
 					
 
-					<li class="">
-						<a href="#" class="dropdown-toggle disabled">
+					<li class="active open">
+						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-file-o"></i>
 
 							<span class="menu-text">
@@ -552,7 +536,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="document_issuance.html">
 									<i class="menu-icon fa fa-caret-right"></i> 签发
 								</a>
@@ -586,6 +570,8 @@
 						</ul>
 					</li>
 					
+					
+					
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
@@ -598,7 +584,7 @@
 
 						<ul class="submenu">
 							<li class="">
-								<a href="tables.html">
+								<a href="query_query.html">
 									<i class="menu-icon fa fa-caret-right"></i> 查询
 								</a>
 
@@ -606,7 +592,7 @@
 							</li>
 
 							<li class="">
-								<a href="jqgrid.html">
+								<a href="query_analyze.html">
 									<i class="menu-icon fa fa-caret-right"></i> 统计分析
 								</a>
 
@@ -615,7 +601,7 @@
 						</ul>
 					</li>
 					
-					<li class="active open">
+					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-tag"></i>
 							<span class="menu-text"> 系统设置 </span>
@@ -650,7 +636,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="system_form.html">
 									<i class="menu-icon fa fa-caret-right"></i> 表单模板类型设置
 								</a>
@@ -662,7 +648,6 @@
 						</ul>
 					</li>
 				</ul>
-				<!-- /.nav-list -->
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
@@ -670,19 +655,367 @@
 			</div>
 
 			<div class="main-content">
-				
+
+				<div class="col-xs-12 col-sm-6 widget-container-col" id="widget-container-col-2" style="width: 100%;">
+					<div class="widget-box widget-color-blue" id="widget-box-2">
+						<div class="widget-header">
+							<h5 class="widget-title bigger lighter">
+														<i class="ace-icon fa fa-table"></i>
+														文档列表
+													</h5>
+
+						</div>
+
+						<div class="tabbable tabs-left">
+							<ul class="nav nav-tabs" id="myTab3" style="width: 19.8%;">
+								<li class="active">
+									<a data-toggle="tab" href="#home3">
+										<i class=""></i> 甲方通知方
+									</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#profile3">
+										<i class=""></i> 施工签证单
+									</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#dropdown13">
+										<i class=""></i> 施工联系单
+									</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#profile3">
+										<i class=""></i> 施工报审单
+									</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#dropdown13">
+										<i class=""></i> 合同台账
+									</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#profile3">
+										<i class=""></i> 技术资料
+									</a>
+								</li>
+
+							</ul>
+
+						</div>
+
+						<div class="widget-box widget-color-blue" id="widget-box-2" style="float: right;width: 80%;">
+
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<table class="table table-striped table-bordered table-hover">
+										<thead class="thin-border-bottom">
+											<tr>
+												<th>
+													<i class="ace-icon fa fa-user"></i> 名称
+												</th>
+												<th>大小</th>
+												<th>文件类型</th>
+												<th>输出用户</th>
+												<th>修改时间</th>
+
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<td class="">Alex</td>
+												<td class="">Alex</td>
+												<td class="">Alex</td>
+												<td class="">Alex</td>
+												<td class="">Alex</td>
+
+											</tr>
+
+											<tr>
+												<td class="">Fred</td>
+												<td class="">Fred</td>
+												<td class="">Fred</td>
+												<td class="">Fred</td>
+												<td class="">Fred</td>
+
+											</tr>
+
+										</tbody>
+									</table>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- /.row -->
+
+					</div>
+
+				</div>
+
+				<div class="col-xs-12">
+					<div class="widget-box widget-color-blue" id="widget-box-2">
+						<div class="widget-header">
+							<h5 class="widget-title bigger lighter">
+														<i class="ace-icon fa fa-table"></i>
+														文档属性
+													</h5>
+
+						</div>
+
+						<div class="tabbable">
+							<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+								<li class="active">
+									<a data-toggle="tab" href="#home1">内容摘要</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#home2">基本属性</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#home3">流转属性</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#home5">附件浏览</a>
+								</li>
+
+							</ul>
+
+							<div class="tab-content">
+								<div id="home1" class="tab-pane in active">
+									<p>浏览.</p>
+								</div>
+
+								<div id="home2" class="tab-pane">
+									<div id="home2" class="tab-pane">
+									<form class="form-horizontal" id="sample-form">
+										<div class="form-group">
+											<label for="inputWarning" class="col-xs-12 col-sm-3 control-label no-padding-right">主送对象 ：</label>
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputWarning" class="width-100" />
+												</span>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">抄送对象 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputError" class="width-100" />
+												</span>
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">归集处理人 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputError" class="width-100" />
+												</span>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">分类属性 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<select>
+													<option>甲方通知方</option>		
+													<option>施工签证单</option>	
+													<option>施工联系单</option>	
+													<option>施工报审单</option>	
+													<option>合同台账</option>	
+													<option>技术资料</option>	
+												</select>
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<label for="inputError" class="col-xs-12 col-sm-3 col-md-3 control-label no-padding-right">归集时间 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputError" class="width-100" readonly="readonly"/>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right">发起部门 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputSuccess" class="width-100" />
+												</span>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">发起人 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100" />
+												</span>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">审核部门 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="input-icon block">
+													<input type="text" id="inputError2" class="width-100" />
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">审核人  ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="input-icon block">
+													<input type="text" id="inputError2" class="width-100" />
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">批准部门 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="input-icon block">
+													<input type="text" id="inputError2" class="width-100" />
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputError2" class="col-xs-12 col-sm-3 control-label no-padding-right">批注人 ：</label>
+
+											<div class="col-xs-12 col-sm-6">
+												<span class="input-icon block">
+													<input type="text" id="inputError2" class="width-100" />
+												</span>
+											</div>
+										</div>
+									</form>
+								</div>
+								</div>
+
+								<div id="home3" class="tab-pane">
+                                    <div>
+                                        <button class="btn btn-success">修改工作流</button>
+                                        <br /><br />
+                                        <ul class="steps">
+                                            <li data-step="1" class="active" href="#modal-table" role="button" data-toggle="modal">
+                                                <span class="step">1</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="2">
+                                                <span class="step">2</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="3">
+                                                <span class="step">3</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="4">
+                                                <span class="step">4</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+								<div id="home5" class="tab-pane">
+									<div class="row">
+									<div class="col-xs-12">
+
+										<div class="clearfix">
+											<div class="pull-right tableTools-container"></div>
+										</div>
+
+										<!-- div.table-responsive -->
+
+										<!-- div.dataTables_borderWrap -->
+										<div>
+										    <a href="#modal-table" role="button" class="btn btn-primary " data-toggle="modal"> 新建 </a>
+                                            <br /><br />
+											<table class="table table-striped table-bordered table-hover">
+														<thead class="thin-border-bottom">
+															<tr>
+																<th class="hidden-480">名称</th>
+																<th class="hidden-480">文件类型</th>
+																<th class="hidden-480">上传/创建时间</th>
+																<th class="hidden-480">操作</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr href="#table" role="button" data-toggle="modal">
+																<td class="">设计开发计划表</td>
+
+																<td class="">.xls</td>
+
+																<td class="">2018-04-04 15:24</td>
+																<td><button>删除</button></td>
+															</tr>
+															<tr>
+																<td class="">设计开发计划表</td>
+
+																<td class="">.xls</td>
+
+																<td class="">2018-04-04 15:24</td>
+																<td><button>删除</button></td>
+															</tr>
+															<tr>
+																<td class="">设计开发计划表</td>
+
+																<td class="">.xls</td>
+																
+																<td class="">2018-04-04 15:24</td>
+																<td><button>删除</button></td>
+															</tr>
+
+														</tbody>
+													</table>
+										</div>
+									</div>
+								</div>
+								</div>
+
+								<div id="home6" class="tab-pane">
+									<p>操作日志.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<!-- /.main-content -->
 
-			<div class="footer">
-				<div class="footer-inner">
-					<div class="footer-content">
-						<span class="bigger-120">
+		</div>
+		<!-- /.main-content -->
+
+		<div class="footer">
+			<div class="footer-inner">
+				<div class="footer-content">
+					<span class="bigger-120">
 							<span class="blue bolder">Ace</span> Application &copy; 2013-2014
-						</span>
+					</span>
 
-						&nbsp; &nbsp;
-						<span class="action-buttons">
+					&nbsp; &nbsp;
+					<span class="action-buttons">
 							<a href="#">
 								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
 							</a>
@@ -695,52 +1028,22 @@
 								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
 							</a>
 						</span>
-					</div>
 				</div>
 			</div>
-
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-			</a>
 		</div>
-		<!-- /.main-container -->
 
-		<!-- basic scripts -->
+		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+		</a>
 
-		<!--[if !IE]> -->
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 		</script>
 		<script src="assets/js/bootstrap.min.js"></script>
 
-		<!-- page specific plugin scripts -->
-
-		<!--[if lte IE 8]>
-		  <script src="assets/js/excanvas.min.js"></script>
-		<![endif]-->
-		<script src="assets/js/jquery-ui.custom.min.js"></script>
-		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="assets/js/jquery.easypiechart.min.js"></script>
-		<script src="assets/js/jquery.sparkline.index.min.js"></script>
-		<script src="assets/js/jquery.flot.min.js"></script>
-		<script src="assets/js/jquery.flot.pie.min.js"></script>
-		<script src="assets/js/jquery.flot.resize.min.js"></script>
-
-		<!-- ace scripts -->
 		<script src="assets/js/ace-elements.min.js"></script>
 		<script src="assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {})
-		</script>
 	</body>
 
 </html>

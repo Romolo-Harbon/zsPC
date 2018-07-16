@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单签批 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>重要文件 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="" />
+		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -14,9 +14,6 @@
 		<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="assets/css/bootstrap-duallistbox.min.css" />
-		<link rel="stylesheet" href="assets/css/bootstrap-multiselect.min.css" />
-		<link rel="stylesheet" href="assets/css/select2.min.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
@@ -45,10 +42,18 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+		<style type="text/css">
+			/*无法点击*/
+			.disabled {
+				/*color: gray;*/
+				/*cursor: pointer;*/
+				pointer-events: none;
+			}
+		</style>
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default ace-save-state">
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
@@ -411,7 +416,7 @@
 						<b class="arrow"></b>
 					</li>
 
-					<li class="">
+					<li class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text">
@@ -424,6 +429,14 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
+							
+							<!--<li class="">
+								<a href="affiar_project.html">
+									<i class="menu-icon fa fa-caret-right"></i> 我的工程
+								</a>
+							
+								<b class="arrow"></b>
+							</li>-->
 
 							<li class="">
 								<a href="affair_todo.html">
@@ -433,7 +446,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="affair_important.html">
 									<i class="menu-icon fa fa-caret-right"></i> 重要文件
 								</a>
@@ -460,10 +473,8 @@
 						</ul>
 					</li>
 
-					
-
-					<li class="active open">
-						<a href="#" class="dropdown-toggle">
+					<li class="">
+						<a href="#" class="dropdown-toggle disabled">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 表单管理 </span>
 
@@ -481,7 +492,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="form_sign.html">
 									<i class="menu-icon fa fa-caret-right"></i> 签批
 								</a>
@@ -515,16 +526,14 @@
 						</ul>
 					</li>
 
-					
-
 					<li class="">
-						<a href="#" class="dropdown-toggle">
+						<a href="#" class="dropdown-toggle disabled">
 							<i class="menu-icon fa fa-file-o"></i>
 
 							<span class="menu-text">
 								文档管理
 							</span>
-							
+
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
@@ -572,9 +581,7 @@
 							</li>
 						</ul>
 					</li>
-					
-					
-					
+
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
@@ -603,7 +610,7 @@
 							</li>
 						</ul>
 					</li>
-					
+
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-tag"></i>
@@ -647,7 +654,6 @@
 								<b class="arrow"></b>
 							</li>
 
-							
 						</ul>
 					</li>
 				</ul>
@@ -659,11 +665,11 @@
 			</div>
 
 			<div class="main-content">
-			    <div class="col-xs-6">
+				<div class="col-xs-6">
                     <div class="widget-box">
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title smaller">
-                                <span>表单列表</span>
+                                <span>文件列表</span>
                             </h4>
                         </div>
                         <div class="widget-body">
@@ -672,6 +678,7 @@
                                     <thead class="thin-border-bottom">
                                         <tr>
                                             <th class="hidden-480">名称</th>
+                                            <th class="hidden-480">类型</th>
                                             <th class="hidden-480">用户</th>
                                             <th class="hidden-480">修改时间</th>
                                             <th class="hidden-480">操作</th>
@@ -680,21 +687,24 @@
                                     <tbody>
                                         <tr href="#table" role="button" data-toggle="modal">
                                             <td class="">设计开发计划表</td>
+                                            <td class="">表</td>
                                             <td class="">甲</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">详情</button> </td>
                                         </tr>
                                         <tr>
                                             <td class="">设计开发计划表</td>
+                                            <td class="">表</td>
                                             <td class="">乙</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">详情</button> </td>
                                         </tr>
                                         <tr>
                                             <td class="">设计开发计划表</td>
+                                            <td class="">文档</td>
                                             <td class="">丁</td>
                                             <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
+                                            <td class=""><button href="#">详情</button> </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -702,14 +712,14 @@
                         </div>
                     </div>
                 </div>
-				<div class="col-xs-6">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="widget-box">
-								<div class="widget-header widget-header-flat">
-									<h4 class="widget-title smaller">表单属性</h4>
-								</div>
-								<div class="tabbable">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">文件属性</h4>
+                                </div>
+                                <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li class="active">
                                             <a data-toggle="tab" href="#home1">常规</a>
@@ -860,11 +870,11 @@
                                         </div>
                                     </div>
                                 </div>
-							</div>
-						</div>
-					</div>
-					<div class="space-6"></div>
-				</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-6"></div>
+                </div>
 			</div>
 			<!-- /.main-content -->
 
@@ -899,142 +909,22 @@
 		</div>
 		<!-- /.main-container -->
 
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 		</script>
 		<script src="assets/js/bootstrap.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.bootstrap-duallistbox.min.js"></script>
-		<script src="assets/js/jquery.raty.min.js"></script>
-		<script src="assets/js/bootstrap-multiselect.min.js"></script>
-		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/jquery-typeahead.js"></script>
-
-		<!-- ace scripts -->
+		<script src="assets/js/jquery-ui.custom.min.js"></script>
+		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="assets/js/jquery.easypiechart.min.js"></script>
+		<script src="assets/js/jquery.sparkline.index.min.js"></script>
+		<script src="assets/js/jquery.flot.min.js"></script>
+		<script src="assets/js/jquery.flot.pie.min.js"></script>
+		<script src="assets/js/jquery.flot.resize.min.js"></script>
 		<script src="assets/js/ace-elements.min.js"></script>
 		<script src="assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
-			jQuery(function($) {
-				var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-					infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-				});
-				var container1 = demo1.bootstrapDualListbox('getContainer');
-				container1.find('.btn').addClass('btn-white btn-info btn-bold');
-
-				/**var setRatingColors = function() {
-					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-				}*/
-				$('.rating').raty({
-					'cancel': true,
-					'half': true,
-					'starType': 'i'
-					/**,
-					
-					'click': function() {
-						setRatingColors.call(this);
-					},
-					'mouseover': function() {
-						setRatingColors.call(this);
-					},
-					'mouseout': function() {
-						setRatingColors.call(this);
-					}*/
-				}) //.find('i:not(.star-raty)').addClass('grey');
-
-				//////////////////
-				//select2
-				$('.select2').css('width', '200px').select2({
-					allowClear: true
-				})
-				$('#select2-multiple-style .btn').on('click', function(e) {
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					else $('.select2').removeClass('tag-input-style');
-				});
-
-				//////////////////
-				$('.multiselect').multiselect({
-					enableFiltering: true,
-					enableHTML: true,
-					buttonClass: 'btn btn-white btn-primary',
-					templates: {
-						button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-						ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-						filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-						filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-						li: '<li><a tabindex="0"><label></label></a></li>',
-						divider: '<li class="multiselect-item divider"></li>',
-						liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-					}
-				});
-
-				///////////////////
-
-				//typeahead.js
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
-
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if(substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({
-									value: str
-								});
-							}
-						});
-
-						cb(matches);
-					}
-				}
-
-				$('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				}, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
-				});
-
-				///////////////
-
-				//in ajax mode, remove remaining elements before leaving page
-				$(document).one('ajaxloadstart.page', function(e) {
-					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
-				});
-
-			});
+			jQuery(function($) {})
 		</script>
 	</body>
 

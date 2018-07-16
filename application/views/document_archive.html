@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单模板类型设置 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>归档 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="overview &amp; stats" />
+		<meta name="description" content="404 Error Page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -42,14 +42,6 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
-		<style type="text/css">
-			/*无法点击*/
-			.disabled {
-				/*color: gray;*/
-				/*cursor: pointer;*/
-				pointer-events: none;
-			}
-		</style>
 	</head>
 
 	<body class="no-skin">
@@ -69,7 +61,7 @@
 					<a href="index.html" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
-							中山建设监理建筑工程文档协同管理系统
+							Ace Admin
 						</small>
 					</a>
 				</div>
@@ -407,7 +399,7 @@
 				<!-- /.sidebar-shortcuts -->
 
 				<ul class="nav nav-list">
-					<li >
+					<li class="">
 						<a href="index.html">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> Dashboard </span>
@@ -429,14 +421,6 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							
-							<!--<li class="">
-								<a href="affiar_project.html">
-									<i class="menu-icon fa fa-caret-right"></i> 我的工程
-								</a>
-
-								<b class="arrow"></b>
-							</li>-->
 
 							<li class="">
 								<a href="affair_todo.html">
@@ -473,10 +457,8 @@
 						</ul>
 					</li>
 
-					
-
 					<li class="">
-						<a href="#" class="dropdown-toggle disabled">
+						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 表单管理 </span>
 
@@ -528,23 +510,21 @@
 						</ul>
 					</li>
 
-					
-
-					<li class="">
-						<a href="#" class="dropdown-toggle disabled">
+					<li class="active open">
+						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-file-o"></i>
 
 							<span class="menu-text">
 								文档管理
 							</span>
-							
+
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
 
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							<li class="">
+							<li class="active open">
 								<a href="document_draft.html">
 									<i class="menu-icon fa fa-caret-right"></i> 草稿
 								</a>
@@ -576,7 +556,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="document_archive.html">
 									<i class="menu-icon fa fa-caret-right"></i> 归档
 								</a>
@@ -585,7 +565,7 @@
 							</li>
 						</ul>
 					</li>
-					
+
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
@@ -598,7 +578,7 @@
 
 						<ul class="submenu">
 							<li class="">
-								<a href="tables.html">
+								<a href="query_query.html">
 									<i class="menu-icon fa fa-caret-right"></i> 查询
 								</a>
 
@@ -606,7 +586,7 @@
 							</li>
 
 							<li class="">
-								<a href="jqgrid.html">
+								<a href="query_analyze.html">
 									<i class="menu-icon fa fa-caret-right"></i> 统计分析
 								</a>
 
@@ -614,8 +594,8 @@
 							</li>
 						</ul>
 					</li>
-					
-					<li class="active open">
+
+					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-tag"></i>
 							<span class="menu-text"> 系统设置 </span>
@@ -650,7 +630,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="system_form.html">
 									<i class="menu-icon fa fa-caret-right"></i> 表单模板类型设置
 								</a>
@@ -658,11 +638,9 @@
 								<b class="arrow"></b>
 							</li>
 
-							
 						</ul>
 					</li>
 				</ul>
-				<!-- /.nav-list -->
 
 				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
@@ -670,7 +648,319 @@
 			</div>
 
 			<div class="main-content">
-				
+				<div class="col-xs-12 col-sm-6 widget-container-col" id="widget-container-col-2" style="width: 100%;">
+					<div class="widget-box widget-color-blue" id="widget-box-2">
+						<div class="widget-header">
+							<h5 class="widget-title bigger lighter">
+														<i class="ace-icon fa fa-table"></i>
+														文档列表
+												</h5>
+
+						</div>
+
+						<div class="widget-body">
+							<div class="widget-main no-padding">
+								<table class="table table-striped table-bordered table-hover">
+									<thead class="thin-border-bottom">
+										<tr>
+											<th>
+												<i class="ace-icon fa fa-user"></i> 名称
+											</th>
+											<th>大小</th>
+											<th>文件类型</th>
+											<th>输出用户</th>
+											<th>修改时间</th>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<td class="">Alex</td>
+											<td class="">Alex</td>
+											<td class="">Alex</td>
+											<td class="">Alex</td>
+											<td class="">Alex</td>
+
+										</tr>
+
+										<tr>
+											<td class="">Fred</td>
+											<td class="">Fred</td>
+											<td class="">Fred</td>
+											<td class="">Fred</td>
+											<td class="">Fred</td>
+
+										</tr>
+
+										
+									</tbody>
+								</table>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-xs-12">
+					<div class="widget-box widget-color-blue" id="widget-box-2">
+						<div class="widget-header">
+							<h5 class="widget-title bigger lighter">
+														<i class="ace-icon fa fa-table"></i>
+														文档属性
+													</h5>
+
+						</div>
+
+						<div class="tabbable">
+							<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+								<li class="active">
+									<a data-toggle="tab" href="#home1">内容摘要</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#home2">基本属性</a>
+								</li>
+
+								<li>
+									<a data-toggle="tab" href="#home3">流转属性</a>
+								</li>
+
+
+								<li>
+									<a data-toggle="tab" href="#home5">附件浏览</a>
+								</li>
+
+							</ul>
+
+							<div class="tab-content">
+								<div id="home1" class="tab-pane in active">
+									<p>浏览.</p>
+								</div>
+
+								<div id="home2" class="tab-pane">
+									<p>常规.</p>
+								</div>
+
+								<div id="home3" class="tab-pane">
+                                    <div>
+                                        <button class="btn btn-success">修改工作流</button>
+                                        <br /><br />
+                                        <ul class="steps">
+                                            <li data-step="1" class="active" href="#modal-table" role="button" data-toggle="modal">
+                                                <span class="step">1</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="2">
+                                                <span class="step">2</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="3">
+                                                <span class="step">3</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                            <li data-step="4">
+                                                <span class="step">4</span>
+                                                <span class="title">工作流</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+								<div id="home5" class="tab-pane">
+									<div class="row">
+									<div class="col-xs-12">
+
+										<div class="clearfix">
+											<div class="pull-right tableTools-container"></div>
+										</div>
+
+										<!-- div.table-responsive -->
+
+										<!-- div.dataTables_borderWrap -->
+										<div>
+										    <a href="#modal-table" role="button" class="btn btn-primary " data-toggle="modal"> 新建 </a>
+                                            <br /><br />
+											<table class="table table-striped table-bordered table-hover">
+												<thead class="thin-border-bottom">
+													<tr>
+														<th class="hidden-480">名称</th>
+														<th class="hidden-480">文件类型</th>
+														<th class="hidden-480">上传/创建时间</th>
+														<th class="hidden-480">操作</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr href="#table" role="button" data-toggle="modal">
+														<td class="">设计开发计划表</td>
+
+														<td class="">.xls</td>
+
+														<td class="">2018-04-04 15:24</td>
+														<td><button>删除</button></td>
+													</tr>
+													<tr>
+														<td class="">设计开发计划表</td>
+
+														<td class="">.xls</td>
+
+														<td class="">2018-04-04 15:24</td>
+														<td><button>删除</button></td>
+													</tr>
+													<tr>
+														<td class="">设计开发计划表</td>
+
+														<td class="">.xls</td>
+														<td class="">2018-04-04 15:24</td>
+														<td><button>删除</button></td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								</div>
+
+								<div id="home6" class="tab-pane">
+									<p>操作日志.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="modal-table" class="modal fade" tabindex="-1">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header no-padding">
+								<div class="table-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+														<span class="white">&times;</span>
+												</button> 新建
+								</div>
+							</div>
+
+							<div class="modal-body no-padding">
+
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">主送对象 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">抄送对象 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">发起部门 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">发起人 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">审核部门 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">审核人 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">批准部门 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+
+								<div class="form-group has-info  page-header">
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">批注人 ：</label>
+
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputInfo" style="width: 180%;" />
+																		 
+																	</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-reset inline"> </div>
+								</div>
+								<div class="form-group has-info  page-header" >
+									<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right" style="width: 20%;padding-left: 28px;">内容摘要 ：</label>
+									<div class="col-xs-12 col-sm-5">
+										<textarea  cols="47" size="16" rows="2" type="text" value="value"></textarea>
+									</div>
+								</div>
+							</div>
+							<br /><br />
+
+							<div class="modal-footer no-margin-top">
+								<button class="btn btn-sm btn-success pull-left" data-dismiss="">
+													<i class="ace-icon fa fa-floppy-o bigger-125"></i>
+													保存
+												</button>
+								<button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+													<i class="ace-icon fa fa-times"></i>
+													关闭
+												</button>
+
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
 			</div>
 			<!-- /.main-content -->
 
@@ -703,44 +993,13 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div>
-		<!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 		</script>
 		<script src="assets/js/bootstrap.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<!--[if lte IE 8]>
-		  <script src="assets/js/excanvas.min.js"></script>
-		<![endif]-->
-		<script src="assets/js/jquery-ui.custom.min.js"></script>
-		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="assets/js/jquery.easypiechart.min.js"></script>
-		<script src="assets/js/jquery.sparkline.index.min.js"></script>
-		<script src="assets/js/jquery.flot.min.js"></script>
-		<script src="assets/js/jquery.flot.pie.min.js"></script>
-		<script src="assets/js/jquery.flot.resize.min.js"></script>
-
-		<!-- ace scripts -->
 		<script src="assets/js/ace-elements.min.js"></script>
 		<script src="assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
-			jQuery(function($) {})
-		</script>
 	</body>
 
 </html>

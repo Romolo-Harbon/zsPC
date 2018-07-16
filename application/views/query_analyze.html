@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单签批 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>统计分析 - 中山建设监理建筑工程文档协同管理系统</title>
 
-		<meta name="description" content="" />
+		<meta name="description" content="overview &amp; stats" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -14,9 +14,6 @@
 		<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="assets/css/bootstrap-duallistbox.min.css" />
-		<link rel="stylesheet" href="assets/css/bootstrap-multiselect.min.css" />
-		<link rel="stylesheet" href="assets/css/select2.min.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
@@ -45,10 +42,18 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+		<style type="text/css">
+			/*无法点击*/
+			.disabled {
+				/*color: gray;*/
+				/*cursor: pointer;*/
+				pointer-events: none;
+			}
+		</style>
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default ace-save-state">
+		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
 					<span class="sr-only">Toggle sidebar</span>
@@ -424,6 +429,14 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
+							
+							<!--<li class="">
+								<a href="affiar_project.html">
+									<i class="menu-icon fa fa-caret-right"></i> 我的工程
+								</a>
+
+								<b class="arrow"></b>
+							</li>-->
 
 							<li class="">
 								<a href="affair_todo.html">
@@ -462,8 +475,8 @@
 
 					
 
-					<li class="active open">
-						<a href="#" class="dropdown-toggle">
+					<li class="">
+						<a href="#" class="dropdown-toggle disabled">
 							<i class="menu-icon fa fa-pencil-square-o"></i>
 							<span class="menu-text"> 表单管理 </span>
 
@@ -481,7 +494,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="active">
+							<li class="">
 								<a href="form_sign.html">
 									<i class="menu-icon fa fa-caret-right"></i> 签批
 								</a>
@@ -518,7 +531,7 @@
 					
 
 					<li class="">
-						<a href="#" class="dropdown-toggle">
+						<a href="#" class="dropdown-toggle disabled">
 							<i class="menu-icon fa fa-file-o"></i>
 
 							<span class="menu-text">
@@ -573,9 +586,7 @@
 						</ul>
 					</li>
 					
-					
-					
-					<li class="">
+					<li class="active open">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text"> 统计查询 </span>
@@ -594,7 +605,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="active">
 								<a href="query_analyze.html">
 									<i class="menu-icon fa fa-caret-right"></i> 统计分析
 								</a>
@@ -659,212 +670,7 @@
 			</div>
 
 			<div class="main-content">
-			    <div class="col-xs-6">
-                    <div class="widget-box">
-                        <div class="widget-header widget-header-flat">
-                            <h4 class="widget-title smaller">
-                                <span>表单列表</span>
-                            </h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-main">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead class="thin-border-bottom">
-                                        <tr>
-                                            <th class="hidden-480">名称</th>
-                                            <th class="hidden-480">用户</th>
-                                            <th class="hidden-480">修改时间</th>
-                                            <th class="hidden-480">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr href="#table" role="button" data-toggle="modal">
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">甲</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">乙</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">丁</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<div class="col-xs-6">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="widget-box">
-								<div class="widget-header widget-header-flat">
-									<h4 class="widget-title smaller">表单属性</h4>
-								</div>
-								<div class="tabbable">
-                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#home1">常规</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#home2">工作流</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#home3">变更记录</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#home4">提醒设置</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#home5">操作日志</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div id="home1" class="tab-pane in active">
-                                            <!--创建时间-->
-                                            <div class="form-group has-success">
-                                                <label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right">创建时间</label>
-                                                <div class="col-xs-12 col-sm-5">
-                                                    <span class="block input-icon input-icon-right width-100">2018-05-11</span>
-                                                </div>
-                                                <div class="help-block col-xs-12 col-sm-reset inline"></div>
-                                            </div>
-                                            <!--创建人-->
-                                            <div class="form-group has-success">
-                                                <label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right">创建人</label>
-                                                <div class="col-xs-12 col-sm-5">
-                                                    <span class="block input-icon input-icon-right width-100">同欣科技</span>
-                                                </div>
-                                                <div class="help-block col-xs-12 col-sm-reset inline"></div>
-                                            </div>
-                                        </div>
-                                        <div id="home2" class="tab-pane">
-                                            <div>
-                                                <button class="btn btn-success">修改工作流</button>
-                                                <br /><br />
-                                                <ul class="steps">
-                                                    <li data-step="1" class="active" href="#modal-table" role="button" data-toggle="modal">
-                                                        <span class="step">1</span>
-                                                        <span class="title">工作流</span>
-                                                    </li>
-                                                    <li data-step="2">
-                                                        <span class="step">2</span>
-                                                        <span class="title">工作流</span>
-                                                    </li>
-                                                    <li data-step="3">
-                                                        <span class="step">3</span>
-                                                        <span class="title">工作流</span>
-                                                    </li>
-                                                    <li data-step="4">
-                                                        <span class="step">4</span>
-                                                        <span class="title">工作流</span>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div id="home3" class="tab-pane">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <thead class="thin-border-bottom">
-                                                    <tr>
-                                                        <th class="hidden-480">用户</th>
-                                                        <th class="hidden-480">修改时间</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr href="#table" role="button" data-toggle="modal">
-                                                        <td class="">A</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">B</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">甲</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div id="home4" class="tab-pane">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <thead class="thin-border-bottom">
-                                                    <tr>
-                                                        <th class="hidden-480">事件名称</th>
-                                                        <th class="hidden-480">提醒用户</th>
-                                                        <th class="hidden-480">修改时间</th>
-                                                        <th class="hidden-480">备注</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr href="#table" role="button" data-toggle="modal">
-                                                        <td class="">提醒签名</td>
-                                                        <td class="">丙</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class="">签名</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">提醒跟进</td>
-                                                        <td class="">甲，丁</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class="">待验证</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div id="home5" class="tab-pane">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <thead class="thin-border-bottom">
-                                                    <tr>
-                                                        <th class="hidden-480">操作名称</th>
-                                                        <th class="hidden-480">用户</th>
-                                                        <th class="hidden-480">修改时间</th>
-                                                        <th class="hidden-480">其他</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr href="#table" role="button" data-toggle="modal">
-                                                        <td class="">创建表单</td>
-                                                        <td class="">甲</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">修改表单</td>
-                                                        <td class="">丁</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">创建提醒</td>
-                                                        <td class="">戊</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class="">签名</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="">创建提醒</td>
-                                                        <td class="">戊</td>
-                                                        <td class="">2018-04-04 15:24</td>
-                                                        <td class="">待验证</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-							</div>
-						</div>
-					</div>
-					<div class="space-6"></div>
-				</div>
+				
 			</div>
 			<!-- /.main-content -->
 
@@ -915,11 +721,17 @@
 		<script src="assets/js/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
-		<script src="assets/js/jquery.bootstrap-duallistbox.min.js"></script>
-		<script src="assets/js/jquery.raty.min.js"></script>
-		<script src="assets/js/bootstrap-multiselect.min.js"></script>
-		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/jquery-typeahead.js"></script>
+
+		<!--[if lte IE 8]>
+		  <script src="assets/js/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="assets/js/jquery-ui.custom.min.js"></script>
+		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="assets/js/jquery.easypiechart.min.js"></script>
+		<script src="assets/js/jquery.sparkline.index.min.js"></script>
+		<script src="assets/js/jquery.flot.min.js"></script>
+		<script src="assets/js/jquery.flot.pie.min.js"></script>
+		<script src="assets/js/jquery.flot.resize.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="assets/js/ace-elements.min.js"></script>
@@ -928,113 +740,254 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
-				var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-					infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-				});
-				var container1 = demo1.bootstrapDualListbox('getContainer');
-				container1.find('.btn').addClass('btn-white btn-info btn-bold');
-
-				/**var setRatingColors = function() {
-					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-				}*/
-				$('.rating').raty({
-					'cancel': true,
-					'half': true,
-					'starType': 'i'
-					/**,
-					
-					'click': function() {
-						setRatingColors.call(this);
-					},
-					'mouseover': function() {
-						setRatingColors.call(this);
-					},
-					'mouseout': function() {
-						setRatingColors.call(this);
-					}*/
-				}) //.find('i:not(.star-raty)').addClass('grey');
-
-				//////////////////
-				//select2
-				$('.select2').css('width', '200px').select2({
-					allowClear: true
+				$('.easy-pie-chart.percentage').each(function() {
+					var $box = $(this).closest('.infobox');
+					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+					var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+					var size = parseInt($(this).data('size')) || 50;
+					$(this).easyPieChart({
+						barColor: barColor,
+						trackColor: trackColor,
+						scaleColor: false,
+						lineCap: 'butt',
+						lineWidth: parseInt(size / 10),
+						animate: ace.vars['old_ie'] ? false : 1000,
+						size: size
+					});
 				})
-				$('#select2-multiple-style .btn').on('click', function(e) {
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					else $('.select2').removeClass('tag-input-style');
+
+				$('.sparkline').each(function() {
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+					$(this).sparkline('html', {
+						tagValuesAttribute: 'data-values',
+						type: 'bar',
+						barColor: barColor,
+						chartRangeMin: $(this).data('min') || 0
+					});
 				});
 
-				//////////////////
-				$('.multiselect').multiselect({
-					enableFiltering: true,
-					enableHTML: true,
-					buttonClass: 'btn btn-white btn-primary',
-					templates: {
-						button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-						ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-						filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-						filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-						li: '<li><a tabindex="0"><label></label></a></li>',
-						divider: '<li class="multiselect-item divider"></li>',
-						liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+				//flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
+				//but sometimes it brings up errors with normal resize event handlers
+				$.resize.throttleWindow = false;
+
+				var placeholder = $('#piechart-placeholder').css({
+					'width': '90%',
+					'min-height': '150px'
+				});
+				var data = [{
+						label: "social networks",
+						data: 38.7,
+						color: "#68BC31"
+					},
+					{
+						label: "search engines",
+						data: 24.5,
+						color: "#2091CF"
+					},
+					{
+						label: "ad campaigns",
+						data: 8.2,
+						color: "#AF4E96"
+					},
+					{
+						label: "direct traffic",
+						data: 18.6,
+						color: "#DA5430"
+					},
+					{
+						label: "other",
+						data: 10,
+						color: "#FEE074"
 					}
-				});
+				]
 
-				///////////////////
-
-				//typeahead.js
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
-
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if(substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({
-									value: str
-								});
+				function drawPieChart(placeholder, data, position) {
+					$.plot(placeholder, data, {
+						series: {
+							pie: {
+								show: true,
+								tilt: 0.8,
+								highlight: {
+									opacity: 0.25
+								},
+								stroke: {
+									color: '#fff',
+									width: 2
+								},
+								startAngle: 2
 							}
-						});
+						},
+						legend: {
+							show: true,
+							position: position || "ne",
+							labelBoxBorderColor: null,
+							margin: [-30, 15]
+						},
+						grid: {
+							hoverable: true,
+							clickable: true
+						}
+					})
+				}
+				drawPieChart(placeholder, data);
 
-						cb(matches);
+				/**
+				we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+				so that's not needed actually.
+				*/
+				placeholder.data('chart', data);
+				placeholder.data('draw', drawPieChart);
+
+				//pie chart tooltip example
+				var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+				var previousPoint = null;
+
+				placeholder.on('plothover', function(event, pos, item) {
+					if(item) {
+						if(previousPoint != item.seriesIndex) {
+							previousPoint = item.seriesIndex;
+							var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+							$tooltip.show().children(0).text(tip);
+						}
+						$tooltip.css({
+							top: pos.pageY + 10,
+							left: pos.pageX + 10
+						});
+					} else {
+						$tooltip.hide();
+						previousPoint = null;
 					}
+
+				});
+
+				/////////////////////////////////////
+				$(document).one('ajaxloadstart.page', function(e) {
+					$tooltip.remove();
+				});
+
+				var d1 = [];
+				for(var i = 0; i < Math.PI * 2; i += 0.5) {
+					d1.push([i, Math.sin(i)]);
 				}
 
-				$('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				}, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
+				var d2 = [];
+				for(var i = 0; i < Math.PI * 2; i += 0.5) {
+					d2.push([i, Math.cos(i)]);
+				}
+
+				var d3 = [];
+				for(var i = 0; i < Math.PI * 2; i += 0.2) {
+					d3.push([i, Math.tan(i)]);
+				}
+
+				var sales_charts = $('#sales-charts').css({
+					'width': '100%',
+					'height': '220px'
+				});
+				$.plot("#sales-charts", [{
+						label: "Domains",
+						data: d1
+					},
+					{
+						label: "Hosting",
+						data: d2
+					},
+					{
+						label: "Services",
+						data: d3
+					}
+				], {
+					hoverable: true,
+					shadowSize: 0,
+					series: {
+						lines: {
+							show: true
+						},
+						points: {
+							show: true
+						}
+					},
+					xaxis: {
+						tickLength: 0
+					},
+					yaxis: {
+						ticks: 10,
+						min: -2,
+						max: 2,
+						tickDecimals: 3
+					},
+					grid: {
+						backgroundColor: {
+							colors: ["#fff", "#fff"]
+						},
+						borderWidth: 1,
+						borderColor: '#555'
+					}
 				});
 
-				///////////////
-
-				//in ajax mode, remove remaining elements before leaving page
-				$(document).one('ajaxloadstart.page', function(e) {
-					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
+				$('#recent-box [data-rel="tooltip"]').tooltip({
+					placement: tooltip_placement
 				});
 
-			});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('.tab-content')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+
+					var off2 = $source.offset();
+					//var w2 = $source.width();
+
+					if(parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+					return 'left';
+				}
+
+				$('.dialogs,.comments').ace_scroll({
+					size: 300
+				});
+
+				//Android's default browser somehow is confused when tapping on label which will lead to dragging the task
+				//so disable dragging when clicking on label
+				var agent = navigator.userAgent.toLowerCase();
+				if(ace.vars['touch'] && ace.vars['android']) {
+					$('#tasks').on('touchstart', function(e) {
+						var li = $(e.target).closest('#tasks li');
+						if(li.length == 0) return;
+						var label = li.find('label.inline').get(0);
+						if(label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
+					});
+				}
+
+				$('#tasks').sortable({
+					opacity: 0.8,
+					revert: true,
+					forceHelperSize: true,
+					placeholder: 'draggable-placeholder',
+					forcePlaceholderSize: true,
+					tolerance: 'pointer',
+					stop: function(event, ui) {
+						//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+						$(ui.item).css('z-index', 'auto');
+					}
+				});
+				$('#tasks').disableSelection();
+				$('#tasks input:checkbox').removeAttr('checked').on('click', function() {
+					if(this.checked) $(this).closest('li').addClass('selected');
+					else $(this).closest('li').removeClass('selected');
+				});
+
+				//show the dropdowns on top or bottom depending on window height and menu position
+				$('#task-tab .dropdown-hover').on('mouseenter', function(e) {
+					var offset = $(this).offset();
+
+					var $w = $(window)
+					if(offset.top > $w.scrollTop() + $w.innerHeight() - 100)
+						$(this).addClass('dropup');
+					else $(this).removeClass('dropup');
+				});
+
+			})
 		</script>
 	</body>
 
