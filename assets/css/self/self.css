@@ -20,3 +20,9 @@
 .NewDocMes {
     width: 180%;
 }
+/*
+ * 日期选择
+ */
+.input-group .datepicker {
+    z-index: 100000 !important;;
+}

@@ -23,6 +23,7 @@ $(function() {
         ],
         speech_button: false
     });
+    
     /*
      * 新建文档
      */
