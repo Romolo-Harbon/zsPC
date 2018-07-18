@@ -176,7 +176,6 @@
                                             <span class="msg-title">
                                                 <span class="blue">家:</span> Ciao sociis natoque penatibus et auctor ...
                                             </span>
-        
                                             <span class="msg-time">
                                                     <i class="ace-icon fa fa-clock-o"></i>
                                                     <span>a moment ago</span>
@@ -184,7 +183,7 @@
                                         </span>
                                     </a>
                                 </li>
-
+                                
                                 <li>
                                     <a href="#" class="clearfix">
                                         <img src="<?php echo base_url()."assets/images/avatars/avatar3.png"?>" class="msg-photo" alt="Susan's Avatar" />
@@ -192,7 +191,6 @@
                                             <span class="msg-title">
                                                 <span class="blue">Susan:</span> Vestibulum id ligula porta felis euismod ...
                                             </span>
-
                                             <span class="msg-time">
                                                     <i class="ace-icon fa fa-clock-o"></i>
                                                     <span>20 minutes ago</span>
@@ -200,7 +198,6 @@
                                         </span>
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="#" class="clearfix">
                                         <img src="<?php echo base_url()."assets/images/avatars/avatar4.png"?>" class="msg-photo" alt="Bob's Avatar" />
@@ -208,7 +205,6 @@
                                             <span class="msg-title">
                                                 <span class="blue">Bob:</span> Nullam quis risus eget urna mollis ornare ...
                                         </span>
-
                                         <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
                                                 <span>3:15 pm</span>
@@ -216,7 +212,6 @@
                                         </span>
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="#" class="clearfix">
                                         <img src="<?php echo base_url()."assets/images/avatars/avatar2.png"?>" class="msg-photo" alt="Kate's Avatar" />
@@ -224,7 +219,6 @@
                                             <span class="msg-title">
                                                 <span class="blue">Kate:</span> Ciao sociis natoque eget urna mollis ornare ...
                                         </span>
-
                                         <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
                                                 <span>1:33 pm</span>
@@ -232,7 +226,6 @@
                                         </span>
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="#" class="clearfix">
                                         <img src="<?php echo base_url()."assets/images/avatars/avatar5.png"?>" class="msg-photo" alt="Fred's Avatar" />
@@ -240,7 +233,6 @@
                                             <span class="msg-title">
                                                 <span class="blue">Fred:</span> Vestibulum id penatibus et auctor ...
                                         </span>
-
                                         <span class="msg-time">
                                                 <i class="ace-icon fa fa-clock-o"></i>
                                                 <span>10:09 am</span>
@@ -250,7 +242,6 @@
                                 </li>
                             </ul>
                         </li>
-
                         <li class="dropdown-footer">
                             <a href="inbox.html">
                                 See all messages
@@ -259,35 +250,29 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="<?php echo base_url()."assets/images/avatars/user.jpg"?>" alt="Jason's Photo" />
                         <span class="user-info">
                             <small>欢迎,</small>
-                            Jason
+                            <?php if(isset($_SESSION['UserAcc'])) {echo $_SESSION['UserAcc'];}else{echo '【请先登录】';} ?>
                         </span>
-
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
-
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
                             <a href="#">
                                 <i class="ace-icon fa fa-cog"></i> 账号设置
                             </a>
                         </li>
-
                         <li>
                             <a href="#">
                                 <i class="ace-icon fa fa-user"></i> 头像设置
                             </a>
                         </li>
-
                         <li class="divider"></li>
-
                         <li>
-                            <a href="#">
+                            <a id="SignOut" class="TagSet" href="<?=site_url('Login/index')?>">
                                 <i class="ace-icon fa fa-power-off"></i> 退出
                             </a>
                         </li>

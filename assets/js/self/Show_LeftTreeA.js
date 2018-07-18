@@ -4,12 +4,20 @@ $(function(){
      */
 //动态指示页面标签
     var tagName = sessionStorage.getItem("tagName"); //获取键的值
+    //左侧栏状态初始化
+    if(!tagName){
+        var tagName = 'affairShow_Want';
+    }
     $('#'+tagName).parent('.TagSon').addClass('active');
     $('#'+tagName).parents('.TagFather').addClass('open');
     
 //  点击菜单后，JS写入缓存
     $('.TagSet').click(function(){
-        sessionStorage.setItem("tagName", $(this).attr("id")); //设置键的值
+        $pageSta = $(this).attr("id");
+        if($pageSta == 'SignOut') {
+            $pageSta = 'affairShow_Want';
+        }
+        sessionStorage.setItem("tagName", $pageSta); //设置键的值
     });
     
     /*
@@ -65,11 +73,5 @@ $(function(){
         });
     });
     
-    /*
-     * 关于文档属性显示方式
-     */
-    if(tagName != 'docShow_Draf'){
-        $('#tabDetailMes').removeClass('col-xs-6');
-        $('#tabDetailMes').addClass('col-xs-12');
-    }
+
 });

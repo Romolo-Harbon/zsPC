@@ -875,3 +875,8 @@ function wrong($msg){
     header('Content-Type:text/html;charset=utf-8');
     echo"<script type='text/javascript'>alert('$msg');</script>";
 }
+
+function consoleShow($msg){
+    header('Content-Type:text/html;charset=utf-8');
+    echo"<script type='text/javascript'>console.log('$msg');</script>";
+}

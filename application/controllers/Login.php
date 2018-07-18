@@ -4,9 +4,13 @@ class Login extends CI_Controller
 {
     /*
      * 显示登录页面
+     * 退出登录时清除session
      */
     public function index()
     {
+        if(isset($_SESSION['UserAcc'])) {
+            unset($_SESSION['UserAcc']);
+        }
         $this->load->helper('form');
         $this->load->view('login.html');
     }
@@ -21,20 +25,35 @@ class Login extends CI_Controller
 		$this->form_validation->set_rules('account','用户账号','required|min_length[5]');
 		$this->form_validation->set_rules('password','密码','required|min_length[5]');
 		//执行验证
-		$status = $this->form_validation->run();		
+		$status = $this->form_validation->run();
 		if($status)
 		{
 			$account = $this->input->post('account');
 			$UseKey = $this->input->post('password');
-			$this->load->model('login_model','login');
-			$UseNam=$this->login->checkAccount($account);
+			$this->load->model('Login_model','login');
+			$UseNam = $this->login->checkAccount($account);
 			if(!$UseNam || $UseNam[0]['UseKey']!=$UseKey)
 			{
 				error('login/index',"账号不存在或密码错误！");
 			}
 			else
 			{
-				echo 'hello';	
+			    //成功登录，查【账号名,手机,id,账号所属人名】保存于session
+			    $data = $this->login->GetAccountMes($account);
+			    $this->session->set_userdata('UserAId', $data[0]['id']);//账号id
+			    $this->session->set_userdata('UsePho', $data[0]['UsePho']);//用户手机
+			    $this->session->set_userdata('UsePeo', $data[0]['UsePeo']);//用户
+			    $this->session->set_userdata('UserAcc', $account);//账号
+				//记录登录记录
+				$data_LoginHis = array(
+				    'LogTim' => date('Y-m-d H:i:s'),
+				    'LogPeo' => $data[0]['UsePeo'],
+				    'LogAId' => $data[0]['id'],
+				    'LogSta' => 0,
+				);
+                $this->login->hisMark($data_LoginHis);
+				//进入首页
+				$this->load->view('affair_want.html');
 			}
     	}else
     	{
@@ -64,9 +83,9 @@ class Login extends CI_Controller
 			$data = array
 			(
 			 	'UsePho' => $this->input->post('UsePho'),
-			 	'UseNam' => $this->input->post('UseNam'),
+			 	'UseAcc' => $this->input->post('UseNam'),
 			 	'UseKey' => $this->input->post('UseKey')
-			 );
+			);
 			$this->load->model('login_model','login');
 			$this->login->register($data);
 			success('login/index','注册成功');
@@ -75,7 +94,7 @@ class Login extends CI_Controller
 		{
 			wrong('注册失败');
 			$this->load->helper('form');
-        	$this->load->view('login.html');	
+        	$this->load->view('login.html');
 		}
 	}
 	 /*

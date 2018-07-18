@@ -2,10 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Form extends CI_Controller{
+    /*
+     * 公用函数
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Form_model','form');
+    }
+    
+    /*
+     * 页面显示
+     */
     //草稿文件显示
     public function formShow_Draf()
     {
-        $this->load->view('form_draf.html');
+        $data['table_mes'] = $this->form->check();
+        $this->load->view('form_draf.html',$data);
     }
     //签批文件显示
     public function formShow_Sign()
