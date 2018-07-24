@@ -74,69 +74,17 @@
                         </div>
                         <div class="widget-body">
                             <div class="widget-main">
-                                <div class="modal-footer no-margin-top">
-                                    <span class="pull-left">
-                                        <span>显示</span>
-                                        <select>
-                                            <option>10</option>
-                                            <option>50</option>
-                                            <option>100</option>
-                                            <option>All</option>
-                                        </select>
-                                        <span>条数据</span>
-                                    </span>
-                                    <ul class="pagination pull-right no-margin">
-                                        <li class="prev disabled">
-                                            <a href="#">
-                                                <i class="ace-icon fa fa-angle-double-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#">1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">3</a>
-                                        </li>
-                                        <li class="next">
-                                            <a href="#">
-                                                <i class="ace-icon fa fa-angle-double-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div>
+                                    <button class="btn btn-primary" name="" onclick="CheckOut('form')">查看</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" name="" onclick="ChangeSta('form',1)">重新提交</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" name="" onclick="PrintOut('form')">打印</button>
+                                    <br /><br />
+                                    <!--datatable begin-->
+                                    <?php $this->load->view('dataTabForm.html'); ?>
+                                    <!--datatable end-->
                                 </div>
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead class="thin-border-bottom">
-                                        <tr>
-                                            <th class="hidden-480">名称</th>
-                                            <th class="hidden-480">用户</th>
-                                            <th class="hidden-480">上传时间</th>
-                                            <th class="hidden-480">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr href="#table" role="button" data-toggle="modal">
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">甲</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button>&nbsp;&nbsp;&nbsp;<button href="#">重新提交</button>&nbsp;&nbsp;&nbsp;<button>删除</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">乙</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button>&nbsp;&nbsp;&nbsp;<button href="#">重新提交</button>&nbsp;&nbsp;&nbsp;<button>删除</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="">设计开发计划表</td>
-                                            <td class="">丁</td>
-                                            <td class="">2018-04-04 15:24</td>
-                                            <td class=""><button href="#">查看</button>&nbsp;&nbsp;&nbsp;<button href="#">重新提交</button>&nbsp;&nbsp;&nbsp;<button>删除</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -174,132 +122,71 @@
         <script src="<?php echo base_url()."assets/js/jquery-typeahead.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-
+        
+        <!--dataTable-->
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.bootstrap.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.buttons.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.flash.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.html5.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.print.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.colVis.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.select.min.js"?>"></script>
+        
         <!-- ace scripts -->
         <script src="<?php echo base_url()."assets/js/ace-elements.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/ace.min.js"?>"></script>
 
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
         <script type="text/javascript">
             jQuery(function($) {
-                
                 /*
-                 * 
+                 * tableINI
                  */
-                var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-                    infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-                });
-                var container1 = demo1.bootstrapDualListbox('getContainer');
-                container1.find('.btn').addClass('btn-white btn-info btn-bold');
-
-                /**var setRatingColors = function() {
-                    $(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-                    $(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-                }*/
-                $('.rating').raty({
-                    'cancel': true,
-                    'half': true,
-                    'starType': 'i'
-                    /**,
-                    
-                    'click': function() {
-                        setRatingColors.call(this);
+                var showMes = "<?php echo site_url('Form/FormSta').'/0/rejt'; ?>";
+                var table = $('#dynamic-table').DataTable({
+                    ajax:showMes,
+                    columns:[
+                        {"data":'checkBox'},
+                        {"visible": false,"data":'id'},
+                        {"data":'rowNum'},
+                        {"data":'TabNam'},
+                        {"data":'TabCTm'},
+                        {"visible": false,"data":'id'},
+                        {"data":'id'},
+                        {"visible": false,"data":'id'},
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
                     },
-                    'mouseover': function() {
-                        setRatingColors.call(this);
-                    },
-                    'mouseout': function() {
-                        setRatingColors.call(this);
-                    }*/
-                }) //.find('i:not(.star-raty)').addClass('grey');
-
-                /*
-                 * 
-                 */
-                //select2
-                $('.select2').css('width', '200px').select2({
-                    allowClear: true
-                })
-                $('#select2-multiple-style .btn').on('click', function(e) {
-                    var target = $(this).find('input[type=radio]');
-                    var which = parseInt(target.val());
-                    if(which == 2) $('.select2').addClass('tag-input-style');
-                    else $('.select2').removeClass('tag-input-style');
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0,1]
+                    }],
                 });
-
                 /*
-                 * 
+                 * datepicker
                  */
-                $('.multiselect').multiselect({
-                    enableFiltering: true,
-                    enableHTML: true,
-                    buttonClass: 'btn btn-white btn-primary',
-                    templates: {
-                        button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-                        ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                        filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-                        filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-                        li: '<li><a tabindex="0"><label></label></a></li>',
-                        divider: '<li class="multiselect-item divider"></li>',
-                        liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+                $( "#datepicker" ).datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: false,
+//                  isRTL:true,
+                    beforeShow: function() {
+                        //change button colors
+                        var datepicker = $(this).datepicker( "widget" );
+                        setTimeout(function(){
+                            var buttons = datepicker.find('.ui-datepicker-buttonpane')
+                            .find('button');
+                            buttons.eq(0).addClass('btn btn-xs');
+                            buttons.eq(1).addClass('btn btn-xs btn-success');
+                            buttons.wrapInner('<span class="bigger-110" />');
+                        }, 0);
                     }
                 });
-
-                /*
-                 * typeahead.js
-                 */
-
-                //example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-                var substringMatcher = function(strs) {
-                    return function findMatches(q, cb) {
-                        var matches, substringRegex;
-
-                        // an array that will be populated with substring matches
-                        matches = [];
-
-                        // regex used to determine if a string contains the substring `q`
-                        substrRegex = new RegExp(q, 'i');
-
-                        // iterate through the pool of strings and for any string that
-                        // contains the substring `q`, add it to the `matches` array
-                        $.each(strs, function(i, str) {
-                            if(substrRegex.test(str)) {
-                                // the typeahead jQuery plugin expects suggestions to a
-                                // JavaScript object, refer to typeahead docs for more info
-                                matches.push({
-                                    value: str
-                                });
-                            }
-                        });
-
-                        cb(matches);
-                    }
-                }
-
-                $('input.typeahead').typeahead({
-                    hint: true,
-                    highlight: true,
-                    minLength: 1
-                }, {
-                    name: 'states',
-                    displayKey: 'value',
-                    source: substringMatcher(ace.vars['US_STATES']),
-                    limit: 10
-                });
-
-                /*
-                 * remove remaining elements
-                 */
-
-                //in ajax mode, remove remaining elements before leaving page
-                $(document).one('ajaxloadstart.page', function(e) {
-                    $('[class*=select2]').remove();
-                    $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-                    $('.rating').raty('destroy');
-                    $('.multiselect').multiselect('destroy');
-                });
-
             });
         </script>
     </body>

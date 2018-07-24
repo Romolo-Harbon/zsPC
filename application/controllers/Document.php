@@ -10,14 +10,10 @@ class Document extends CI_Controller{
         parent::__construct();
         $this->load->model('Document_model','doc');
     }
-    
     /*
      * 显示页面
+     * 
      */
-    //草稿文件显示
-    public function docShow_Draf()
-    {
-        $data['FileType'] = $this->doc->File_SelType();
         /*
          * API:
          * FileType->文档类型{
@@ -25,6 +21,10 @@ class Document extends CI_Controller{
          * }
          * 
          */
+    //草稿文件显示
+    public function docShow_Draf()
+    {
+        $data['FileType'] = $this->doc->File_SelType();
         $this->load->view('doc_draf.html',$data);
     }
     //签批文件显示
@@ -52,7 +52,7 @@ class Document extends CI_Controller{
      */
     public function Doc_AddNew()
     {
-        
+//      wrong('ok');
     }
     
 }

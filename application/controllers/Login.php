@@ -3,6 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller
 {
     /*
+     * 公用函数
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Form_model','form');
+    }
+    /*
      * 显示登录页面
      * 退出登录时清除session
      */
@@ -72,7 +80,7 @@ class Login extends CI_Controller
 		//设置规则
 		$this->form_validation->set_message('matches', '两次密码不相同');		
 		$this->form_validation->set_rules('UsePho','手机号码','required|exact_length[11]|is_unique[user.UsePho]',array('is_unique' => '此手机号码已被注册'));
-		$this->form_validation->set_rules('UseNam','账号','required|min_length[6]|max_length[11]|is_unique[user.UseNam]',array('is_unique' => '此账号已被注册'));
+		$this->form_validation->set_rules('UseAcc','账号','required|min_length[6]|max_length[11]|is_unique[user.UseAcc]',array('is_unique' => '此账号已被注册'));
 		$this->form_validation->set_rules('UseKey','密码','required|min_length[6]|max_length[11]');
 		$this->form_validation->set_rules('surpasswod','确认密码','required|min_length[6]|max_length[11]|matches[UseKey]');
 		//执行验证
@@ -83,18 +91,17 @@ class Login extends CI_Controller
 			$data = array
 			(
 			 	'UsePho' => $this->input->post('UsePho'),
-			 	'UseAcc' => $this->input->post('UseNam'),
+			 	'UseAcc' => $this->input->post('UseAcc'),
 			 	'UseKey' => $this->input->post('UseKey')
 			);
 			$this->load->model('login_model','login');
 			$this->login->register($data);
-			success('login/index','注册成功');
+			success('Login/index','注册成功');
 		}
 		else
 		{
-			wrong('注册失败');
-			$this->load->helper('form');
-        	$this->load->view('login.html');
+		    $this->load->helper('form');
+			error('Login/index','注册失败');
 		}
 	}
 	 /*

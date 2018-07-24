@@ -14,6 +14,10 @@
         <link rel="stylesheet" href="<?php echo base_url()."assets/font-awesome/4.5.0/css/font-awesome.min.css"?>" />
 
         <!-- page specific plugin styles -->
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-duallistbox.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-multiselect.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/select2.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/jquery-ui.min.css"?>" />
 
         <!-- text fonts -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/fonts.googleapis.com.css"?>" />
@@ -64,9 +68,214 @@
             <!--LeftTree End-->
 
             <div class="main-content">
-                
+                <div class="widget-body">
+                    <div class="widget-main padding-24">
+                        <button class="btn btn-info" href="#modal-TypeAdd" role="button" data-toggle="modal">新建部门</button>
+                        &nbsp;&nbsp;&nbsp;
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+                        <div class="col-xs-6">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">
+                                        <span>部门列表</span>
+                                    </h4>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>#</th>
+                                                    <th>部门名</th>
+                                                    <th>职能简述</th>
+                                                    <th>最后修改人</th>
+                                                    <th>最后修改时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">
+                                        <span>人员列表</span>
+                                    </h4>
+                                </div>
+                                
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#home1">基本信息</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#home2">人员信息</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="home1" class="tab-pane in active">
+                                            <button class="btn btn-primary" href="#modal-TypeEdit" role="button" data-toggle="modal">修改部门信息</button>
+                                            <br /><br />
+                                            <div class="profile-user-info profile-user-info-striped">
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 部门名 </div>
+                                                    <div class="profile-info-value">
+                                                        <span class="editable" id="FormName">设计开发计划表</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 部门职能 </div>
+                                                    <div class="profile-info-value">
+                                                        <span class="editable" id="FormName">设计开发计划表</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 修改人 </div>
+                        
+                                                    <div class="profile-info-value">
+                                                        <span class="editable" id="SePeo">同欣科技</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 修改时间 </div>
+                                                    <div class="profile-info-value">
+                                                        <span class="editable" id="ReTime">2018-05-11</span>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div id="home2" class="tab-pane ">
+                                            <form action="<?php echo site_url('System/RoleLinUse_Set'); ?>" method="post">
+                                                <button class="btn btn-primary" id="SavePeoC" type="submit">保存人员修改</button>
+                                                <br />
+                                                <br />
+                                                <div class="form-group Select2Height">
+                                                    <div class="col-sm-12">
+                                                        <input name="RId" id="RId" />
+                                                        <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
+                                                            <?php foreach($PeoMes as $v){ ?>
+                                                                <option><?=$v['UsePeo'].'>'.$v['UseAcc'] ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.main-content -->
+            <!--model AddNew begin-->
+            <div id="modal-TypeAdd" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <form action="<?php echo site_url('System/Role_SetNew'); ?>" method="post" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header no-padding">
+                                <div class="table-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        <span class="white">&times;</span>
+                                    </button>
+                                    <span>新建部门</span>
+                                </div>
+                            </div>
+                            <div class="modal-body no-padding">
+                                <div class="form-group has-info  page-header">
+                                    <label class="col-sm-3 control-label no-padding-right">部门名称 ：</label>
+                                    <div class="col-sm-5">
+                                        <span class="block input-icon input-icon-right">
+                                            <input class="NewDocMes" type="text" id="" name="DepaName"/>
+                                        </span>
+                                    </div>
+                                    <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                </div>
+                                
+                                <div class="form-group has-info  page-header" >
+                                    <label class="col-sm-3 control-label no-padding-right">部门职能 ：</label>
+                                    <div class="col-sm-5">
+                                        <textarea cols="47" size="16" type="text" id="" name="DepaElse"></textarea>
+                                    </div>
+                                    <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="modal-footer no-margin-top">
+                                <button class="btn btn-sm btn-success pull-right" data-dismiss="" type="submit">
+                                    <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                                    <span>保存</span>
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                                    <i class="ace-icon fa fa-times"></i>
+                                    <span>关闭</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--model AddNew end-->
+            <!--model Edit begin-->
+            <div id="modal-TypeEdit" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <form action="<?php echo site_url('System/Role_Edit'); ?>" method="post" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header no-padding">
+                                <div class="table-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        <span class="white">&times;</span>
+                                    </button>
+                                    <span>修改部门信息</span>
+                                    <input class="NewDocMes" type="text" id="TypeId" name="TypeId" hidden="hidden"/>
+                                </div>
+                            </div>
+                            <div class="modal-body no-padding">
+                                <div class="form-group has-info  page-header">
+                                    <label class="col-sm-3 control-label no-padding-right">部门名称 ：</label>
+                                    <div class="col-sm-5">
+                                        <span class="block input-icon input-icon-right">
+                                            <input class="NewDocMes" type="text" id="TypeName" name="TypeName"/>
+                                        </span>
+                                    </div>
+                                    <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                </div>
+                                
+                                <div class="form-group has-info  page-header" >
+                                    <label class="col-sm-3 control-label no-padding-right">部门职能 ：</label>
+                                    <div class="col-sm-5">
+                                        <textarea cols="47" size="16" type="text" id="TypeElse" name="TypeElse"></textarea>
+                                    </div>
+                                    <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="modal-footer no-margin-top">
+                                <button class="btn btn-sm btn-success pull-right" data-dismiss="" type="submit">
+                                    <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                                    <span>保存</span>
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                                    <i class="ace-icon fa fa-times"></i>
+                                    <span>关闭</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--model Edit end-->
 
             <!--Foor Begin-->
             <?php $this->load->view("pageFoot.html"); ?>
@@ -101,8 +310,22 @@
         <script src="<?php echo base_url()."assets/js/jquery.flot.resize.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-
-
+        
+        <!--dataTable-->
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.bootstrap.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.buttons.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.flash.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.html5.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.print.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.colVis.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.select.min.js"?>"></script>
+        
+        <!--select-->
+        <script src="<?php echo base_url()."assets/js/jquery.bootstrap-duallistbox.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/jquery.raty.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/bootstrap-multiselect.min.js"?>"></script>
+        
         <!-- ace scripts -->
         <script src="<?php echo base_url()."assets/js/ace-elements.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/ace.min.js"?>"></script>
@@ -111,7 +334,113 @@
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
         
         <script type="text/javascript">
-            jQuery(function($) {})
+            jQuery(function($) {
+                var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
+                var container1 = demo1.bootstrapDualListbox('getContainer');
+                container1.find('.btn').addClass('btn-white btn-info btn-bold');
+                /*
+                 * TableINI
+                 */
+                var showMes = "<?php echo site_url('System/Role_ShowMes'); ?>";
+                var table = $('#dynamic-table').DataTable({
+                    ajax:showMes,
+                    columns:[
+                        {"visible": false,"data":'id'},
+                        {"data":'rowNum'},
+                        {"data":'RolNam'},
+                        {"data":'RolEls'},
+                        {"data":'RolCPe'},
+                        {"data":'RolCTm'},
+                        {"data":'control'},
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
+                    },
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0,1],
+                    }],
+                    "scrollY": "1000px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                });
+                /*
+                 * Edit
+                 */
+                $('#dynamic-table tbody').on('click', 'tr', function () {
+                    $('#TypeId').attr('value','');
+                    $('#TypeName').attr('value','');
+                    $('#TypeElse').html('');
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                    try{
+                    	//EditINI
+                    	var TypeName = table.row('.selected').data().RolNam;
+                        var TypeElse = table.row('.selected').data().RolEls;
+                        var TypeId = table.row('.selected').data().id;
+                        $('#TypeId').attr('value',TypeId);
+                        $('#TypeName').attr('value',TypeName);
+                        $('#TypeElse').html(TypeElse);
+                        $('#RId').attr('value',TypeId);
+                        //selectINI
+                        var ShowAss = "<?php echo site_url('System/RoleLinUse_Sel'); ?>";
+                        $.ajax({
+                        	type:"post",
+                        	url:ShowAss,
+                        	async:true,
+                        	data:{
+                        	    TypeId:TypeId
+                        	},
+                        	success:function(data)
+                        	{
+                        	    console.log(data);
+                        	},
+                        	error:function(s,t,e)
+                        	{
+                        	    console.log(s,t,e);
+                        	}
+                        });
+                    }catch(e){
+                    	
+                    }
+                })
+                /*
+                 * select
+                 */
+                $('.multiselect').multiselect({
+                    enableFiltering: true,
+                    enableHTML: true,
+                    buttonClass: 'btn btn-white btn-primary',
+                    templates: {
+                        button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
+                        ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+                        filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+                        filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
+                        li: '<li><a tabindex="0"><label></label></a></li>',
+                        divider: '<li class="multiselect-item divider"></li>',
+                        liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+                    }
+                });
+                /*
+                 * saveChange
+                 */
+                $('#SavePeoC').click(function(){
+                    
+//                  alert('oko');
+                })
+            })
+            function MesDel(obj)
+            {
+                var ActUri = "<?php echo site_url('System/Role_Del')?>"+"/"+obj; 
+                window.location.href = ActUri;
+            }
         </script>
     </body>
 

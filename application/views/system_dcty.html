@@ -14,7 +14,11 @@
         <link rel="stylesheet" href="<?php echo base_url()."assets/font-awesome/4.5.0/css/font-awesome.min.css"?>" />
 
         <!-- page specific plugin styles -->
-
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-duallistbox.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-multiselect.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/select2.min.css"?>" />
+        <link rel="stylesheet" href="<?php echo base_url()."assets/css/jquery-ui.min.css"?>" />
+        
         <!-- text fonts -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/fonts.googleapis.com.css"?>" />
 
@@ -66,40 +70,78 @@
             <div class="main-content">
                 <div class="widget-body">
                     <div class="widget-main padding-24">
-                        <button class="btn btn-info" href="#modal-table" role="button" data-toggle="modal">新建文档类型</button>
+                        <button class="btn btn-info" href="#modal-TypeAdd" role="button" data-toggle="modal">新建文档类型</button>
+                        &nbsp;&nbsp;&nbsp;
                         <div class="hr hr8 hr-double hr-dotted"></div>
-                        <div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="center">#</th>
-                                        <th>文档类型</th>
-                                        <th>类型说明</th>
-                                        <th>创建人</th>
-                                        <th>创建时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                        $i=0;
-                                        foreach($TypeFile as $v): $i++;?>
-                                    <tr>
-                                        <td class="center"><?=$i ?></td>
-                                        <td><?=$v['TypNam'] ?></td>
-                                        <td><?=$v['TypEls'] ?></td>
-                                        <td><?=$v['TypCPe'] ?></td>
-                                        <td><?=$v['TypCTm'] ?></td>
-                                        <td><button>修改</button>&nbsp;&nbsp;&nbsp;<button>删除</button></td>
-                                    </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
+                        <div class="col-xs-6">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">
+                                        <span>表单类型</span>
+                                    </h4>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>#</th>
+                                                    <th>表单类型</th>
+                                                    <th>类型说明</th>
+                                                    <th>最后修改人</th>
+                                                    <th>最后修改时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-flat">
+                                    <h4 class="widget-title smaller">
+                                        <span>表单类型</span>
+                                    </h4>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div id="" class="tab-pane">
+                                            <button class="btn btn-primary" id="id-btn-dialog">修改工作流</button>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button class="btn btn-primary" href="#modal-TypeEdit" role="button" data-toggle="modal">修改类型信息</button>
+                                            <br /><br />
+                                            <ul class="steps">
+                                                <li data-step="1" class="active">
+                                                    <span class="step">1</span>
+                                                    <span class="title">工作流</span>
+                                                </li>
+                                                <li data-step="2">
+                                                    <span class="step">2</span>
+                                                    <span class="title">工作流</span>
+                                                </li>
+                                                <li data-step="3">
+                                                    <span class="step">3</span>
+                                                    <span class="title">工作流</span>
+                                                </li>
+                                                <li data-step="4">
+                                                    <span class="step">4</span>
+                                                    <span class="title">工作流</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--model begin-->
-                <div id="modal-table" class="modal fade" tabindex="-1">
+                <!--model AddNew begin-->
+                <div id="modal-TypeAdd" class="modal fade" tabindex="-1">
                     <div class="modal-dialog">
                         <form action="<?php echo site_url('System/Type_SetNew'); ?>" method="post" enctype="multipart/form-data">
                             <div class="modal-content">
@@ -112,7 +154,6 @@
                                         <input type="text" id="" name="Type" value="systemShow_DcTy" hidden="hidden"/>
                                     </div>
                                 </div>
-                                
                                 <div class="modal-body no-padding">
                                     <div class="form-group has-info  page-header">
                                         <label class="col-sm-3 control-label no-padding-right">文档类型 ：</label>
@@ -131,7 +172,6 @@
                                         </div>
                                         <div class="help-block col-xs-12 col-sm-reset inline"> </div>
                                     </div>
-                                    
                                 </div>
                                 <br /><br />
                                 <div class="modal-footer no-margin-top">
@@ -146,17 +186,132 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-dialog -->
                 </div>
-                <!--model end-->
-            </div>
+                <!--model AddNew end-->
+                <!--model Edit begin-->
+                <div id="modal-TypeEdit" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form action="<?php echo site_url('System/Type_Edit'); ?>" method="post" enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header no-padding">
+                                    <div class="table-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            <span class="white">&times;</span>
+                                        </button>
+                                        <span>修改文档类型</span>
+                                        <input class="NewDocMes" type="text" id="TypeId" name="TypeId" hidden="hidden"/>
+                                        <input type="text" id="" name="Type" value="systemShow_DcTy" hidden="hidden"/>
+                                    </div>
+                                </div>
+                                <div class="modal-body no-padding">
+                                    <div class="form-group has-info  page-header">
+                                        <label class="col-sm-3 control-label no-padding-right">文档类型 ：</label>
+                                        <div class="col-sm-5">
+                                            <span class="block input-icon input-icon-right">
+                                                <input class="NewDocMes" type="text" id="TypeName" name="TypeName"/>
+                                            </span>
+                                        </div>
+                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                    </div>
+                                    
+                                    <div class="form-group has-info  page-header" >
+                                        <label class="col-sm-3 control-label no-padding-right">文档说明 ：</label>
+                                        <div class="col-sm-5">
+                                            <textarea cols="47" size="16" type="text" id="TypeElse" name="TypeElse"></textarea>
+                                        </div>
+                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div class="modal-footer no-margin-top">
+                                    <button class="btn btn-sm btn-success pull-right" data-dismiss="" type="submit">
+                                        <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                                        <span>保存</span>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                                        <i class="ace-icon fa fa-times"></i>
+                                        <span>关闭</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--model Edit end-->
+                <!--circle set begin-->
+                <div class="col-sm-6">
+                    <div id="dialog-message" class="hide">
+                        <div class="alert alert-info bigger-110">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th class="hidden-480">审批步骤数量</th>
+                                        <th class="hidden-480">
+                                            <select>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                            </select>
+                                        </th>
+                                        <th class="hidden-480"><button class="btn btn-info">确认</button></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="bigger-110 bolder center">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th class="hidden-480">流程节点</th>
+                                        <th class="hidden-480">部门</th>
+                                        <th class="hidden-480">用户</th>
+                                        <th class="hidden-480">截止日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="">1</td>
+                                        <td class="">甲</td>
+                                        <td class=""></td>
+                                        <td class="">2018-04-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">2</td>
+                                        <td class="">丁</td>
+                                        <td class=""></td>
+                                        <td class="">2018-04-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">3</td>
+                                        <td class="">戊</td>
+                                        <td class=""></td>
+                                        <td class="">2018-04-04</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">4</td>
+                                        <td class="">戊</td>
+                                        <td class=""></td>
+                                        <td class="">2018-04-04</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--circle set end-->
 
+            </div>
             <!--Foor Begin-->
             <?php $this->load->view("pageFoot.html"); ?>
             <!--Foot End-->
-            
         </div>
         <!-- /.main-container -->
 
@@ -168,8 +323,8 @@
         <!-- <![endif]-->
 
         <!--[if IE]>
-<script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
-<![endif]-->
+        <script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
+        <![endif]-->
         <script src="<?php echo base_url()."assets/js/bootstrap.min.js"?>"></script>
 
         <!-- page specific plugin scripts -->
@@ -186,7 +341,16 @@
         <script src="<?php echo base_url()."assets/js/jquery.flot.resize.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-
+        
+        <!--dataTable-->
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/jquery.dataTables.bootstrap.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.buttons.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.flash.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.html5.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.print.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/buttons.colVis.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/dataTables.select.min.js"?>"></script>
 
         <!-- ace scripts -->
         <script src="<?php echo base_url()."assets/js/ace-elements.min.js"?>"></script>
@@ -196,7 +360,46 @@
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
         
         <script type="text/javascript">
-            jQuery(function($) {})
+            jQuery(function($) {
+                /*
+                 * TableINI
+                 */
+                var showMes = "<?php echo site_url('System/Type_ShowMes'); ?>"+'/0/file';
+                var table = $('#dynamic-table').DataTable({
+                    ajax:showMes,
+                    columns:[
+                        {"visible": false,"data":'id'},
+                        {"data":'rowNum'},
+                        {"data":'TypNam'},
+                        {"data":'TypEls'},
+                        {"data":'TypCPe'},
+                        {"data":'TypCTm'},
+                        {"data":'control'},
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
+                    },
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0,1]
+                    }],
+                    "scrollY": "1000px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                });
+                //Edit
+                $('.TypeEdit').click(function(){
+                    var TypeName = $(this).parents('tr').children('.TypeName').text();
+                    var TypeElse = $(this).parents('tr').children('.TypeElse').text();
+                    var TypeId = $(this).parents('tr').children('.TypeId').text();
+                    $('#TypeId').attr('value',TypeId);
+                    $('#TypeName').attr('value',TypeName);
+                    $('#TypeElse').html(TypeElse);
+                    $('#modal-TypeEdit').modal('show');
+                })
+            })
         </script>
     </body>
 

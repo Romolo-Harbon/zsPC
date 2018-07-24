@@ -191,9 +191,7 @@
                     </button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
     <!--mess set end-->
     
@@ -282,7 +280,7 @@
                         <label class="col-sm-3 control-label no-padding-right">提醒时间 ：</label>
                         <div class="col-sm-5">
                             <div class="input-group input-group-sm">
-                                <input type="text" id="datepicker" class="form-control datepicker" />
+                                <input class="datepicker" type="text" id="datepicker" />
                                 <span class="input-group-addon">
                                     <i class="ace-icon fa fa-calendar"></i>
                                 </span>
@@ -314,6 +312,7 @@
         </div>
     </div>
     <!--remain set end-->
+    
     <!--file upload begin-->
     <div id="modal-fileUpload" class="modal">
         <div class="modal-dialog">
@@ -395,5 +394,69 @@
         </div>
     </div>
     <!--file upload end-->
+    
+    <!--form own-->
+    <!--mess set begin-->
+        <!--form attr-->
+    <div id="modal-EditTabMes" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header no-padding">
+                    <div class="table-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <span class="white">&times;</span>
+                        </button>
+                        <span>修改</span>
+                    </div>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="form-group has-info  page-header">
+                        <label class="col-sm-3 control-label no-padding-right">表单名 ：</label>
+                        <div class="col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <input class="NewDocMes" type="text" id="" />
+                            </span>
+                        </div>
+                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                    </div>
+                    
+                    <div class="form-group has-info  page-header">
+                        <label class="col-sm-3 control-label no-padding-right">表单类别 ：</label>
+                        <div class="col-sm-5">
+                            <span class="block input-icon input-icon-right">
+                                <select>
+                                    <option></option>
+                                    <?php foreach($typeForm as $v){ ?>
+                                        <option data-id-Type="<?=$v['id']?>"><?=$v['TypNam']?></option>
+                                    <?php } ?>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                    </div>
+                    
+                    <div class="form-group has-info  page-header" >
+                        <label class="col-sm-3 control-label no-padding-right">表单说明 ：</label>
+                        <div class="col-sm-5">
+                            <textarea cols="47" size="16" rows="2" type="text" value="value" id=""></textarea>
+                        </div>
+                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="modal-footer no-margin-top">
+                    <button class="btn btn-sm btn-success pull-right" data-dismiss="">
+                        <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                        <span>保存</span>
+                    </button>
+                    <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        <span>关闭</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--mess set end-->
     
 <!--model text end-->

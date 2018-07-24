@@ -14,6 +14,9 @@
 		<link rel="stylesheet" href="<?php echo base_url()."assets/font-awesome/4.5.0/css/font-awesome.min.css"?>" />
 
 		<!-- page specific plugin styles -->
+		
+		<!--tree-->
+        <link rel="stylesheet" href="<?php echo base_url()."assets/tree_LigerUI/css/ligerui-tree.css"?>" type="text/css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="<?php echo base_url()."assets/css/fonts.googleapis.com.css"?>" />
@@ -64,7 +67,32 @@
             <!--LeftTree End-->
 
 			<div class="main-content">
-				
+			    <div class="col-xs-12">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title smaller">
+                                <span>模板列表</span>
+                            </h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-body">
+                                <div class="widget-main padding-8">
+                                    <input type="text" class="l-text" placeholder="节点名" id="txtNode" /> 
+                                    <a class="btn btn-primary" onclick="addTreeItem()">增加节点</a>
+                                    <a class="btn btn-danger" onclick="removeTreeItem()">删除节点</a>
+                                    <a class="btn btn-warning" href="<?php echo site_url('System/systemShow_Form') ?>">撤销操作</a>
+                                    <a class="btn btn-success" onclick="SaveNoid()">保存修改</a>
+                                    <br />
+                                    <br />
+                                    <div class="noidSet">
+                                        <ul class="l-tree"></ul>
+                                    </div>
+                                    <div style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 			<!-- /.main-content -->
 
@@ -83,11 +111,8 @@
 		<!-- <![endif]-->
 
 		<!--[if IE]>
-<script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
-<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-		</script>
+        <script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
+        <![endif]-->
 		<script src="<?php echo base_url()."assets/js/bootstrap.min.js"?>"></script>
 
 		<!-- page specific plugin scripts -->
@@ -97,14 +122,12 @@
 		<![endif]-->
 		<script src="<?php echo base_url()."assets/js/jquery-ui.custom.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery.easypiechart.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery.sparkline.index.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery.flot.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery.flot.pie.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery.flot.resize.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
-        <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-
+        
+        <!--tree-->
+        <script src="<?php echo base_url()."assets/tree_LigerUI/js/base.js"?>"></script>
+        <script src="<?php echo base_url()."assets/tree_LigerUI/js/ligerTree.js"?>"></script>
         
 		<!-- ace scripts -->
 		<script src="<?php echo base_url()."assets/js/ace-elements.min.js"?>"></script>
@@ -114,7 +137,112 @@
 		<script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
 		
 		<script type="text/javascript">
-			jQuery(function($) {})
+		    var manager = null;
+		    var delNoid = '';
+		    var addNoidMes = '';
+		    var addNoid = '';
+		    var IdNum = 99999999;
+		    var ParId = '';
+			jQuery(function($) {
+			    sessionStorage.setItem('addNoid','');
+			    var show = "<?php echo site_url('System/TreeShow'); ?>";
+			    $.ajax({
+			    	type:"post",
+			    	url:show,
+			    	async:true,
+			    	dataType:'json',
+			    	success:function(data)
+			    	{
+                        manager = $(".l-tree").ligerTree({
+                            data:data, 
+                            idFieldName :'id',
+                            parentIDFieldName :'ParIdS',
+                            checkbox: false, 
+                            ajaxType: 'post',
+                            isexpand:false,
+                            btnClickToToggleOnly:false,
+                        });
+			    	},
+			    	error:function(s,t,e)
+			    	{
+			    	    console.log(s,t,e);
+			    	}
+			    })
+			})
+            function addTreeItem()
+            {
+                if ($("#txtNode").val()) 
+                {
+                    addNoidMes = '';
+                    ParId = '';
+                    addNoid = sessionStorage.getItem('addNoid');
+                	var node = manager.getSelected();
+                    var nodes = [];
+                    nodes.push({ id:IdNum,text: $("#txtNode").val() });
+                    if (node) 
+                    {
+                        manager.append(node.target, nodes);
+                        ParId = $('#'+IdNum).parent('ul').parent('li').attr('id');
+                    }
+                    else 
+                    {
+                        manager.append(null, nodes);
+                        ParId = '0';
+                    }
+                    addNoidMes = IdNum +','+ ParId +','+ $("#txtNode").val();
+                    addNoid += addNoidMes +'/';
+                    sessionStorage.setItem('addNoid',addNoid);
+                    console.log(sessionStorage.getItem('addNoid'));
+                    IdNum++;
+                    return;
+                }
+                alert('请输入节点名后再进行操作');
+            }
+            function removeTreeItem()
+            {
+                var node = manager.getSelected();
+                if (node)
+                {
+                    delNoid = delNoid + node.data.id + '/';
+                    sessionStorage.setItem('delNoid',delNoid);
+                    manager.remove(node.target);
+                }
+                else
+                    alert('请先选择节点');
+            }
+            function SaveNoid()
+            {
+                var AddNoid = sessionStorage.getItem('addNoid');
+                if (AddNoid) 
+                {
+                	AddNoid = AddNoid.substr(0,AddNoid.length-1);
+                }
+                var DelNoid = sessionStorage.getItem('delNoid');
+                if (DelNoid) 
+                {
+                    DelNoid = DelNoid.substr(0,DelNoid.length-1);
+                }
+                var MesSave = "<?php echo site_url('System/TreeEditSave'); ?>";
+                $.ajax({
+                	type:"post",
+                	url:MesSave,
+                	async:true,
+                	data:
+                	{
+                	    DelNoid:DelNoid,
+                	    AddNoid:AddNoid,
+                	},
+                	success:function (data)
+                	{
+                	    alert('成功修改模板列表');
+                	    location.reload();
+                	},
+                	error:function (s,t,e)
+                	{
+                	    console.log(s,t,e);
+                	}
+                });
+            }
 		</script>
 	</body>
 

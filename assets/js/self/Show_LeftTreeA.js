@@ -65,11 +65,13 @@ $(function(){
                     text: "确定",
                     "class" : "btn btn-primary btn-minier",
                     click: function() {
-                        $( this ).dialog( "close" ); 
+                        
+//                      $('#CirMes tr').eq(1).find('td').eq(2).find('select').val();
+                        $( this ).dialog( "close" );
                     } 
                 }
             ],
-            width: "900px"
+            width: "1200px",
         });
     });
     

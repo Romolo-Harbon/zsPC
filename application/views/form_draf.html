@@ -8,6 +8,9 @@
 
 		<meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        
+        <!--tree-->
+        <link rel="stylesheet" href="<?php echo base_url()."assets/tree_LigerUI/css/ligerui-tree.css"?>" type="text/css" />
 
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap.min.css"?>" />
@@ -69,119 +72,48 @@
                     <div class="widget-box">
                         <div class="widget-header widget-header-flat">
                             <h4 class="widget-title smaller">
+                                <span>模板列表</span>
+                            </h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-body">
+                                <div class="widget-main padding-8">
+                                    <div class="noidSet">
+                                        <ul class="l-tree"></ul>
+                                    </div>
+                                    <div style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat">
+                            <h4 class="widget-title smaller">
                                 <span>表单列表</span>
                             </h4>
                         </div>
                         <div class="widget-body">
                             <div class="widget-main">
                                 <div>
-									<table id="dynamic-table" class="table table-striped table-bordered table-hover">
-										<thead>
-											<tr>
-												<th class="center">
-													<label class="pos-rel">
-														<input type="checkbox" class="ace" />
-														<span class="lbl"></span>
-													</label>
-												</th>
-												<th>表单id</th>
-												<th>表单名</th>
-												<th class="hidden-480">点击数</th>
-
-												<th>
-													<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-													时间戳
-												</th>
-												<th class="hidden-480">状态</th>
-
-												<th></th>
-											</tr>
-										</thead>
-
-										<tbody>
-											<?php foreach($table_mes as $v):?>
-											<tr>
-												<td class="center">
-													<label class="pos-rel">
-														<input type="checkbox" class="ace" />
-														<span class="lbl"></span>
-													</label>
-												</td>
-												<td>
-													<a href="#"><?php echo $v['id']?></a>
-												</td>
-												<td><?php echo $v['TabNam']?></td>
-												<td class="hidden-480">3,100</td>
-												<td>Feb 17</td>
-
-												<td class="hidden-480">
-													<span class="label label-sm label-success"><?php echo $v['TabSta']?></span>
-												</td>
-
-												<td>
-													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="blue" href="#">
-															<i class="ace-icon fa fa-search-plus bigger-130"></i>
-														</a>
-
-														<a class="red" href="<?php echo site_url('Edit/change_sta/'.$v['id'])?>">
-															<i class="ace-icon fa fa-envelope bigger-130"></i>
-														</a>
-
-														<a class="red" href="#">
-															<i class="ace-icon fa fa-trash-o bigger-130"></i>
-														</a>
-														
-														<a class="blue" href="#">
-															<i class="ace-icon fa fa-pencil bigger-130"></i>
-														</a>
-													</div>
-
-													<div class="hidden-md hidden-lg">
-														<div class="inline pos-rel">
-															<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-																<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-															</button>
-
-															<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																<li>
-																	<a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																		<span class="blue">
-																			<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																		<span class="green">
-																			<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-
-																<li>
-																	<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																		<span class="red">
-																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																		</span>
-																	</a>
-																</li>
-															</ul>
-														</div>
-													</div>
-												</td>
-											</tr>
-                     						<?php endforeach?>
-											
-										</tbody>
-									</table>
-								</div>
+                                    <button class="btn btn-primary" name="" onclick="ChangeSta('form',1)">提交</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" name="" onclick="ChangeSta('form',4)">归集</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" name="" onclick="PrintOut('form')">打印</button>
+                                    <br /><br />
+                                    <!--datatable begin-->
+                                    <?php $this->load->view('dataTabForm.html'); ?>
+                                    <!--datatable end-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--model part begin-->
 				<?php $this->load->view("form_attr.html"); ?>
+			    <!--model part end-->
 			</div>
 			<!-- /.main-content -->
             
@@ -203,6 +135,8 @@
         <script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
         <![endif]-->
 		<script src="<?php echo base_url()."assets/js/bootstrap.min.js"?>"></script>
+		
+		<!--dataTable-->
 		<script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery.dataTables.bootstrap.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/dataTables.buttons.min.js"?>"></script>
@@ -212,13 +146,14 @@
 		<script src="<?php echo base_url()."assets/js/buttons.colVis.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/dataTables.select.min.js"?>"></script>
 		
+		<!--tree-->
+		<script src="<?php echo base_url()."assets/tree_LigerUI/js/base.js"?>"></script>
+        <script src="<?php echo base_url()."assets/tree_LigerUI/js/ligerTreeShow.js"?>"></script>
 		
 		<!-- page specific plugin scripts -->
 		<script src="<?php echo base_url()."assets/js/jquery.bootstrap-duallistbox.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery.raty.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/bootstrap-multiselect.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/select2.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery-typeahead.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
 
@@ -228,327 +163,102 @@
 
 		<!-- inline scripts related to this page -->
 		<script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
 		<script type="text/javascript">
-            jQuery(function($) {
-                //initiate dataTables plugin
-                var myTable = 
-                $('#dynamic-table')
-                //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
-                .DataTable( {
-                    bAutoWidth: false,
-                    "aoColumns": [
-                      { "bSortable": false },
-                      null, null,null, null, null,
-                      { "bSortable": false }
+		    var dataUri = sessionStorage.getItem('ModleId');
+			jQuery(function($) {
+			    /*
+			     * tree
+			     */
+			    var show = "<?php echo site_url('System/TreeShow'); ?>";
+                $.ajax({
+                    type:"post",
+                    url:show,
+                    async:true,
+                    dataType:'json',
+                    success:function(data)
+                    {
+                        $(".l-tree").ligerTree({
+                            data:data, 
+                            idFieldName :'id',
+                            parentIDFieldName :'ParIdS',
+                            checkbox: false, 
+                            ajaxType: 'post',
+                            isexpand:false,
+                            onClick: function (node, e)
+                            { 
+                                actionNodeID = node.data.id;
+                                sessionStorage.setItem('ModleId',actionNodeID);
+                                location.reload();
+                            },
+                        });
+                    },
+                    error:function(s,t,e)
+                    {
+                        console.log(s,t,e);
+                    }
+                })
+                /*
+                 * tableINI
+                 */
+                var showMes = "<?php echo site_url('Form/FormList'); ?>"+'/'+dataUri+'/'+'draft';
+                var table = $('#dynamic-table').DataTable({
+//                  data:dataUri,
+                    ajax:showMes,
+                    columns:[
+                        {"data":'checkBox'},
+                        {"visible": false,"data":'id'},
+                        {"data":'rowNum'},
+                        {"data":'TabNam'},
+                        {"data":'TabCTm'},
+                        {"visible": false,"data":'id'},
+                        {"data":'id'},
+                        {"visible": false,"data":'id'},
                     ],
                     oLanguage: {
                         sLengthMenu: "显示 _MENU_ 条数据",
                     },
+                    "processing": true,
                     "aaSorting": [],
-                    
-                    
-                    //"bProcessing": true,
-                    //"bServerSide": true,
-                    //"sAjaxSource": "http://127.0.0.1/table.php"   ,
-            
-                    //,
-                    //"sScrollY": "200px",
-                    //"bPaginate": false,
-            
-                    //"sScrollX": "100%",
-                    //"sScrollXInner": "120%",
-                    //"bScrollCollapse": true,
-                    //Note: if you are applying horizontal scrolling (sScrollX) on a ".table-bordered"
-                    //you may want to wrap the table inside a "div.dataTables_borderWrap" element
-            
-                    //"iDisplayLength": 50
-            
-                    select: {
-                        style: 'multi'
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0,1]
+                    }],
+                });
+                
+                $('#dynamic-table tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
                     }
-                } );
-                
-                $.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
-                
-                new $.fn.dataTable.Buttons( myTable, {
-                    buttons: [
-                      {
-                        "extend": "colvis",
-                        "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>Show/hide columns</span>",
-                        "className": "btn btn-white btn-primary btn-bold",
-                        columns: ':not(:first):not(:last)'
-                      },
-                      {
-                        "extend": "copy",
-                        "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
-                        "className": "btn btn-white btn-primary btn-bold"
-                      },
-                      {
-                        "extend": "csv",
-                        "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
-                        "className": "btn btn-white btn-primary btn-bold"
-                      },
-                      {
-                        "extend": "excel",
-                        "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
-                        "className": "btn btn-white btn-primary btn-bold"
-                      },
-                      {
-                        "extend": "pdf",
-                        "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
-                        "className": "btn btn-white btn-primary btn-bold"
-                      },
-                      {
-                        "extend": "print",
-                        "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
-                        "className": "btn btn-white btn-primary btn-bold",
-                        autoPrint: false,
-                        message: 'This print was produced using the Print button for DataTables'
-                      }       
-                    ]
-                } );
-                myTable.buttons().container().appendTo( $('.tableTools-container') );
-                
-                //style the message box
-                var defaultCopyAction = myTable.button(1).action();
-                myTable.button(1).action(function (e, dt, button, config) {
-                    defaultCopyAction(e, dt, button, config);
-                    $('.dt-button-info').addClass('gritter-item-wrapper gritter-info gritter-center white');
-                });
-                
-                
-                var defaultColvisAction = myTable.button(0).action();
-                myTable.button(0).action(function (e, dt, button, config) {
-                    
-                    defaultColvisAction(e, dt, button, config);
-                    
-                    
-                    if($('.dt-button-collection > .dropdown-menu').length == 0) {
-                        $('.dt-button-collection')
-                        .wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
-                        .find('a').attr('href', '#').wrap("<li />")
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
                     }
-                    $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
-                });
-            
-                ////
-            
-                setTimeout(function() {
-                    $($('.tableTools-container')).find('a.dt-button').each(function() {
-                        var div = $(this).find(' > div').first();
-                        if(div.length == 1) div.tooltip({container: 'body', title: div.parent().text()});
-                        else $(this).tooltip({container: 'body', title: $(this).text()});
-                    });
-                }, 500);
-                
-                myTable.on( 'select', function ( e, dt, type, index ) {
-                    if ( type === 'row' ) {
-                        $( myTable.row( index ).node() ).find('input:checkbox').prop('checked', true);
+                    try{
+                    	alert(table.row('.selected').data().id);
+                    }catch(e){
+                        
                     }
-                } );
-                myTable.on( 'deselect', function ( e, dt, type, index ) {
-                    if ( type === 'row' ) {
-                        $( myTable.row( index ).node() ).find('input:checkbox').prop('checked', false);
+                })
+                /*
+                 * datepicker
+                 */
+                $( "#datepicker" ).datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: false,
+//                  isRTL:true,
+                    beforeShow: function() {
+                        //change button colors
+                        var datepicker = $(this).datepicker( "widget" );
+                        setTimeout(function(){
+                            var buttons = datepicker.find('.ui-datepicker-buttonpane')
+                            .find('button');
+                            buttons.eq(0).addClass('btn btn-xs');
+                            buttons.eq(1).addClass('btn btn-xs btn-success');
+                            buttons.wrapInner('<span class="bigger-110" />');
+                        }, 0);
                     }
-                } );
-            
-                /////////////////////////////////
-                //table checkboxes
-                $('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
-                
-                //select/deselect all rows according to table header checkbox
-                $('#dynamic-table > thead > tr > th input[type=checkbox], #dynamic-table_wrapper input[type=checkbox]').eq(0).on('click', function(){
-                    var th_checked = this.checked;//checkbox inside "TH" table header
-                    
-                    $('#dynamic-table').find('tbody > tr').each(function(){
-                        var row = this;
-                        if(th_checked) myTable.row(row).select();
-                        else  myTable.row(row).deselect();
-                    });
                 });
-                
-                //select/deselect a row when the checkbox is checked/unchecked
-                $('#dynamic-table').on('click', 'td input[type=checkbox]' , function(){
-                    var row = $(this).closest('tr').get(0);
-                    if(this.checked) myTable.row(row).deselect();
-                    else myTable.row(row).select();
-                });
-            
-                $(document).on('click', '#dynamic-table .dropdown-toggle', function(e) {
-                    e.stopImmediatePropagation();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-                
-                //And for the first simple table, which doesn't have TableTools or dataTables
-                //select/deselect all rows according to table header checkbox
-                var active_class = 'active';
-                $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-                    var th_checked = this.checked;//checkbox inside "TH" table header
-                    
-                    $(this).closest('table').find('tbody > tr').each(function(){
-                        var row = this;
-                        if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-                        else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-                    });
-                });
-                
-                //select/deselect a row when the checkbox is checked/unchecked
-            
-                /********************************/
-                //add tooltip for small view action buttons in dropdown menu
-                $('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-                
-                //tooltip placement on right or left
-                function tooltip_placement(context, source) {
-                    var $source = $(source);
-                    var $parent = $source.closest('table')
-                    var off1 = $parent.offset();
-                    var w1 = $parent.width();
-            
-                    var off2 = $source.offset();
-                    //var w2 = $source.width();
-            
-                    if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-                    return 'left';
-                }
-                
-                /***************/
-                
-                /***************/
-                
-                /**
-                //add horizontal scrollbars to a simple table
-                $('#simple-table').css({'width':'2000px', 'max-width': 'none'}).wrap('<div style="width: 1000px;" />').parent().ace_scroll(
-                  {
-                    horizontal: true,
-                    styleClass: 'scroll-top scroll-dark scroll-visible',//show the scrollbars on top(default is bottom)
-                    size: 2000,
-                    mouseWheelLock: true
-                  }
-                ).css('padding-top', '12px');
-                */
-            
-            })
-        </script>
-		<script type="text/javascript">
-			jQuery(function($) {
-			    /*
-			     * 
-			     */
-				var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-					infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'
-				});
-				var container1 = demo1.bootstrapDualListbox('getContainer');
-				container1.find('.btn').addClass('btn-white btn-info btn-bold');
-
-				/**var setRatingColors = function() {
-					$(this).find('.star-on-png,.star-half-png').addClass('orange2').removeClass('grey');
-					$(this).find('.star-off-png').removeClass('orange2').addClass('grey');
-				}*/
-				$('.rating').raty({
-					'cancel': true,
-					'half': true,
-					'starType': 'i'
-					/**,
-					
-					'click': function() {
-						setRatingColors.call(this);
-					},
-					'mouseover': function() {
-						setRatingColors.call(this);
-					},
-					'mouseout': function() {
-						setRatingColors.call(this);
-					}*/
-				}) //.find('i:not(.star-raty)').addClass('grey');
-
-				/*
-                 * 
-                 */
-				//select2
-				$('.select2').css('width', '200px').select2({
-					allowClear: true
-				})
-				$('#select2-multiple-style .btn').on('click', function(e) {
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					if(which == 2) $('.select2').addClass('tag-input-style');
-					else $('.select2').removeClass('tag-input-style');
-				});
-
-				/*
-                 * 
-                 */
-				$('.multiselect').multiselect({
-					enableFiltering: true,
-					enableHTML: true,
-					buttonClass: 'btn btn-white btn-primary',
-					templates: {
-						button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-						ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-						filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-						filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-						li: '<li><a tabindex="0"><label></label></a></li>',
-						divider: '<li class="multiselect-item divider"></li>',
-						liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-					}
-				});
-
-				/*
-                 * typeahead.js
-                 */
-
-				//example taken from plugin's page at: https://twitter.github.io/typeahead.js/examples/
-				var substringMatcher = function(strs) {
-					return function findMatches(q, cb) {
-						var matches, substringRegex;
-
-						// an array that will be populated with substring matches
-						matches = [];
-
-						// regex used to determine if a string contains the substring `q`
-						substrRegex = new RegExp(q, 'i');
-
-						// iterate through the pool of strings and for any string that
-						// contains the substring `q`, add it to the `matches` array
-						$.each(strs, function(i, str) {
-							if(substrRegex.test(str)) {
-								// the typeahead jQuery plugin expects suggestions to a
-								// JavaScript object, refer to typeahead docs for more info
-								matches.push({
-									value: str
-								});
-							}
-						});
-
-						cb(matches);
-					}
-				}
-
-				$('input.typeahead').typeahead({
-					hint: true,
-					highlight: true,
-					minLength: 1
-				}, {
-					name: 'states',
-					displayKey: 'value',
-					source: substringMatcher(ace.vars['US_STATES']),
-					limit: 10
-				});
-
-				/*
-                 * remove remaining elements
-                 */
-
-				//in ajax mode, remove remaining elements before leaving page
-				$(document).one('ajaxloadstart.page', function(e) {
-					$('[class*=select2]').remove();
-					$('select[name="duallistbox_demo1[]"]').bootstrapDualListbox('destroy');
-					$('.rating').raty('destroy');
-					$('.multiselect').multiselect('destroy');
-				});
-
 			});
 		</script>
 	</body>

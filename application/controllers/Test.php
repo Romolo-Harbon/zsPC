@@ -10,8 +10,7 @@ class Test extends CI_Controller{
     //测试专用
     public function show()
     {
-        $data['FileType'] = $this->doc->File_SelType();
-        p($data);
+        wrong(site_url(''));
     }
     
 }
