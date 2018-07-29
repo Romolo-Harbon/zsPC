@@ -13,11 +13,6 @@ class System extends CI_Controller{
     /*
      * 页面显示
      */
-        //审批流程设置
-//      public function systemShow_Care()
-//      {
-//          $this->load->view('system_care.html');
-//      }
         //部门人员管理
         public function systemShow_Depm()
         {
@@ -67,11 +62,6 @@ class System extends CI_Controller{
              * }
              */
             $this->load->view('system_dcty.html',$data);
-        }
-        //签批字典设置
-        public function systemShow_Dicy()
-        {
-            $this->load->view('system_dicy.html');
         }
     
     /*

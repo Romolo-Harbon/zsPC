@@ -87,30 +87,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6">
-                    <div class="widget-box">
-                        <div class="widget-header widget-header-flat">
-                            <h4 class="widget-title smaller">
-                                <span>表单列表</span>
-                            </h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-main">
-                                <div>
-                                    <button class="btn btn-primary" name="" onclick="ChangeSta('form',1)">提交</button>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-primary" name="" onclick="ChangeSta('form',4)">归集</button>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-primary" name="" onclick="PrintOut('form')">打印</button>
-                                    <br /><br />
-                                    <!--datatable begin-->
-                                    <?php $this->load->view('dataTabForm.html'); ?>
-                                    <!--datatable end-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--form list begin-->
+                <?php $this->load->view("form_list.html"); ?>
+                <!--form list end-->
                 <!--model part begin-->
 				<?php $this->load->view("form_attr.html"); ?>
 			    <!--model part end-->

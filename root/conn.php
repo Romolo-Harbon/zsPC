@@ -1,6 +1,6 @@
 <?php
     //本地连接
-	$servername = "localhost:3306";
+	$servername = "127.0.0.1:3306";
 	$username = "root";
 	$password = "123456";
 	$dbname = "zsdb"; 	

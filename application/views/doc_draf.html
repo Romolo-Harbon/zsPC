@@ -69,71 +69,9 @@
             <!--LeftTree End-->
 
 			<div class="main-content">
-				<div class="col-xs-6">
-					<div class="widget-box widget-color-blue" id="widget-box-2">
-						<div class="widget-header">
-							<h5 class="widget-title bigger lighter">
-								<i class="ace-icon fa fa-table"></i>
-								<span>文档列表</span>
-								<button type="button" class="btn btn-danger btn-AddMes spinbox-up btn-sm" href="#modal-addNew" data-toggle="modal">
-    							    <i class="icon-only ace-icon ace-icon fa fa-plus bigger-110"></i>
-    							</button>
-							</h5>
-						</div>
-						<div class="widget-body">
-                            <div class="widget-main">
-                                <div>
-                                    <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th class="center">
-                                                    <label class="pos-rel">
-                                                        <input type="checkbox" class="ace"/>
-                                                        <span class="lbl"></span>
-                                                    </label>
-                                                </th>
-                                                <th hidden="hidden">#</th>
-                                                <th>#</th>
-                                                <th>表单名</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
-                                                $i = 0;
-                                                foreach($FileType as $v):
-                                                $i++;
-                                                ?>
-                                            <!--<tr>
-                                                <td class="center">
-                                                    <label class="pos-rel">
-                                                        <input type="checkbox" class="ace" />
-                                                        <span class="lbl"></span>
-                                                    </label>
-                                                </td>
-                                                <td hidden="hidden">
-                                                    <a href="#"><?= $v['id']?></a>
-                                                </td>
-                                                <td>
-                                                    <a href="#"><?= $i ?></a>
-                                                </td>
-                                                <td><?= $v['TypNam']?></td>
-                                                <td>
-                                                    <div class="hidden-sm hidden-xs action-buttons">
-                                                        <a class="blue" href="#">
-                                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>-->
-                                            <?php endforeach?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-					</div>
-				</div>
+				<!--document list begin-->
+				<?php $this->load->view("doc_list.html"); ?>
+				<!--document list end-->
 				<!--document mess begin-->
 				<?php $this->load->view("doc_attr.html"); ?>
 				<!--document mess end-->

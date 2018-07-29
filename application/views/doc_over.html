@@ -68,50 +68,9 @@
             <!--LeftTree End-->
 
             <div class="main-content">
-                <div class="col-sm-6 widget-container-col" id="widget-container-col-2">
-                    <div class="widget-box widget-color-blue" id="">
-                        <div class="widget-header">
-                            <h5 class="widget-title bigger lighter">
-                                <i class="ace-icon fa fa-table"></i>
-                                <span>文档列表</span>
-                            </h5>
-                        </div>
-                        <div class="tabbable">
-                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="">
-                                <li class="active">
-                                    <a data-toggle="tab" href="#">甲方文件</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#">乙方文件</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#">丙方文件</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#">丁方文件</a>
-                                </li>
-                            </ul>
-                
-                            <div class="tab-content">
-                                <div id="" class="tab-pane in active">
-                                    甲方文件
-                                </div>
-                
-                                <div id="" class="tab-pane">
-                                    乙方
-                                </div>
-                
-                                <div id="" class="tab-pane">
-                                    丙方
-                                </div>
-                
-                                <div id="" class="tab-pane">
-                                    丁方
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--document list begin-->
+                <?php $this->load->view("doc_list.html"); ?>
+                <!--document list end-->
                 <!--document mess begin-->
                 <?php $this->load->view("doc_attr.html"); ?>
                 <!--document mess end-->
