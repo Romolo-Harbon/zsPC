@@ -41,4 +41,42 @@ class MesContro extends CI_Controller{
         }
         echo $action;
     }
+    
+    /*
+     * 流转属性设置
+     */
+    //新建流转属性
+    public function CirSave_New()
+    {
+        $TypeId = $this->input->post('TypeId');
+        $CirMes = $this->input->post('data');
+        $data['mes'] = $this->MesCon->CirSave_New($TypeId,$CirMes);
+        if($data['mes'])
+        {
+            $data['success'] = 'ok';
+        }
+        unset($data['mes']);
+        $json = json_encode($data['success']);
+        echo $json;
+    }
+    //显示流转属性
+    public function CirMes_Show()
+    {
+        $TypeId = $this->input->post('TypeId');
+        $data['mes'] = $this->MesCon->CirMes_Show($TypeId);
+        $json = json_encode($data);
+        echo $json;
+    }
+    //修改流转属性
+    public function CirSave_Change()
+    {
+//      $TypeId = $this->input->post('TypeId');
+//      $CirMes = $this->input->post('data');
+//      
+        $data['success'] = 'ok';
+//      $data['sql'] = $this->MesCon->CirSave_New($TypeId,$CirMes);
+        $json = json_encode($data);
+        echo $json;
+    }
+    
 }

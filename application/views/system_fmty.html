@@ -57,12 +57,6 @@
         <!--Top End-->
 
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.loadState('main-container')
-                } catch(e) {}
-            </script>
-
             <!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
@@ -70,7 +64,7 @@
             <div class="main-content">
                 <div class="widget-body">
                     <div class="widget-main padding-24">
-                        <button class="btn btn-info" href="#modal-TypeAdd" role="button" data-toggle="modal">新建文档类型</button>
+                        <button class="btn btn-info" href="#modal-TypeAdd" role="button" data-toggle="modal">新建表单类型</button>
                         &nbsp;&nbsp;&nbsp;
                         <div class="hr hr8 hr-double hr-dotted"></div>
                         <div class="col-xs-6">
@@ -105,34 +99,17 @@
                             <div class="widget-box">
                                 <div class="widget-header widget-header-flat">
                                     <h4 class="widget-title smaller">
-                                        <span>表单类型</span>
+                                        <span>表单属性</span>
                                     </h4>
                                 </div>
                                 <div class="widget-body">
                                     <div class="widget-main">
                                         <div id="" class="tab-pane">
-                                            <button class="btn btn-primary" id="id-btn-dialog">修改工作流</button>
+                                            <button class="btn btn-primary" id="id-btn-dialog-new">修改工作流</button>
                                             &nbsp;&nbsp;&nbsp;
                                             <button class="btn btn-primary" href="#modal-TypeEdit" role="button" data-toggle="modal">修改类型信息</button>
                                             <br /><br />
-                                            <ul class="steps">
-                                                <li data-step="1" class="active">
-                                                    <span class="step">1</span>
-                                                    <span class="title">工作流</span>
-                                                </li>
-                                                <li data-step="2">
-                                                    <span class="step">2</span>
-                                                    <span class="title">工作流</span>
-                                                </li>
-                                                <li data-step="3">
-                                                    <span class="step">3</span>
-                                                    <span class="title">工作流</span>
-                                                </li>
-                                                <li data-step="4">
-                                                    <span class="step">4</span>
-                                                    <span class="title">工作流</span>
-                                                </li>
-                                            </ul>
+                                            <ul class="steps"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -241,96 +218,7 @@
             </div>
             <!--model Edit end-->
             <!--circle set begin-->
-            <div class="col-lx-12">
-                <div id="dialog-message" class="hide">
-                    <div class="alert alert-info bigger-110">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead class="thin-border-bottom">
-                                <tr>
-                                    <th class="">审批步骤数量</th>
-                                    <th class="">
-                                        <select id="TurnNum">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                        </select>
-                                    </th>
-                                    <th class=""><a class="btn btn-info" id="SetTurnNum">确认</a></th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="bigger-110 bolder center">
-                        <table class="table table-striped table-bordered table-hover" id="CirMes">
-                            <thead class="thin-border-bottom">
-                                <tr>
-                                    <th class="" style="width: 30%;">流程节点</th>
-                                    <th class="" style="width: 30%;">部门</th>
-                                    <th class="">用户</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <?php for($i=1;$i<5;$i++){ ?>
-                                    <tr class="">
-                                        <td class=""><?php echo $i; ?></td>
-                                        <td class="">
-                                            <select>
-                                                <option></option>
-                                                <option>甲方</option>
-                                                <option>乙方</option>
-                                                <option>丙方</option>
-                                            </select>
-                                        </td>
-                                        <td class="">
-                                            <div class="form-group">
-                                                <select class="multiselect" multiple="">
-                                                    <option value="cheese">Cheese</option>
-                                                    <option value="tomatoes">Tomatoes</option>
-                                                    <option value="mozarella">Mozzarella</option>
-                                                    <option value="mushrooms">Mushrooms</option>
-                                                    <option value="pepperoni">Pepperoni</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                <?php for($y=5;$y<11;$y++){ ?>
-                                    <tr class="hide">
-                                        <td class=""><?php echo $y; ?></td>
-                                        <td class="">
-                                            <select>
-                                                <option></option>
-                                                <option>甲方</option>
-                                                <option>乙方</option>
-                                                <option>丙方</option>
-                                            </select>
-                                        </td>
-                                        <td class="">
-                                            <div class="form-group">
-                                                <select class="multiselect" multiple="">
-                                                    <option value="cheese">Cheese</option>
-                                                    <option value="tomatoes">Tomatoes</option>
-                                                    <option value="mozarella">Mozzarella</option>
-                                                    <option value="mushrooms">Mushrooms</option>
-                                                    <option value="pepperoni">Pepperoni</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <?php $this->load->view('model_circle.html'); ?>
             <!--circle set end-->
 
             <!--Foor Begin-->
@@ -420,21 +308,21 @@
                     "paging": false,
                 });
                 /*
-                 * setCir
+                 * select Cir Num
                  */
-                $('#SetTurnNum').click(function(){
-                    var TabLen = $('#TurnNum option:selected').val();
-                    for (var i=1;i<$('#CirMes tr').length;i++) {
-                    	$('#CirMes tr').eq(i).removeClass('hide');
+                $('#TurnNum-new').on('change',function(){
+                    var TabLen = $('#TurnNum-new option:selected').val();
+                    for (var i=1;i<$('#CirMes-new tr').length;i++) {
+                    	$('#CirMes-new tr').eq(i).removeClass('hide');
                     }
                     i = i-TabLen;
                     while(i--)
                     {
-                        $('#CirMes tr').eq($('#CirMes tr').length+1-i).addClass('hide');
+                        $('#CirMes-new tr').eq($('#CirMes-new tr').length-i).addClass('hide');
                     }
                 })
                 /*
-                 * Edit
+                 * Edit Mes
                  */
                 $('#dynamic-table tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
@@ -445,34 +333,38 @@
                         $(this).addClass('selected');
                     }
                     try{
+                        //model change value
                     	var TypeName = table.row('.selected').data().TypNam;
                         var TypeElse = table.row('.selected').data().TypEls;
                         var TypeId = table.row('.selected').data().id;
                         $('#TypeId').attr('value',TypeId);
+                        $('#TypeId-new').attr('value',TypeId);
                         $('#TypeName').attr('value',TypeName);
                         $('#TypeElse').html(TypeElse);
-                    }catch(e){
-                    	//TODO handle the exception
-                    }
-                    
+                        //model circle mes
+                        var CirMesShow = "<?php echo site_url('MesContro/CirMes_Show'); ?>";
+                        $.ajax({
+                        	type:"post",
+                        	url:CirMesShow,
+                        	async:true,
+                        	dataType:'json',
+                        	data:{
+                        	    TypeId:TypeId
+                        	},
+                        	success:function (data){
+                        	    $('.steps').html('');
+                        	    if(data['mes'][0].length>0){
+                        	        for (var i=0;i<data['mes'].length;i++) {
+                            	    	$('.steps').append("<li class='active' data-step='"+(i+1)+"'><span class='step'>"+(i+1)+"</span><span class='title'>"+data['mes'][i]+"</span></li>");
+                            	    }
+                        	    }
+                        	},
+                        	error:function(s,e,t){
+                        	    console.log(s,e,t);
+                        	}
+                        });
+                    }catch(e){}
                 })
-                /*
-                 * select
-                 */
-                $('.multiselect').multiselect({
-                    enableFiltering: true,
-                    enableHTML: true,
-                    buttonClass: 'btn btn-white btn-primary',
-                    templates: {
-                        button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
-                        ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                        filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-                        filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
-                        li: '<li><a tabindex="0"><label></label></a></li>',
-                        divider: '<li class="multiselect-item divider"></li>',
-                        liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-                    }
-                });
             });
             function MesDel(obj)
             {
@@ -481,5 +373,4 @@
             }
         </script>
     </body>
-
 </html>

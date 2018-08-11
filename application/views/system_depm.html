@@ -57,12 +57,6 @@
         <!--Top End-->
 
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.loadState('main-container')
-                } catch(e) {}
-            </script>
-
             <!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
@@ -112,28 +106,38 @@
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="">
                                         <li class="active">
-                                            <a data-toggle="tab" href="#home1">基本信息</a>
+                                            <a data-toggle="tab" href="#home1">人员信息</a>
                                         </li>
                                         <li>
-                                            <a data-toggle="tab" href="#home2">人员信息</a>
+                                            <a data-toggle="tab" href="#home2">基本信息</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div id="home1" class="tab-pane in active">
+                                            <button class="btn btn-primary" type="submit" id="SavePeoC">保存人员修改</button>
+                                            <br /><br />
+                                            <div class="form-group Select2Height">
+                                                <div class="col-sm-12">
+                                                    <input name="RId" id="RId" hidden="hidden"/>
+                                                    <select multiple="multiple" size="10" name="UseLim" id="duallist"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="home2" class="tab-pane ">
                                             <button class="btn btn-primary" href="#modal-TypeEdit" role="button" data-toggle="modal">修改部门信息</button>
                                             <br /><br />
                                             <div class="profile-user-info profile-user-info-striped">
                                                 <div class="profile-info-row">
                                                     <div class="profile-info-name"> 部门名 </div>
                                                     <div class="profile-info-value">
-                                                        <span class="editable" id="FormName">设计开发计划表</span>
+                                                        <span class="editable" id="FormName"></span>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="profile-info-row">
                                                     <div class="profile-info-name"> 部门职能 </div>
                                                     <div class="profile-info-value">
-                                                        <span class="editable" id="FormName">设计开发计划表</span>
+                                                        <span class="editable" id="FormElse"></span>
                                                     </div>
                                                 </div>
                                                 
@@ -141,35 +145,17 @@
                                                     <div class="profile-info-name"> 修改人 </div>
                         
                                                     <div class="profile-info-value">
-                                                        <span class="editable" id="SePeo">同欣科技</span>
+                                                        <span class="editable" id="SePeo"></span>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="profile-info-row">
                                                     <div class="profile-info-name"> 修改时间 </div>
                                                     <div class="profile-info-value">
-                                                        <span class="editable" id="ReTime">2018-05-11</span>
+                                                        <span class="editable" id="ReTime"></span>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
-                                        </div>
-                                        <div id="home2" class="tab-pane ">
-                                            <form action="<?php echo site_url('System/RoleLinUse_Set'); ?>" method="post">
-                                                <button class="btn btn-primary" id="SavePeoC" type="submit">保存人员修改</button>
-                                                <br />
-                                                <br />
-                                                <div class="form-group Select2Height">
-                                                    <div class="col-sm-12">
-                                                        <input name="RId" id="RId" />
-                                                        <select multiple="multiple" size="10" name="duallistbox_demo1[]" id="duallist">
-                                                            <?php foreach($PeoMes as $v){ ?>
-                                                                <option><?=$v['UsePeo'].'>'.$v['UseAcc'] ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -292,8 +278,8 @@
         <!-- <![endif]-->
 
         <!--[if IE]>
-<script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
-<![endif]-->
+        <script src="<?php echo base_url()."assets/js/jquery-1.11.3.min.js"?>"></script>
+        <![endif]-->
         <script src="<?php echo base_url()."assets/js/bootstrap.min.js"?>"></script>
 
         <!-- page specific plugin scripts -->
@@ -335,9 +321,10 @@
         
         <script type="text/javascript">
             jQuery(function($) {
-                var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
+                var demo1 = $('#duallist').bootstrapDualListbox({infoTextFiltered: '<span class="label label-purple label-lg">Filtered</span>'});
                 var container1 = demo1.bootstrapDualListbox('getContainer');
                 container1.find('.btn').addClass('btn-white btn-info btn-bold');
+                
                 /*
                  * TableINI
                  */
@@ -345,7 +332,7 @@
                 var table = $('#dynamic-table').DataTable({
                     ajax:showMes,
                     columns:[
-                        {"visible": false,"data":'id'},
+                        {"data":'id',"visible": false},
                         {"data":'rowNum'},
                         {"data":'RolNam'},
                         {"data":'RolEls'},
@@ -367,7 +354,7 @@
                     "paging": false,
                 });
                 /*
-                 * Edit
+                 * show mes action
                  */
                 $('#dynamic-table tbody').on('click', 'tr', function () {
                     $('#TypeId').attr('value','');
@@ -381,7 +368,6 @@
                         $(this).addClass('selected');
                     }
                     try{
-                    	//EditINI
                     	var TypeName = table.row('.selected').data().RolNam;
                         var TypeElse = table.row('.selected').data().RolEls;
                         var TypeId = table.row('.selected').data().id;
@@ -395,21 +381,38 @@
                         	type:"post",
                         	url:ShowAss,
                         	async:true,
+                        	dataType:'json',
                         	data:{
                         	    TypeId:TypeId
                         	},
                         	success:function(data)
                         	{
-                        	    console.log(data);
+                        	    try{
+                        	    	//baseMes
+                            	    $('#FormName').text(data['deptMes'][0]['RolNam']);
+                            	    $('#FormElse').text(data['deptMes'][0]['RolEls']);
+                            	    $('#SePeo').text(data['deptMes'][0]['RolCPe']);
+                            	    $('#ReTime').text(data['deptMes'][0]['RolCTm']);
+                            	    //UseMes
+                            	        //remove all old mes
+                            	    $('#duallist').html('');
+                            	        //selected
+                            	    for (var i=0;i<data['roleMesSelEd'].length;i++) {
+                            	    	$('#duallist').append("<option selected='selected'>"+data['roleMesSelEd'][i]['UsePeo']+'=>'+data['roleMesSelEd'][i]['UseAcc']+"</option>");
+                            	    }
+                            	        //no select
+                            	    for (var i=0;i<data['roleMesSelNo'].length;i++) {
+                            	    	$('#duallist').append("<option>"+data['roleMesSelNo'][i]['UsePeo']+'=>'+data['roleMesSelNo'][i]['UseAcc']+"</option>");
+                            	    }
+                            	    $('#duallist').bootstrapDualListbox("refresh");
+                        	    }catch(e){ }
                         	},
                         	error:function(s,t,e)
                         	{
                         	    console.log(s,t,e);
                         	}
                         });
-                    }catch(e){
-                    	
-                    }
+                    }catch(e){ }
                 })
                 /*
                  * select
@@ -431,10 +434,41 @@
                 /*
                  * saveChange
                  */
+                //Use lim
                 $('#SavePeoC').click(function(){
-                    
-//                  alert('oko');
+                    var saveChange = "<?php echo site_url('System/RoleLinUse_Set'); ?>";
+                    $.ajax({
+                    	type:"post",
+                    	url:saveChange,
+                    	async:true,
+                    	dataType:'json',
+                    	data:{
+                    	    RId:$('#RId').val(),
+                    	    UseLim:$('#duallist').val()
+                    	},
+                    	success:function(data){
+                    	    if(data['sta'] == 'success'){
+                    	        alert('人员修改成功');
+                    	        return 0;
+                    	    }
+                    	    alert('操作失败，请联系管理员');
+                    	    location.reload();
+                    	},
+                    	error:function(s,e,t){
+                    	    console.log(s,e,t);
+                    	}
+                    });
                 })
+                /*
+                 * Else
+                 */
+                //in ajax mode, remove remaining elements before leaving page
+                $(document).one('ajaxloadstart.page', function(e) {
+                    $('[class*=select2]').remove();
+                    $('#duallist').bootstrapDualListbox('destroy');
+                    $('.rating').raty('destroy');
+                    $('.multiselect').multiselect('destroy');
+                });
             })
             function MesDel(obj)
             {

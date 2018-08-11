@@ -26,34 +26,34 @@ class Form extends CI_Controller{
     //草稿文件显示
     public function formShow_Draf()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes('type_form');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
         $this->load->view('form_draf.html',$data);
     }
     //签批文件显示
     public function formShow_Sign()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes('type_form');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
 //      $data['table_mes'] = $this->form->formDraf_Sel(1);
         $this->load->view('form_sign.html',$data);
     }
     //驳回文件显示
     public function formShow_Rejt()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes('type_form');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
 //      $data['table_mes'] = $this->form->formDraf_Sel(2);
         $this->load->view('form_rejt.html',$data);
     }
     //逾期文件显示
     public function formShow_Over()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes('type_form');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
 //      $data['table_mes'] = $this->form->formDraf_Sel(3);
         $this->load->view('form_over.html',$data);
     }
     //归集文件显示
     public function formShow_Pack()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes('type_form');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
         $this->load->view('form_pack.html',$data);
     }
     /*
@@ -78,7 +78,6 @@ class Form extends CI_Controller{
         }
         $json = json_encode($data);
         echo $json;
-//      echo $data['formMes'];
     }
     //按状态查询
     public function FormSta()
@@ -101,7 +100,6 @@ class Form extends CI_Controller{
         }
         $json = json_encode($data);
         echo $json;
-//      echo $data['formMes'];
     }
     
     

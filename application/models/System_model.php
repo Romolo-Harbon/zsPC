@@ -8,13 +8,17 @@ class System_model extends CI_Model
     //信息显示
     public function TypeM_selectMes($type)
     {
-        $data = $this->db->query("SELECT id,TypNam,TypCTm,TypCPe,TypEls FROM ".$type." WHERE TypSta = 0")->result_array();
+        $data = $this->db->query("SELECT id,TypNam,TypCTm,TypCPe,TypEls FROM type_mes WHERE TypSta = 0 and TypeFT=".$type."")->result_array();
         return $data;
     }
     //新增类型
     public function TypeM_addNew($Type,$data)
     {
         $this->db->insert($Type,$data);
+        $data['NId'] = $this->db->insert_id();
+        $data['rowNum'] = $this->db->affected_rows();
+        
+        return $data;
     }
     //删除数据
     public function TypeDel($id,$type)
@@ -45,7 +49,7 @@ class System_model extends CI_Model
     {
         $this->db->delete('noidset',$data);
         $this->db->delete('noidset',$dataPId);
-//      $this->db->update('noidset',array('NodSta'=>9),$data);
+        //$this->db->update('noidset',array('NodSta'=>9),$data);
     }
     /*
      * 部门及人员设置
@@ -56,7 +60,7 @@ class System_model extends CI_Model
         $data = $this->db->query("SELECT id,RolNam,RolCTm,RolCPe,RolEls FROM role WHERE RolSta = 0")->result_array();
         return $data;
     }
-    //新增类型
+    //新增部门
     public function RoleM_addNew($data)
     {
         $this->db->insert('role',$data);
@@ -66,7 +70,7 @@ class System_model extends CI_Model
     {
         $this->db->delete('role',array('id'=>$id));
     }
-    //修改类型
+    //修改部门
     public function RoleM_Edit($data,$id)
     {
         $this->db->update('role',$data,array('id'=>$id));
@@ -77,25 +81,118 @@ class System_model extends CI_Model
         $data = $this->db->query('SELECT id,UseAcc,UsePeo FROM `user` WHERE RolSta = 0 and UseSta=1')->result_array();
         return $data;
     }
-    //部门人员信息查询【已经分配】
+    //部门详情及人员信息查询
     public function SelPeoMesED($id)
     {
-        $data = $this->db->query('SELECT c.id,c.UseAcc,c.UsePeo FROM `role` a,link_userol b,`user` c WHERE b.RolIdS = '.$id.' and b.UseIdS = c.id and b.DatSta = 0')->result_array();
+        //部门基本信息
+        $sqlSel = 'select id,RolNam,RolCTm,RolCPe,RolEls from role where id = '.$id.'';
+        $data['deptMes'] = $this->db->query($sqlSel)->result_array();
+        //部门人员信息
+            //查部门绑定的用户id
+        $data['roleMesSelEd'] = $this->db->query('SELECT c.id,c.UseAcc,c.UsePeo FROM link_userol b,`user` c WHERE b.RolIdS = '.$id.' and b.UseIdS = c.id and b.DatSta = 0')->result_array();
+            //部门未绑定的用户id
+        $arrayMes = array();
+        foreach($data['roleMesSelEd'] as $v)
+        {
+            $arrayMes[] = $v['id'];
+        }
+//      $data['array'] = $arrayMes;
+        $data['roleMesSelNo'] = array();
+        if(count($arrayMes))
+        {
+            $this->db->where_not_in('id', $arrayMes);
+        }
+        $this->db->select('id,UseAcc,UsePeo');
+        $data['roleMesSelNo'] = $this->db->get('user')->result_array();
+        
         return $data;
     }
-    //保存部门设置
-    public function RoleLinUse_Set($RoleId,$UsePeo,$UseAcc)
+    //保存部门人员设置
+    public function RoleLinUse_Set($RoleId,$UsePeo,$UseAcc,$CirSmp)
     {
-        //查询id
+        //查询id【用户id】
         $sql = "SELECT id FROM `user` WHERE UseAcc='".$UseAcc."' and UsePeo='".$UsePeo."'";
         $UseId = $this->db->query($sql)->result_array();
-        //更新用户表
+        //删除用户表的旧分配标志
+        $this->db->where('id',$UseId[0]['id']);
+        $this->db->update('user',array('RolSta'=>0));
+        //删除旧部门关联数据
+        $this->db->where('LinSmp !=', $CirSmp);
+        $this->db->delete('link_userol',array('RolIdS'=>$RoleId));
+        //更新用户表【创建新分配标志】
         $sqlUpdate = "UPDATE user set RolSta=1 where id=".$UseId[0]['id']."";
         $this->db->query($sqlUpdate);
-        //更新关联表
-        $sqlInsert = "insert into link_userol (UseIdS,RolIdS,DatSta) VALUES(".$UseId[0]['id'].",".$RoleId.",0)";
+        //更新关联表【创建新部门关联数据】
+        $sqlInsert = "insert into link_userol (UseIdS,RolIdS,DatSta,LinSmp) VALUES(".$UseId[0]['id'].",".$RoleId.",0,'".$CirSmp."')";
         $this->db->query($sqlInsert);
+        $RowNum = $this->db->affected_rows();
+        if($RowNum){
+            $data = 'success';
+        }
+        return $data;
     }
-    
+    /*
+     * 功能实现---用户管理
+     */
+    //显示列表
+    public function Account_ShowMes()
+    {
+        $sql = "select id,UseAcc,UsePeo,UsePho,UseTim,UseSta from user ";
+        $data = $this->db->query($sql)->result_array();
+        foreach( $data as &$v )
+        {
+            switch( $v['UseSta'] )
+            {
+                case 0:
+                    $v['UseStaMes'] = '已注册,未通过';
+                    break;
+                case 1:
+                    $v['UseStaMes'] = '已通过';
+                    break;
+                case 2:
+                    $v['UseStaMes'] = '已注销';
+                    break;
+                case 3:
+                    $v['UseStaMes'] = '已删除';
+                    break;
+                default:break;
+            }
+        }
+        return $data;
+    }
+    //显示详情
+    public function Account_ShowDetail($MId)
+    {
+        $data = $this->db->query("select UseAcc,UsePho,UseEls,UseSta,UsePeo,UseTim,UsePPe,UsePTm,UseCPe,UseCTm from user where id = '".$MId."'")->result_array();
+        foreach( $data as &$v )
+        {
+            switch( $v['UseSta'] )
+            {
+                case 0:
+                    $v['UseStaMes'] = '已注册,未通过';
+                    break;
+                case 1:
+                    $v['UseStaMes'] = '已通过';
+                    break;
+                case 2:
+                    $v['UseStaMes'] = '已注销';
+                    break;
+                case 3:
+                    $v['UseStaMes'] = '已删除';
+                    break;
+                default:break;
+            }
+        }
+        return $data;
+    }
+    //账号动作【注销通过删除】
+    public function Account_ChangeSta($MId,$MesData)
+    {
+        $this->db->where( 'id' , $MId );
+        $this->db->update('user',$MesData);
+        $data = $this->db->affected_rows();
+        $this->db->delete('user',array('UseSta'=>3));
+        return $data;
+    }
     
 }

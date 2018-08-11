@@ -58,165 +58,164 @@
         <!--Top End-->
 
 		<div class="main-container ace-save-state" id="main-container">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('main-container')
-				} catch(e) {}
-			</script>
 
 			<!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
 
 			<div class="main-content">
-				<!--document list begin-->
-				<?php $this->load->view("doc_list.html"); ?>
-				<!--document list end-->
-				<!--document mess begin-->
-				<?php $this->load->view("doc_attr.html"); ?>
-				<!--document mess end-->
+			    <div class="widget-body">
+                    <div class="widget-main padding-24">
+        				<!--document list begin-->
+        				<?php $this->load->view("doc_list.html"); ?>
+        				<!--document list end-->
+        				<!--document mess begin-->
+        				<?php $this->load->view("doc_attr.html"); ?>
+        				<!--document mess end-->
 				
-                <!--mess add begin-->
-                <div id="modal-addNew" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header no-padding">
-                                <div class="table-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        <span class="white">&times;</span>
-                                    </button>
-                                    <span>新建</span>
+                        <!--mess add begin-->
+                        <div id="modal-addNew" class="modal fade" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header no-padding">
+                                        <div class="table-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <span class="white">&times;</span>
+                                            </button>
+                                            <span>新建</span>
+                                        </div>
+                                    </div>
+                                    <form action="<?php echo site_url('Document/Doc_AddNew') ?>" method="post">
+                                        <div class="modal-body no-padding">
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">文档类型 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <select class="NewDocMes" name="SelType">
+                                                            <?php foreach($FileType as $v): ?>
+                                                            <option data-id="<?=$v['id'] ?>"><?=$v['TypNam'] ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">主题 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="Theme" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">主送对象 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="TargetObj" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                        
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">抄送对象 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="CopyObj" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">发起部门 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="SendPart" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">发起人 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="SendPeo" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">审核部门 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="CheckPart" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">审核人 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="CheckPeo" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">批准部门 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="PassPart" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                        
+                                            <div class="form-group has-info  page-header">
+                                                <label class="col-sm-3 control-label no-padding-right">批准人 ：</label>
+                                                <div class="col-sm-5">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input class="NewDocMes" type="text" id="" name="PassPeo" />
+                                                    </span>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                            <div class="form-group has-info  page-header" >
+                                                <label class="col-sm-3 control-label no-padding-right">文档说明 ：</label>
+                                                <div class="col-sm-5">
+                                                    <textarea cols="47" size="16" rows="2" type="text" value="value" id="" name="ObjElse"></textarea>
+                                                </div>
+                                                <div class="help-block col-xs-12 col-sm-reset inline"> </div>
+                                            </div>
+                                        </div>
+                                        <br /><br />
+                                        <div class="modal-footer no-margin-top">
+                                            <button class="btn btn-sm btn-success pull-right" data-dismiss="" type="submit">
+                                                <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                                                <span>保存</span>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                                                <i class="ace-icon fa fa-times"></i>
+                                                <span>关闭</span>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <form action="<?php echo site_url('Document/Doc_AddNew') ?>" method="post">
-                                <div class="modal-body no-padding">
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">文档类型 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <select class="NewDocMes" name="SelType">
-                                                    <?php foreach($FileType as $v): ?>
-                                                    <option data-id="<?=$v['id'] ?>"><?=$v['TypNam'] ?></option>
-                                                    <?php endforeach ?>
-                                                </select>
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">主题 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="Theme" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">主送对象 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="TargetObj" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">抄送对象 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="CopyObj" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">发起部门 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="SendPart" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">发起人 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="SendPeo" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">审核部门 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="CheckPart" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">审核人 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="CheckPeo" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">批准部门 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="PassPart" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                
-                                    <div class="form-group has-info  page-header">
-                                        <label class="col-sm-3 control-label no-padding-right">批准人 ：</label>
-                                        <div class="col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input class="NewDocMes" type="text" id="" name="PassPeo" />
-                                            </span>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                    <div class="form-group has-info  page-header" >
-                                        <label class="col-sm-3 control-label no-padding-right">文档说明 ：</label>
-                                        <div class="col-sm-5">
-                                            <textarea cols="47" size="16" rows="2" type="text" value="value" id="" name="ObjElse"></textarea>
-                                        </div>
-                                        <div class="help-block col-xs-12 col-sm-reset inline"> </div>
-                                    </div>
-                                </div>
-                                <br /><br />
-                                <div class="modal-footer no-margin-top">
-                                    <button class="btn btn-sm btn-success pull-right" data-dismiss="" type="submit">
-                                        <i class="ace-icon fa fa-floppy-o bigger-125"></i>
-                                        <span>保存</span>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
-                                        <i class="ace-icon fa fa-times"></i>
-                                        <span>关闭</span>
-                                    </button>
-                                </div>
-                            </form>
                         </div>
+                        <!--mess add end-->
                     </div>
                 </div>
-                <!--mess add end-->
 			</div>
 
 			<!--Foor Begin-->

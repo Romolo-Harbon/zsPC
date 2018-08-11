@@ -53,51 +53,36 @@
 
 	<body class="no-skin">
 		<!--Top Begin-->
-        <?php $this->load->view("pageTop.html"); ?>
+        <?php // $this->load->view("pageTop.html"); ?>
         <!--Top End-->
 
 		<div class="main-container ace-save-state" id="main-container">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('main-container')
-				} catch(e) {}
-			</script>
-
 			<!--LeftTree Begin-->
-            <?php $this->load->view("pageLeft.html"); ?>
+            <?php // $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
 
 			<div class="main-content">
-			    <div class="col-xs-6">
-                    <div class="widget-box">
-                        <div class="widget-header widget-header-flat">
-                            <h4 class="widget-title smaller">
-                                <span>模板列表</span>
-                            </h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-body">
-                                <div class="widget-main padding-8">
-                                    <div class="noidSet">
-                                        <ul class="l-tree"></ul>
-                                    </div>
-                                    <div style="display:none"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--form list begin-->
-                <?php $this->load->view("form_list.html"); ?>
-                <!--form list end-->
-                <!--model part begin-->
-				<?php $this->load->view("form_attr.html"); ?>
-			    <!--model part end-->
+			    <div class="widget-body">
+                    <div class="widget-main padding-24">
+        			    <!--form tree begin-->
+        			    <?php $this->load->view('model_tree.html'); ?>
+        			    <!--form tree end-->
+                        <!--form list begin-->
+                        <?php // $this->load->view("form_list.html"); ?>
+                        <!--form list end-->
+                        <!--model part begin-->
+        				<?php // $this->load->view("form_attr.html"); ?>
+        			    <!--model part end-->
+        			    <!--model part begin-->
+                        <?php // $this->load->view('model_page.html'); ?>
+                        <!--model part begin-->
+        			</div>
+        	    </div>
 			</div>
 			<!-- /.main-content -->
             
 			<!--Foor Begin-->
-            <?php $this->load->view("pageFoot.html"); ?>
+            <?php // $this->load->view("pageFoot.html"); ?>
             <!--Foot End-->
             
 		</div>
@@ -143,11 +128,17 @@
 		<!-- inline scripts related to this page -->
 		<script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
 		<script type="text/javascript">
 		    var dataUri = sessionStorage.getItem('ModleId');
+		    var tabMesAll;
 			jQuery(function($) {
 			    /*
-			     * tree
+			     * Mes INI
+			     */
+			    getFomMesSel_ProId();
+			    /*
+			     * tree INI
 			     */
 			    var show = "<?php echo site_url('System/TreeShow'); ?>";
                 $.ajax({
@@ -165,10 +156,16 @@
                             ajaxType: 'post',
                             isexpand:false,
                             onClick: function (node, e)
-                            { 
+                            {
                                 actionNodeID = node.data.id;
                                 sessionStorage.setItem('ModleId',actionNodeID);
-                                location.reload();
+//                              var treeSelMes = "<?php echo site_url(''); ?>";
+//                              $.ajax({
+//                              	type:"get",
+//                              	url:"",
+//                              	async:true
+//                              });
+                                alert('获取信息');
                             },
                         });
                     },
@@ -178,43 +175,18 @@
                     }
                 })
                 /*
-                 * tableINI
+                 * table Action
                  */
-                var showMes = "<?php echo site_url('Form/FormList'); ?>"+'/'+dataUri+'/'+'draft';
-                var table = $('#dynamic-table').DataTable({
-//                  data:dataUri,
-                    ajax:showMes,
-                    columns:[
-                        {"data":'checkBox'},
-                        {"visible": false,"data":'id'},
-                        {"data":'rowNum'},
-                        {"data":'TabNam'},
-                        {"data":'TabCTm'},
-                        {"visible": false,"data":'id'},
-                        {"data":'id'},
-                        {"visible": false,"data":'id'},
-                    ],
-                    oLanguage: {
-                        sLengthMenu: "显示 _MENU_ 条数据",
-                    },
-                    "processing": true,
-                    "aaSorting": [],
-                    "aoColumnDefs": [{
-                        'bSortable': false,
-                        'aTargets': [0,1]
-                    }],
-                });
-                
                 $('#dynamic-table tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
                     }
                     else {
-                        table.$('tr.selected').removeClass('selected');
+                        tabMesAll.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
                     try{
-                    	alert(table.row('.selected').data().id);
+                    	alert(tabMesAll.row('.selected').data().formId);
                     }catch(e){
                         
                     }
@@ -239,6 +211,33 @@
                     }
                 });
 			});
+			function tabMesShow_Pro(data){
+//			    var showMes = "<?php echo site_url('Form/FormList'); ?>"+'/'+dataUri+'/'+'draft';
+                
+                tabMesAll = $('#dynamic-table').DataTable({
+                    data:data,
+                    columns:[
+                        {"data":'uploadTime','visible':false},
+                        {"data":'formId'},
+                        {"data":'formName'},
+                        {"data":'uploadTime'},
+                        {"data":'page'},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
+                        
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
+                    },
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0,1]
+                    }],
+                });
+			}
 		</script>
 	</body>
 

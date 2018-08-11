@@ -57,23 +57,22 @@
         <!--Top End-->
 
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.loadState('main-container')
-                } catch(e) {}
-            </script>
 
             <!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
 
             <div class="main-content">
-                <!--document list begin-->
-                <?php $this->load->view("doc_list.html"); ?>
-                <!--document list end-->
-                <!--document mess begin-->
-                <?php $this->load->view("doc_attr.html"); ?>
-                <!--document mess end-->
+                <div class="widget-body">
+                    <div class="widget-main padding-24">
+                        <!--document list begin-->
+                        <?php $this->load->view("doc_list.html"); ?>
+                        <!--document list end-->
+                        <!--document mess begin-->
+                        <?php $this->load->view("doc_attr.html"); ?>
+                        <!--document mess end-->
+                    </div>
+                </div>
             </div>
             
             <!--Foor Begin-->

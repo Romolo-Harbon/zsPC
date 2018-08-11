@@ -56,42 +56,27 @@
         <!--Top End-->
 
         <div class="main-container ace-save-state" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.loadState('main-container')
-                } catch(e) {}
-            </script>
-
             <!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
             <!--LeftTree End-->
 
             <div class="main-content">
-                <div class="col-xs-6">
-                    <div class="widget-box">
-                        <div class="widget-header widget-header-flat">
-                            <h4 class="widget-title smaller">
-                                <span>模板列表</span>
-                            </h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-body">
-                                <div class="widget-main padding-8">
-                                    <div class="noidSet">
-                                        <ul class="l-tree"></ul>
-                                    </div>
-                                    <div style="display:none"></div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="widget-body">
+                    <div class="widget-main padding-24">
+                        <!--form tree begin-->
+                        <?php $this->load->view('model_tree.html'); ?>
+                        <!--form tree end-->
+                        <!--form list begin-->
+                        <?php $this->load->view("form_list.html"); ?>
+                        <!--form list end-->
+                        <!--form mess begin-->
+                        <?php $this->load->view("form_attr.html"); ?>
+                        <!--form mess end-->
+                        <!--model part begin-->
+                        <?php $this->load->view('model_page.html'); ?>
+                        <!--model part begin-->
                     </div>
                 </div>
-                <!--form list begin-->
-                <?php $this->load->view("form_list.html"); ?>
-                <!--form list end-->
-                <!--form mess begin-->
-                <?php $this->load->view("form_attr.html"); ?>
-                <!--form mess end-->
             </div>
             <!-- /.main-content -->
             
@@ -125,7 +110,7 @@
         
         <!--tree-->
         <script src="<?php echo base_url()."assets/tree_LigerUI/js/base.js"?>"></script>
-        <script src="<?php echo base_url()."assets/tree_LigerUI/js/ligerTreeShow.js"?>"></script>
+        <script src="<?php echo base_url()."assets/tree_LigerUI/js/ligerTree.js"?>"></script>
         
         <!--dataTable-->
         <script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>

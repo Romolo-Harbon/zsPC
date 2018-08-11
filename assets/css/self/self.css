@@ -2,8 +2,7 @@
  * 使菜单栏无法点击
  */
 .NoAction {
-    color: gray;
-    /*cursor: pointer;*/
+    cursor: pointer;
     pointer-events: none;
 }
 /*
