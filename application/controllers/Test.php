@@ -10,7 +10,7 @@ class Test extends CI_Controller{
     //测试专用
     public function show()
     {
-        wrong(site_url(''));
+        $this->load->view('test.html');
     }
     
 }

@@ -70,10 +70,10 @@
                         <?php $this->load->view("form_list.html"); ?>
                         <!--form list end-->
                         <!--form mess begin-->
-                        <?php $this->load->view("form_attr.html"); ?>
+                        <?php // $this->load->view("form_attr.html"); ?>
                         <!--form mess end-->
                         <!--model part begin-->
-                        <?php $this->load->view('model_page.html'); ?>
+                        <?php // $this->load->view('model_page.html'); ?>
                         <!--model part begin-->
                     </div>
                 </div>
@@ -129,34 +129,41 @@
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
         <script type="text/javascript">
             var dataUri = sessionStorage.getItem('ModleId');
+            var tabMesAll;
             jQuery(function($) {
                 /*
-                 * tree
+                 * datatable INI
                  */
-                var show = "<?php echo site_url('System/TreeShow'); ?>";
+//                  用于测试
+                tabMesShow_Pro();
+                /*
+                 * tree INI
+                 */
+                var Tree = "<?php echo site_url('MesContro/GetTreeNode'); ?>";
                 $.ajax({
                     type:"post",
-                    url:show,
+                    url:Tree,
                     async:true,
-                    dataType:'json',
+//                  dataType:'array',
                     success:function(data)
                     {
+                        var MesArray = eval("("+data+")")
                         $(".l-tree").ligerTree({
-                            data:data, 
-                            idFieldName :'id',
-                            parentIDFieldName :'ParIdS',
-                            checkbox: false, 
-                            ajaxType: 'post',
-                            isexpand:false,
-                            onClick: function (node, e)
-                            { 
-                                actionNodeID = node.data.id;
-                                sessionStorage.setItem('ModleId',actionNodeID);
-                                location.reload();
-                            },
+                            data:MesArray,
+                            idFieldName :'nodeId',
+                            checkbox:false,
+                            slide : false,
+                            parentIDFieldName :'parentId',
+                            textFieldName :'nodeName',
+                            onSelect: onSelect
                         });
+                        treeManager = $(".l-tree").ligerGetTreeManager();
+                        treeManager.collapseAll();
+                        
                     },
                     error:function(s,t,e)
                     {
@@ -164,43 +171,20 @@
                     }
                 })
                 /*
-                 * tableINI
+                 * table Action
                  */
-                var showMes = "<?php echo site_url('Form/FormList'); ?>"+'/'+dataUri+'/'+'draft';
-                var table = $('#dynamic-table').DataTable({
-//                  data:dataUri,
-                    ajax:showMes,
-                    columns:[
-                        {"data":'checkBox'},
-                        {"visible": false,"data":'id'},
-                        {"data":'rowNum'},
-                        {"data":'TabNam'},
-                        {"data":'TabCTm'},
-                        {"visible": false,"data":'id'},
-                        {"data":'id'},
-                        {"visible": false,"data":'id'},
-                    ],
-                    oLanguage: {
-                        sLengthMenu: "显示 _MENU_ 条数据",
-                    },
-                    "processing": true,
-                    "aaSorting": [],
-                    "aoColumnDefs": [{
-                        'bSortable': false,
-                        'aTargets': [0,1]
-                    }],
-                });
-                
                 $('#dynamic-table tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
                     }
                     else {
-                        table.$('tr.selected').removeClass('selected');
+                        tabMesAll.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
                     try{
-                        alert(table.row('.selected').data().id);
+                        var formId = tabMesAll.row('.selected').data().formId;
+                        var FormMesCheck = "<?php echo site_url('Form/FormMesLoad') ?>"+'/'+formId+'/pack';
+                        window.open(FormMesCheck)
                     }catch(e){
                         
                     }
@@ -225,6 +209,41 @@
                     }
                 });
             });
+            /*
+             * Path Function
+             */
+            //ini table
+            function tabMesShow_Pro(dataUri){
+                var showMes = "<?php echo site_url('MesContro/FormMod'); ?>"+'/'+dataUri;
+                tabMesAll = $('#dynamic-table').DataTable({
+                    ajax:showMes,
+                    columns:[
+                        {"data":'checkBox'},
+                        {"data":'formName'},
+                        {"data":'uploadTime'},
+                        {"data":'page'},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
+                    },
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0]
+                    }],
+                });
+            }
+            
+            //tree action
+            function onSelect(note) {
+                if(!note.data.children){
+                    tabMesShow_Pro(note.data.nodeId)
+                }
+            }
         </script>
     </body>
 

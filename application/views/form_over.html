@@ -120,23 +120,25 @@
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
         <script type="text/javascript">
+            var tabMesAll;
             jQuery(function($) {
                 /*
                  * tableINI
                  */
-                var showMes = "<?php echo site_url('Form/FormSta').'/0/over'; ?>";
-                var table = $('#dynamic-table').DataTable({
+                var showMes = "<?php echo site_url('Form/FormSta') ?>"+'/over';
+                tabMesAll = $('#dynamic-table').DataTable({
                     ajax:showMes,
                     columns:[
                         {"data":'checkBox'},
-                        {"visible": false,"data":'id'},
-                        {"data":'rowNum'},
-                        {"data":'TabNam'},
-                        {"data":'TabCTm'},
-                        {"visible": false,"data":'id'},
-                        {"data":'id'},
-                        {"visible": false,"data":'id'},
+                        {"data":'formName'},
+                        {"data":'uploadTime'},
+                        {"data":'page'},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
+                        {"data":'page','visible':false},
                     ],
                     oLanguage: {
                         sLengthMenu: "显示 _MENU_ 条数据",
@@ -147,7 +149,44 @@
                         'bSortable': false,
                         'aTargets': [0,1]
                     }],
-                });
+                })
+                
+                /*
+                 * table Action
+                 */
+                $('#dynamic-table tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        tabMesAll.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                    try{
+                        var formId = tabMesAll.row('.selected').data().formId;
+                        FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/'+formId+'/over')
+                        var FormgetHis = "<?php echo site_url('Form/FormgetHis') ?>"+'/'+formId;
+                        tableHis = $('#dynamic-table_His').DataTable({
+                            ajax:FormgetHis,
+                            columns:[
+                                {"data":'HisPeo'},
+                                {"data":'HisNam'},
+                                {"data":'HisTim'},
+                            ],
+                            oLanguage: {
+                                sLengthMenu: "显示 _MENU_ 条数据",
+                            },
+                            "processing": true,
+                            "aaSorting": [],
+                            "aoColumnDefs": [{
+                                'bSortable': false,
+                                'aTargets': [0]
+                            }],
+                        });
+                    }catch(e){
+                        
+                    }
+                })
                 /*
                  * datepicker
                  */

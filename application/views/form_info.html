@@ -65,17 +65,15 @@
 			<div class="main-content">
 			    <div class="widget-body">
                     <div class="widget-main padding-24">
-        			    <!--form tree begin-->
-        			    <?php $this->load->view('model_tree.html'); ?>
-        			    <!--form tree end-->
-                        <!--form list begin-->
-                        <?php $this->load->view("form_list.html"); ?>
-                        <!--form list end-->
+                        <!--title begin-->
+                        <button class="btn btn-primary" onclick="PageBack()">返回</button>
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+                        <!--title end-->
                         <!--model part begin-->
-        				<?php // $this->load->view("form_attr.html"); ?>
+        				<?php $this->load->view("form_attr.html"); ?>
         			    <!--model part end-->
         			    <!--model part begin-->
-                        <?php // $this->load->view('model_page.html'); ?>
+                        <?php $this->load->view('model_page.html'); ?>
                         <!--model part begin-->
         			</div>
         	    </div>
@@ -101,13 +99,6 @@
         <![endif]-->
 		<script src="<?php echo base_url()."assets/js/bootstrap.min.js"?>"></script>
 		
-		<!-- page specific plugin scripts -->
-		<script src="<?php echo base_url()."assets/js/jquery.bootstrap-duallistbox.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery.raty.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/select2.min.js"?>"></script>
-		<script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
-        <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
-        
 		<!--dataTable-->
 		<script src="<?php echo base_url()."assets/js/jquery.dataTables.min.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/jquery.dataTables.bootstrap.min.js"?>"></script>
@@ -121,6 +112,16 @@
 		<!--tree-->
 		<script src="<?php echo base_url()."assets/tree_LigerUI/js/base.js"?>"></script>
         <script src="<?php echo base_url()."assets/tree_LigerUI/js/ligerTreeShow.js"?>"></script>
+		
+		<!-- page specific plugin scripts -->
+        <script src="<?php echo base_url()."assets/js/jquery.colorbox.min.js"?>"></script>
+        
+		<!-- page specific plugin scripts -->
+		<script src="<?php echo base_url()."assets/js/jquery.bootstrap-duallistbox.min.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/jquery.raty.min.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/select2.min.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/jquery-ui.min.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/jquery.ui.touch-punch.min.js"?>"></script>
 
 		<!-- ace scripts -->
 		<script src="<?php echo base_url()."assets/js/ace-elements.min.js"?>"></script>
@@ -132,63 +133,30 @@
 		<script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
 		<script type="text/javascript">
-		    var dataUri = sessionStorage.getItem('ModleId');
-		    var tabMesAll;
 			jQuery(function($) {
-			    /*
-			     * datatable INI
-			     */
-//			        用于测试
-			    tabMesShow_Pro();
-			    /*
-			     * tree INI
-			     */
-			    var Tree = "<?php echo site_url('MesContro/GetTreeNode') ?>";
-                $.ajax({
-                    type:"post",
-                    url:Tree,
-                    async:true,
-//                  dataType:'array',
-                    success:function(data)
-                    {
-                        var MesArray = eval("("+data+")")
-                        $(".l-tree").ligerTree({
-                            data:MesArray,
-                            idFieldName :'nodeId',
-                            checkbox:false,
-                            slide : false,
-                            parentIDFieldName :'parentId',
-                            textFieldName :'nodeName',
-                            onSelect: onSelect
-                        });
-                        treeManager = $(".l-tree").ligerGetTreeManager();
-                        treeManager.collapseAll();
-                        
-                    },
-                    error:function(s,t,e)
-                    {
-                        console.log(s,t,e);
-                    }
-                })
+			    FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/draf')
                 /*
-                 * table Action
+                 * INI dataTable
                  */
-                $('#dynamic-table tbody').on('click', 'tr', function () {
-                    if ($(this).hasClass('selected')) {
-                        $(this).removeClass('selected');
-                    }
-                    else {
-                        tabMesAll.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-                    }
-                    try{
-                        var formId = tabMesAll.row('.selected').data().formId;
-                        var FormMesCheck = "<?php echo site_url('Form/FormMesLoad') ?>"+'/'+formId+'/draf';
-                        window.open(FormMesCheck)
-                    }catch(e){
-                        
-                    }
-                })
+                var IntIdA = GetQueryString('data')
+                var FormgetHis = "<?php echo site_url('Form/FormgetHis') ?>"+'/'+IntIdA;
+			    tableHis = $('#dynamic-table_His').DataTable({
+                    ajax:FormgetHis,
+                    columns:[
+                        {"data":'HisPeo'},
+                        {"data":'HisNam'},
+                        {"data":'HisTim'},
+                    ],
+                    oLanguage: {
+                        sLengthMenu: "显示 _MENU_ 条数据",
+                    },
+                    "processing": true,
+                    "aaSorting": [],
+                    "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0]
+                    }],
+                });
                 /*
                  * datepicker
                  */
@@ -208,42 +176,44 @@
                         }, 0);
                     }
                 });
+                /*
+                 * check pic
+                 */
+                var $overflow = '';
+                var colorbox_params = {
+                    rel: 'colorbox',
+                    reposition:true,
+                    scalePhotos:true,
+                    scrolling:false,
+                    previous:'<i class="ace-icon fa fa-arrow-left"></i>',
+                    next:'<i class="ace-icon fa fa-arrow-right"></i>',
+                    close:'&times;',
+                    current:'{current} of {total}',
+                    maxWidth:'100%',
+                    maxHeight:'100%',
+                    onOpen:function(){
+                        $overflow = document.body.style.overflow;
+                        document.body.style.overflow = 'hidden';
+                    },
+                    onClosed:function(){
+                        document.body.style.overflow = $overflow;
+                    },
+                    onComplete:function(){
+                        $.colorbox.resize();
+                    }
+                };
+            
+                $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+                $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
+                
+                
+                $(document).one('ajaxloadstart.page', function(e) {
+                    $('#colorbox, #cboxOverlay').remove();
+                });
 			});
 			/*
 			 * Path Function
 			 */
-            //ini table
-			function tabMesShow_Pro(dataUri){
-			    var showMes = "<?php echo site_url('MesContro/FormList'); ?>"+'/'+dataUri;
-                tabMesAll = $('#dynamic-table').DataTable({
-                    ajax:showMes,
-                    columns:[
-                        {"data":'checkBox'},
-                        {"data":'formName'},
-                        {"data":'uploadTime'},
-                        {"data":'page'},
-                        {"data":'page','visible':false},
-                        {"data":'page','visible':false},
-                        {"data":'page','visible':false},
-                    ],
-                    oLanguage: {
-                        sLengthMenu: "显示 _MENU_ 条数据",
-                    },
-                    "processing": true,
-                    "aaSorting": [],
-                    "aoColumnDefs": [{
-                        'bSortable': false,
-                        'aTargets': [0]
-                    }],
-                });
-			}
-			
-			//tree action
-			function onSelect(note) {
-                if(!note.data.children){
-                    tabMesShow_Pro(note.data.nodeId)
-                }
-            }
 			
 		</script>
 	</body>

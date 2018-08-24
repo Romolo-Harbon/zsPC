@@ -42,7 +42,8 @@ $(function(){
     if (tagName == 'formShow_Draf' || tagName == 'formShow_Pack') {
         $('#tabList').removeClass('col-xs-5');
         $('#tabList').addClass('col-xs-7');
-        
+        $('#tabDetailMes').removeClass('col-xs-7')
+        $('#tabDetailMes').addClass('col-xs-12')
     }
     
     /*

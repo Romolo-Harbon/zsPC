@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class MesContro extends CI_Controller{
     /*
      * 公用函数
@@ -9,9 +8,12 @@ class MesContro extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('MesContro_model','MesCon');
+        $this->load->model('Form_model','form');
+        $this->load->model('System_model','system');
+        
     }
     /*
-     * 功能函数
+     * 功能函数-改变状态
      */
     //改变状态【提交，归集，驳回，重新提交，撤回归集】
     public function change_sta(){
@@ -43,7 +45,7 @@ class MesContro extends CI_Controller{
     }
     
     /*
-     * 流转属性设置
+     * 功能函数-流转属性设置
      */
     //新建流转属性
     public function CirSave_New()
@@ -78,5 +80,71 @@ class MesContro extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
-    
+    /*
+     * 功能函数-获取树节点
+     * */
+    public function GetTreeNode()
+    {
+        $url = 'http://112.74.34.150:8080/TongXinweb/Tree/AllNode';
+        $ch = curl_init ();
+        curl_setopt ( $ch, CURLOPT_URL, $url );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
+        curl_setopt ( $ch, CURLOPT_POST, 1 ); //启用POST提交
+        $file_contents = curl_exec ( $ch );
+        //json解码
+        $data = json_decode($file_contents,true);
+        $array = array();
+        $arrayNodeId = array();
+        for ($i=0;$i<count($data['data']);$i++)
+        {
+            //如果这个表单模板已经存在
+            if (! in_array($data['data'][$i]['nodeId'],$arrayNodeId))
+            {
+                $array[] = $data['data'][$i];
+                $arrayNodeId[] = $data['data'][$i]['nodeId'];
+            }
+        }
+        $json = json_encode($array);
+        echo $json;
+        
+        curl_close ( $ch );
+    }
+    //按模板查询表单信息
+    public function FormList()
+    {
+        //获取未作修改的数据
+//      $url = 'http://112.74.34.150:8080/TongXinweb/form/getFormByPid?projectId=0b5c5b47-0927-48ec-a336-9b925881ec54';
+//      $ch = curl_init ();
+//      curl_setopt ( $ch, CURLOPT_URL, $url );
+//      curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+//      curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
+//      curl_setopt ( $ch, CURLOPT_POST, 1 ); //启用POST提交
+//      $file_contents = curl_exec ( $ch );
+//      //json解码
+//      $data = json_decode($file_contents,true);
+//      $array = array();
+//      foreach ($data['data'] as &$v)
+//      {
+//          $v['TabSta'] = 9;
+//          $v['checkBox'] = "<label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label>";
+//          $array[] = $v;
+//      }
+        //获取作了修改但是未提交的数据
+            //获取传递的数据
+//      $MId = $this->uri->segment(3);
+        $MId = '62f5a0f8-7d0b-4cf0-b9a3-be8fb80cf137';
+//      $data = $this->form->TreeShowSelect($MId,0,$PId);
+        $data = $this->form->TreeShowSelect($MId,0);
+        foreach($data as &$v)
+        {
+            $v['checkBox'] = "<label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label>";
+            $array[] = $v;
+        }
+        $data['aaData'] = $array;
+
+//      print_r($data['aaData']);
+        $json = json_encode($data);
+        echo $json;
+    }
 }

@@ -1,7 +1,15 @@
-function getProMesAll() {
+//平台端的接口，JS获取在此处修改，php获取在MesContro
+URL_API = "http://192.168.0.100:8080/"
+
+function getApiIp(){
+    return URL_API;
+}
+
+function getProMesAll(url) {
+    
     $.ajax({
         type:"post",
-        url:"http://localhost:8080/TongXinweb/project/AllPro",
+        url:URL_API+"TongXinweb/project/AllPro",
         async:true,
         data:'',
         dataType:'json',
@@ -19,7 +27,7 @@ function getProMesAll() {
 function getProMesSel(data) {
     $.ajax({
         type:"post",
-        url:"http://localhost:8080/TongXinweb/project/GetProById",
+        url:URL_API+"TongXinweb/project/GetProById",
         async:true,
         data:{
             "projectId":"0b5c5b47-0927-48ec-a336-9b925881ec54",
@@ -38,7 +46,7 @@ function getFomMesAll() {
     
     $.ajax({
         type:"post",
-        url:"http://localhost:8080/TongXinweb/form/Allform",
+        url:URL_API+"TongXinweb/form/Allform",
         async:true,
         data:'',
         dataType:'json',
@@ -55,7 +63,7 @@ function getFomMesSel_ProId() {
     var proId = sessionStorage.getItem('projectId');
     $.ajax({
         type:"post",
-        url:"http://localhost:8080/TongXinweb/form/getFormByPid",
+        url:URL_API+"TongXinweb/form/getFormByPid",
         async:true,
         data:{
             "projectId":proId,
@@ -75,7 +83,7 @@ function getFomMesSel_ProId() {
 function getFomMesSel_FomId() {
     $.ajax({
         type:"post",
-        url:"http://localhost:8080/TongXinweb/form/getFormByFid",
+        url:URL_API+"TongXinweb/form/getFormByFid",
         async:true,
         data:{
             "formId":"36dde2bb-d8bc-4cf2-aa7e-3c8fe2a8bb0b",
@@ -87,5 +95,20 @@ function getFomMesSel_FomId() {
         error:function(s,e,t){
             console.log(s,e,t);
         }
+    });
+}
+
+function getAllNote() {
+    $.ajax({
+    	type:"post",
+    	url:URL_API+"TongXinweb/Tree/AllNode",
+    	async:true,
+    	dataType:'json',
+    	success:function(data){
+    	    console.log(data)
+    	},
+    	error:function(s,e,t){
+    	    console.log(s)
+    	}
     });
 }

@@ -57,11 +57,6 @@
         <!--Top End-->
 
 		<div class="main-container ace-save-state" id="main-container">
-			<script type="text/javascript">
-				try {
-					ace.settings.loadState('main-container')
-				} catch(e) {}
-			</script>
 
 			<!--LeftTree Begin-->
             <?php $this->load->view("pageLeft.html"); ?>
@@ -82,7 +77,6 @@
                                     <table id="project-table" class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>id</th>
                                                 <th>工程名称</th>
                                                 <th>开始日期</th>
                                                 <th>城市名称</th>
@@ -269,12 +263,6 @@
                         sessionStorage.setItem('projectName',tabProList.row('.selected').data().projectName);
                         
                         $('.Require').removeClass('NoAction');
-//                      for (var i=0;i<3;i++) {
-//                          var text = $('.Require').find('.menu-text').eq(i).getAttribute('data-text');
-//                          alert(text);
-////                          text = test.substr(0,4);
-////                          $('.Require').find('.menu-text').eq(i).text(text);
-//                      }
                         $('#proName').text('【选中工程：'+tabProList.row('.selected').data().projectName+'】');
                         
                         $('#projectName').text(tabProList.row('.selected').data().projectName);
@@ -322,7 +310,6 @@
                 tabProList = $('#project-table').DataTable({
                     data:data,
                     columns:[
-                        {"data":'projectId','visible':false},
                         {"data":'projectName'},
                         {"data":'startDate'},
                         {"data":'cityName'},
@@ -334,7 +321,7 @@
                     "aaSorting": [],
                     "aoColumnDefs": [{
                         'bSortable': false,
-                        'aTargets': [0]
+                        'aTargets': []
                     }],
                 });
             }

@@ -10,7 +10,6 @@ class Form extends CI_Controller{
         parent::__construct();
         $this->load->model('Form_model','form');
         $this->load->model('System_model','system');
-        
     }
     /*
      * 页面显示
@@ -26,28 +25,24 @@ class Form extends CI_Controller{
     //草稿文件显示
     public function formShow_Draf()
     {
-        $data['typeForm'] = $this->system->TypeM_selectMes(0);
-        $this->load->view('form_draf.html',$data);
+        $this->load->view('form_draf.html');
     }
     //签批文件显示
     public function formShow_Sign()
     {
         $data['typeForm'] = $this->system->TypeM_selectMes(0);
-//      $data['table_mes'] = $this->form->formDraf_Sel(1);
         $this->load->view('form_sign.html',$data);
     }
     //驳回文件显示
     public function formShow_Rejt()
     {
         $data['typeForm'] = $this->system->TypeM_selectMes(0);
-//      $data['table_mes'] = $this->form->formDraf_Sel(2);
         $this->load->view('form_rejt.html',$data);
     }
     //逾期文件显示
     public function formShow_Over()
     {
         $data['typeForm'] = $this->system->TypeM_selectMes(0);
-//      $data['table_mes'] = $this->form->formDraf_Sel(3);
         $this->load->view('form_over.html',$data);
     }
     //归集文件显示
@@ -57,40 +52,14 @@ class Form extends CI_Controller{
         $this->load->view('form_pack.html',$data);
     }
     /*
-     * 表单列表显示
+     * 表单列表显示【不包括草稿部分的信息查询】
      */
-    //按模板查询
-    public function FormList()
-    {
-        $MId = $this->uri->segment(3);
-        $Type = $this->uri->segment(4);
-        $MesSta = 4;
-        if($Type == 'draft'){
-            $MesSta = 0;
-        }
-        $data['aaData'] = $this->form->TreeShowSelect($MId,$MesSta);
-        $i=1;
-        foreach($data['aaData'] as &$v)
-        {
-            $v['rowNum'] = $i;
-            $v['checkBox'] = "<label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label>";
-            $i++;
-        }
-        $json = json_encode($data);
-        echo $json;
-    }
     //按状态查询
     public function FormSta()
     {
-        $Type = $this->uri->segment(4);
-        switch($Type)
-        {
-            case 'sign':$MesSta = 1;break;
-            case 'rejt':$MesSta = 2;break;
-            case 'over':$MesSta = 3;break;
-            default:break;
-        }
-        $data['aaData'] = $this->form->formDraf_Sel($MesSta);
+        $Type = $this->uri->segment(3);
+//      $Type = 'sign';
+        $data['aaData'] = $this->form->FormSta($Type);
         $i=1;
         foreach($data['aaData'] as &$v)
         {
@@ -101,7 +70,40 @@ class Form extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
-    
-    
-    
+    //按模板查询表单【用于查询已经归档的表单】
+    public function FormMod()
+    {
+        
+    }
+    //表单信息显示
+    public function FormMesLoad()
+    {
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
+        
+        $this->load->view('form_info.html',$data);
+    }
+    //获取表单的历史信息
+    public function FormgetHis()
+    {
+        $FormId = $this->uri->segment(3);
+//      $FormId = '12d9d360-8e6b-49d1-8884-8320c14f014e';
+        
+        $data['aaData'] = $this->form->FormgetHis($FormId);
+        $json = json_encode($data);
+        echo $json;
+    }
+    //获取表单基本信息和流转属性
+    public function FormgetBC()
+    {
+    //如果选中的是接口中的数据，则应该先将数据保存到表单的数据表中
+        //获取参数
+        $FormId = $this->uri->segment(3);
+        $FormType = $this->uri->segment(4);
+//      $FormId = '12d9d360-8e6b-49d1-8884-8320c14f014e';
+//      $FormType = 'sign';
+        //获取信息
+        $data = $this->form->FormMesLoad($FormId,$FormType);
+        $json = json_encode($data);
+        echo $json;
+    }
 }
