@@ -3,23 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Affair_model extends CI_Model{
     //信息查询[待办、重要或者紧急]
-    public function affairShow_table($type)
+    public function affairShow_table($type,$projectId)
     {
-        $sql01 = "select id,TabNam as name from table_mes where TabSta=1";
-        $sql02 = "select id,FleNam as name from file_mes where FleSta=1";
+//      $sql = "SELECT IntIdA as formId,TabMId as nodeId,ProAId as projectId,TabNam as formName,TabUDa as uploadTime,TabCTm as createTime,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm FROM table_mes WHERE ProAId = '".$PId."' AND TabSta = '1' ";
+        $sql = "SELECT IntIdA as formId,TabMId as nodeId,ProAId as projectId,TabNam as formName,TabUDa as uploadTime,TabCTm as createTime,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta,TabMNa FROM table_mes WHERE TabSta = '1' and ProAId = '".$projectId."' ";
         switch ( $type ) {
             case 1:
-                $sql01 .= " and ImpSta = 1";
-                $sql02 .= " and ImpSta = 1";
+                $sql .= " and ImpSta = 1";
                 break;
             case 2:
-                $sql01 .= " and CasSta = 1";
-                $sql02 .= " and CasSta = 1";
+                $sql .= " and CasSta = 1";
                 break;
             default:break;
         }
-        $data['aaData'] = $this->db->query($sql01)->result_array();
-        $data['file'] = $this->db->query($sql02)->result_array();
+        $data['aaData'] = $this->db->query($sql)->result_array();
+        //将文档的信息插入$data['aaData']
+        
         return $data;
     }
     //信息查询[已经归档的文件]

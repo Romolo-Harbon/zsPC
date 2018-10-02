@@ -25,11 +25,6 @@ class System extends CI_Controller{
         {
             $this->load->view('system_phoe.html');
         }
-        //模板节点管理
-        public function systemShow_Form()
-        {
-            $this->load->view('system_form.html');
-        }
         //表单类型定义
         public function systemShow_FmTy()
         {
@@ -136,68 +131,6 @@ class System extends CI_Controller{
         echo $json;
     }
     /*
-     * 功能实现---表单模板树
-     */
-    //显示
-    public function TreeShow()
-    {
-        $data['tree'] = $this->system->TreeShow();
-        $json = json_encode($data['tree']);
-        echo $json;
-    }
-    //保存修改
-//  public function TreeEditSave ()
-//  {
-//      $DelNoid = $this->input->post('DelNoid');
-//      $AddNoid = $this->input->post('AddNoid');
-//      /*
-//       * 数据格式：
-//       * $DelNoid = '21/23/99999999';
-//       * $AddNoid = '99999999,8,123/100000000,8,123/100000001,8,123/100000002,10,123/12,12,123/21,12,123';
-//       */
-//      if($DelNoid)
-//      {
-//          $DelNoidArr = explode('/',$DelNoid);
-//      }
-//      else
-//      {
-//          $DelNoidArr = array();
-//      }
-//      if($AddNoid)
-//      {
-//          $AddNoidArr = explode('/',$AddNoid);
-//          //添加
-//          foreach($AddNoidArr as $i){
-//              $AddNoidArr2 = explode(',',$i);
-//              if(in_array($AddNoidArr2[0],$DelNoidArr))
-//              {
-//                  continue;
-//              }
-//              $data = array(
-//                  'NodNam'=>$AddNoidArr2[2],
-//                  'ParIdS'=>$AddNoidArr2[1],
-//                  'NodCPe'=>$_SESSION['UsePeo'],
-//                  'NodCTm'=>date('Y-m-d H:i:s'),
-//              );
-//              $this->system->TreeEditSaveN($data);
-//          }
-//      }
-//      //删除
-//      foreach($DelNoidArr as $y){
-//          if($y>(int)'999999999')
-//          {
-//              continue;
-//          }
-//          $data = array(
-//              'id'=>$y,
-//          );
-//          $dataPId = array(
-//              'ParIdS'=>$y,
-//          );
-//          $this->system->TreeEditSaveD($data,$dataPId);
-//      }
-//  }
-    /*
      * 功能实现---部门及人员设置
      */
     //显示部门信息
@@ -240,18 +173,23 @@ class System extends CI_Controller{
         {
             error('System/systemShow_Depm','请正确填写部门名称，勿必保证部门名不重合');
         }
-        
-        
     }
     //删除部门信息
     public function Role_Del()
     {
         $id = $this->uri->segment(3);
-        $this->system->RoleDel($id);
-        success('System/systemShow_Depm','已删除指定类型');
+        $status = $this->system->RoleDel($id);
+        $data['status'] = 'fail';
+        if($status)
+        {
+            $data['status'] = 'success';
+        }
+        $json = json_encode($data);
+        echo $json;
     }
     //修改部门信息
-    public function Role_Edit(){
+    public function Role_Edit()
+    {
         //待添加验证
         $TypeId = $this->input->post('TypeId');
         $data = array(
@@ -342,7 +280,7 @@ class System extends CI_Controller{
             'UsePPe' => $_SESSION['UsePeo'],
             'UsePTm' => $time,
             'UseCPe' => $_SESSION['UsePeo'],
-            'UseCTm' => $time
+            'UseCTm' => $time,
         );
         $data['peo'] = $_SESSION['UsePeo'];
         $data['time'] = $time;
@@ -353,6 +291,5 @@ class System extends CI_Controller{
             $json = json_encode($data);
             echo $json;
         }
-        
     }
 }

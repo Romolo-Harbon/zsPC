@@ -885,7 +885,7 @@
             var treeWidth = g.maxOutlineLevel * 22;
             if (p.checkbox) treeWidth += 22;
             if (p.parentIcon || p.childIcon) treeWidth += 22;
-            treeWidth += (p.nodeWidth+200);
+            treeWidth += (p.nodeWidth+100);
             g.tree.width(treeWidth);
         },
         _getChildNodeClassName: function ()

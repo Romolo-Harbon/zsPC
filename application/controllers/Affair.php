@@ -38,31 +38,13 @@ class Affair extends CI_Controller{
     /*
      * 信息查询
      */
-    //信息查询[0/待办事项,1/重要文件,2/紧急文件,3/归档文件]
+    //信息查询[0/待办事项,1/重要文件,2/紧急文件]
+        //表单查询
     public function affair_MesShow(){
         $mesType = $this->uri->segment(3);
-        //查询归集文件
-        if($mesType == 3){
-            $data['aaData'] = $this->affair->affairShow_packDoc($mesType);
-            $json = json_encode($data);
-            echo  $json;
-            die;
-        }
+        $projectId = $this->uri->segment(4);
         //查询待办、重要或者紧急
-        $data = $this->affair->affairShow_table($mesType);
-        foreach($data['aaData'] as &$v)
-        {
-            $v['typeC'] = '表单';
-            $v['type'] = 'file';
-        }
-        foreach($data['file'] as &$v)
-        {
-            $v['typeC'] = '文档';
-            $v['type'] = 'doc';
-            $data['aaData'][] = $v;
-        }
-        //销毁数组
-        unset($data['file']);
+        $data = $this->affair->affairShow_table($mesType,$projectId);
         $json = json_encode($data);
         echo $json;
     }
@@ -88,6 +70,14 @@ class Affair extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
-    
+    //获取账号手机号码
+    public function getMobile()
+    {
+        echo $_SESSION['UsePho'];
+    }
+    /*
+     * 个人事务
+     */
+//  public function
     
 }

@@ -31,27 +31,6 @@ class System_model extends CI_Model
         $this->db->update($Type,$data,array('id'=>$id));
     }
     /*
-     * 模板节点
-     */
-    //显示
-    public function TreeShow()
-    {
-        $data = $this->db->query('SELECT id,ParIdS,NodNam as text FROM noidSet WHERE NodSta=0')->result_array();
-        return $data;
-    }
-    //保存新建
-    public function TreeEditSaveN ($data)
-    {
-        $this->db->insert('noidset',$data);
-    }
-    //保存删除
-    public function TreeEditSaveD ($data,$dataPId)
-    {
-        $this->db->delete('noidset',$data);
-        $this->db->delete('noidset',$dataPId);
-        //$this->db->update('noidset',array('NodSta'=>9),$data);
-    }
-    /*
      * 部门及人员设置
      */
     //信息显示
@@ -69,6 +48,15 @@ class System_model extends CI_Model
     public function RoleDel($id)
     {
         $this->db->delete('role',array('id'=>$id));
+        //验证是否删除成功
+        $sql = "select id from role where id = '".$id."'";
+        $query = $this->db->query($sql);
+        $row = $query->row_array();
+        if(isset($row))
+        {
+            return 0;
+        }
+        return 1;
     }
     //修改部门
     public function RoleM_Edit($data,$id)
@@ -89,7 +77,7 @@ class System_model extends CI_Model
         $data['deptMes'] = $this->db->query($sqlSel)->result_array();
         //部门人员信息
             //查部门绑定的用户id
-        $data['roleMesSelEd'] = $this->db->query('SELECT c.id,c.UseAcc,c.UsePeo FROM link_userol b,`user` c WHERE b.RolIdS = '.$id.' and b.UseIdS = c.id and b.DatSta = 0')->result_array();
+        $data['roleMesSelEd'] = $this->db->query('SELECT c.id,c.UseAcc,c.UsePeo FROM link_userol b,`user` c WHERE b.RolIdS = '.$id.' and b.UseIdS = c.id and b.DatSta = 0 and c.UseSta=1 ')->result_array();
             //部门未绑定的用户id
         $arrayMes = array();
         foreach($data['roleMesSelEd'] as $v)
@@ -102,6 +90,8 @@ class System_model extends CI_Model
         {
             $this->db->where_not_in('id', $arrayMes);
         }
+        $this->db->where('UseSta',1);
+        $this->db->where('RolSta',0);
         $this->db->select('id,UseAcc,UsePeo');
         $data['roleMesSelNo'] = $this->db->get('user')->result_array();
         
@@ -144,16 +134,16 @@ class System_model extends CI_Model
             switch( $v['UseSta'] )
             {
                 case 0:
-                    $v['UseStaMes'] = '已注册,未通过';
+                    $v['UseStaMes'] = '注册,未通过';
                     break;
                 case 1:
-                    $v['UseStaMes'] = '已通过';
+                    $v['UseStaMes'] = '正常';
                     break;
                 case 2:
                     $v['UseStaMes'] = '已注销';
                     break;
                 case 3:
-                    $v['UseStaMes'] = '已删除';
+                    $v['UseStaMes'] = '删除';
                     break;
                 default:break;
             }
@@ -163,9 +153,21 @@ class System_model extends CI_Model
     //显示详情
     public function Account_ShowDetail($MId)
     {
-        $data = $this->db->query("select UseAcc,UsePho,UseEls,UseSta,UsePeo,UseTim,UsePPe,UsePTm,UseCPe,UseCTm from user where id = '".$MId."'")->result_array();
+        $data = $this->db->query("select RolSta,UseAcc,UsePho,UseEls,UseSta,UsePeo,UseTim,UsePPe,UsePTm,UseCPe,UseCTm from user where id = '".$MId."'")->result_array();
+        //如果已经分配部门则查找部门信息
+        if($data[0]['RolSta'] == 1)
+        {
+            $sql_Dep = "select RolNam from Check_UseRol where UseIdS = '".$MId."'";
+            $row = $this->db->query($sql_Dep)->result_array();
+            $DepartMea = '';
+            if(isset($row)){
+                $DepartMea = $row[0]['RolNam'];
+            }
+        }
+        
         foreach( $data as &$v )
         {
+            $v['depart'] = $DepartMea;
             switch( $v['UseSta'] )
             {
                 case 0:

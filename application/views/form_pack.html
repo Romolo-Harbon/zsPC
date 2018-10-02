@@ -67,13 +67,21 @@
                         <?php $this->load->view('model_tree.html'); ?>
                         <!--form tree end-->
                         <!--form list begin-->
-                        <?php $this->load->view("form_list.html"); ?>
+                        <?php // $this->load->view("form_list.html"); ?>
                         <!--form list end-->
+                        <!--Action Button Beg-->
+                        <div class="col-lg-7">
+                            <input id="formId" hidden="hidden"/>
+                            <button class="btn btn-primary" id="CallBk" onclick="ChangeSta(StaChange+'/CallBk/pack','pack')">撤回归集</button>
+                            <button class="btn btn-primary" id="ReUpld" onclick="ChangeSta(StaChange+'/ReUpld/pack','pack')">重新提交</button>
+                            <button class="btn btn-primary" id="Delete" onclick="HardWroking()">删除</button><!--ChangeSta(StaChange+'/Delete/pack','pack')-->
+                        </div>
+                        <!--Action Button End-->
                         <!--form mess begin-->
-                        <?php // $this->load->view("form_attr.html"); ?>
+                        <?php $this->load->view("form_attr.html"); ?>
                         <!--form mess end-->
                         <!--model part begin-->
-                        <?php // $this->load->view('model_page.html'); ?>
+                        <?php $this->load->view('model_page.html'); ?>
                         <!--model part begin-->
                     </div>
                 </div>
@@ -128,22 +136,23 @@
 
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
-        <script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/ActionMes.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
         <script type="text/javascript">
             var dataUri = sessionStorage.getItem('ModleId');
+            projectId = sessionStorage.getItem('projectId')
             var tabMesAll;
             jQuery(function($) {
                 /*
                  * datatable INI
                  */
-//                  用于测试
-                tabMesShow_Pro();
+                
                 /*
                  * tree INI
                  */
-                var Tree = "<?php echo site_url('MesContro/GetTreeNode'); ?>";
+                var Tree = "<?php echo site_url('MesContro/GetTreeNodePack') ?>"+'/'+projectId;
+                console.log(Tree)
                 $.ajax({
                     type:"post",
                     url:Tree,
@@ -192,7 +201,8 @@
                 /*
                  * datepicker
                  */
-                $( "#datepicker" ).datepicker({
+                $( "#datepickerForm" ).datepicker({
+                    dateFormat: "yy-mm-dd",
                     showOtherMonths: true,
                     selectOtherMonths: false,
 //                  isRTL:true,
@@ -218,7 +228,7 @@
                 tabMesAll = $('#dynamic-table').DataTable({
                     ajax:showMes,
                     columns:[
-                        {"data":'checkBox'},
+//                      {"data":'checkBox'},
                         {"data":'formName'},
                         {"data":'uploadTime'},
                         {"data":'page'},

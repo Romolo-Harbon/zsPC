@@ -12,7 +12,7 @@
         <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap.min.css"?>" />
         <link rel="stylesheet" href="<?php echo base_url()."assets/font-awesome/4.5.0/css/font-awesome.min.css"?>" />
-
+        
         <!-- page specific plugin styles -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-duallistbox.min.css"?>" />
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/bootstrap-multiselect.min.css"?>" />
@@ -21,7 +21,7 @@
         
         <!-- text fonts -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/fonts.googleapis.com.css"?>" />
-
+        
         <!-- ace styles -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/ace.min.css"?>" class="ace-main-stylesheet" id="main-ace-style" />
         
@@ -33,7 +33,7 @@
         <![endif]-->
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/ace-skins.min.css"?>" />
         <link rel="stylesheet" href="<?php echo base_url()."assets/css/ace-rtl.min.css"?>" />
-
+        
         <!--[if lte IE 9]>
           <link rel="stylesheet" href="<?php echo base_url()."assets/css/ace-ie.min.css"?>" />
         <![endif]-->
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-        
+                        
                         <div class="col-sm-7">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -101,9 +101,9 @@
                                                 <li class="active">
                                                     <a data-toggle="tab" href="#home1">常规</a>
                                                 </li>
-                                                <li>
+                                                <!--<li>
                                                     <a data-toggle="tab" href="#home2">权限分配</a>
-                                                </li>
+                                                </li>-->
                                             </ul>
                                             <div class="tab-content">
                                                 <div id="home1" class="tab-pane in active">
@@ -173,11 +173,10 @@
                                 
                                                     </div>
                                                 </div>
-                                                <div id="home2" class="tab-pane">
-                                                    <table id="account-table" class="table table-striped table-bordered table-hover">
+                                                <!--<div id="home2" class="tab-pane">
+                                                    <table id="limits-table" class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>id</th>
                                                                 <th>#</th>
                                                                 <th>用户名</th>
                                                                 <th>用户账号</th>
@@ -189,7 +188,7 @@
                                                         <tbody>
                                                         </tbody>
                                                     </table>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +244,19 @@
         <script type="text/javascript">
             var tabProList;
             jQuery(function($) {
-                getProMesAll();
+                var getMobile = "<?php echo site_url('Affair/getMobile'); ?>";
+                $.ajax({
+                	type:"post",
+                	url:getMobile,
+                	async:true,
+                	success:function(data){
+                	    getProMesAll(data);
+                	},
+                	error:function(s,e,t){
+                	    console.log(e)
+                	}
+                });
+                
                 /*
                  * tableAction
                  */
@@ -275,37 +286,12 @@
                         $('#cityCode').text(tabProList.row('.selected').data().cityCode);
                         $('#cityName').text(tabProList.row('.selected').data().cityName);
                         
-                        tabProSel();
                     }catch(e){}
                 })
             })
-            function tabProSel(data){
-//              var showMes2 = "<?php echo site_url('Affair/accountPach'); ?>"+'/'+MesIdAcc;
-//              console.log(showMes2);
-                
-//               var table2 = $('#account-table').DataTable({
-//                  data:data,
-//                  columns:[
-//                      {"data":'id','visible':false},
-//                      {"data":'id'},
-//                      {"data":'id'},
-//                      {"data":'id'},
-//                      {"data":'id','visible':false},
-//                      {"data":'id','visible':false},
-//                      {"data":'id'},
-//                      {"data":'id'},
-//                  ],
-//                  oLanguage: {
-//                      sLengthMenu: "显示 _MENU_ 条数据",
-//                  },
-//                  "processing": true,
-//                  "aaSorting": [],
-//                  "aoColumnDefs": [{
-//                      'bSortable': false,
-//                      'aTargets': [0,1]
-//                  }],
-//              });
-            }
+            /*
+             * function
+             */
             function tableProAll(data){
                 tabProList = $('#project-table').DataTable({
                     data:data,

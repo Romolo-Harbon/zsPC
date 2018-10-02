@@ -100,9 +100,9 @@
                                         <li class="active">
                                             <a data-toggle="tab" href="#home1"> 基本信息 </a>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <a data-toggle="tab" href="#home2"> 账号权限 </a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                     <div class="tab-content">
                                         <div id="home1" class="tab-pane in active">
@@ -111,7 +111,15 @@
                                             <button class="btn btn-danger" id="AccDelete"> 删除账号 </button>
                                             <br /><br />
                                             <div class="profile-user-info profile-user-info-striped">
-                                                
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 所属部门 </div>
+                                                    <div class="profile-info-value">
+                                                        <span class="editable" id="UseBelong"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="profile-user-info profile-user-info-striped">
                                                 <div class="profile-info-row">
                                                     <div class="profile-info-name"> 账号 </div>
                                                     <div class="profile-info-value">
@@ -181,19 +189,13 @@
                                                         <textarea id="UseEls" cols="40" ></textarea>
                                                     </div>
                                                 </div>-->
-                                                
                                             </div>
                                         </div>
-                                        <div id="home2" class="tab-pane ">
+                                        <!--<div id="home2" class="tab-pane ">
                                             <button class="btn btn-primary" id=""> 修改个人权限 </button>
                                             <br /><br />
                                             <div class="profile-user-info profile-user-info-striped">
-                                                <div class="profile-info-row">
-                                                    <div class="profile-info-name"> 所属部门 </div>
-                                                    <div class="profile-info-value">
-                                                        <span class="editable" id="UseBelong"></span>
-                                                    </div>
-                                                </div>
+                                                
                                                 
                                                 <div class="profile-info-row">
                                                     <div class="profile-info-name"> 部门角色 </div>
@@ -232,7 +234,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -340,15 +342,16 @@
                             },
                             success:function(data)
                             {
-                                $('#UseAcc').text(data['AccountMes'][0]['UseAcc']);
-                                $('#UseName').text(data['AccountMes'][0]['UsePeo']);
-                                $('#UsePho').text(data['AccountMes'][0]['UsePho']);
-                                $('#UseCTm').text(data['AccountMes'][0]['UseTim']);
-                                $('#UseSta').text(data['AccountMes'][0]['UseStaMes']);
-                                $('#UsePassPeo').text(data['AccountMes'][0]['UsePPe']);
-                                $('#UsePassTim').text(data['AccountMes'][0]['UsePTm']);
-                                $('#ChangePeo').text(data['AccountMes'][0]['UseCPe']);
-                                $('#ReTime').text(data['AccountMes'][0]['UseCTm']);
+                                $('#UseAcc').text(data['AccountMes'][0]['UseAcc'])
+                                $('#UseName').text(data['AccountMes'][0]['UsePeo'])
+                                $('#UsePho').text(data['AccountMes'][0]['UsePho'])
+                                $('#UseCTm').text(data['AccountMes'][0]['UseTim'])
+                                $('#UseSta').text(data['AccountMes'][0]['UseStaMes'])
+                                $('#UsePassPeo').text(data['AccountMes'][0]['UsePPe'])
+                                $('#UsePassTim').text(data['AccountMes'][0]['UsePTm'])
+                                $('#ChangePeo').text(data['AccountMes'][0]['UseCPe'])
+                                $('#ReTime').text(data['AccountMes'][0]['UseCTm'])
+                                $('#UseBelong').text(data['AccountMes'][0]['depart'])
                             },
                             error:function(s,t,e)
                             {

@@ -1,21 +1,31 @@
 //平台端的接口，JS获取在此处修改，php获取在MesContro
-URL_API = "http://192.168.0.100:8080/"
+URL_API = "http://112.74.34.150:8080/"
 
 function getApiIp(){
     return URL_API;
 }
 
-function getProMesAll(url) {
-    
+function getProMesAll(dataPho) {
     $.ajax({
         type:"post",
         url:URL_API+"TongXinweb/project/AllPro",
         async:true,
-        data:'',
         dataType:'json',
         success:function(data){
             if(data['success']) {
-                tableProAll(data['data']);
+                var Mes  = '['
+                for (var i=0;i<data['data'].length;i++) {
+                	if(data['data'][i]['mobile'] == dataPho)
+                	{
+//              	    console.log(JSON.stringify(data['data'][i]))
+                	    Mes += JSON.stringify(data['data'][i])
+                	    Mes += ','
+                	}
+                }
+                Mes = Mes.substr(0,Mes.length-1)
+                Mes += ']'
+                var MesObj = eval('(' + Mes + ')');
+                tableProAll(MesObj)
             }
         },
         error:function(s,e,t){

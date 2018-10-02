@@ -25,7 +25,8 @@ class Form extends CI_Controller{
     //草稿文件显示
     public function formShow_Draf()
     {
-        $this->load->view('form_draf.html');
+        $data['typeForm'] = $this->system->TypeM_selectMes(0);
+        $this->load->view('form_draf.html',$data);
     }
     //签批文件显示
     public function formShow_Sign()
@@ -70,11 +71,6 @@ class Form extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
-    //按模板查询表单【用于查询已经归档的表单】
-    public function FormMod()
-    {
-        
-    }
     //表单信息显示
     public function FormMesLoad()
     {
@@ -98,12 +94,38 @@ class Form extends CI_Controller{
     //如果选中的是接口中的数据，则应该先将数据保存到表单的数据表中
         //获取参数
         $FormId = $this->uri->segment(3);
-        $FormType = $this->uri->segment(4);
 //      $FormId = '12d9d360-8e6b-49d1-8884-8320c14f014e';
-//      $FormType = 'sign';
         //获取信息
-        $data = $this->form->FormMesLoad($FormId,$FormType);
+        $data = $this->form->FormMesLoad($FormId,'table_mes');
         $json = json_encode($data);
         echo $json;
     }
+    //保存表单基本信息的修改
+    public function FormMesBaseSave()
+    {
+        $formId = $this->uri->segment(3);
+        $TableName = $this->uri->segment(4);
+        $FormName = $this->input->post('FormName');
+        $FormType = $this->input->post('FormType');
+        $DLtime = $this->input->post('DLtime');
+        $TabEls = $this->input->post('TabEls');
+        
+//      $FormName = 'ceshi';
+//      $FormType = '建筑设计文档';
+//      $DLtime = '2018-08-16';
+//      $TabEls = 'ko';
+        
+        $ChangeMes = array( 'TabNam'=>$FormName,'TabEls'=>$TabEls,'TabDTm'=>$DLtime );
+        //保存信息
+        $data = $this->form->FormMesBaseSave($formId,$ChangeMes,$FormType,$TableName);
+        $json = json_encode($data);
+        echo $json;
+    }
+    
+    //保存表单流转属性的修改
+    public function FormMesCirSave()
+    {
+        //
+    }
+    
 }

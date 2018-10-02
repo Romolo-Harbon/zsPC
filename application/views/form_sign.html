@@ -64,6 +64,14 @@
                         <!--form list begin-->
                         <?php $this->load->view("form_list.html"); ?>
                         <!--form list end-->
+                        <!--Action Button Beg-->
+                        <div class="col-lg-7">
+                            <input id="formId" hidden="hidden"/>
+                            <button class="btn btn-primary" id="Reject" onclick="ChangeSta(StaChange+'/Reject/sign','sign')">驳回</button>
+                            <button class="btn btn-primary" id="PackUp" onclick="ChangeSta(StaChange+'/PackUp/sign','sign')">归集</button>
+                            <button class="btn btn-primary" id="Delete" onclick="HardWroking()">删除</button><!--ChangeSta(StaChange+'/Delete/sign','draf')-->
+                        </div>
+                        <!--Action Button End-->
                         <!--form mess begin-->
                         <?php $this->load->view("form_attr.html"); ?>
                         <!--form mess end-->
@@ -119,11 +127,13 @@
         
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
-        <script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
+        <script src="<?php echo base_url()."assets/js/self/ActionMes.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
         <script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
         <script type="text/javascript">
             var tabMesAll;
+            projectId = sessionStorage.getItem('projectId')
+            var StaChange = "<?php echo site_url('MesContro/StaChange') ?>"
             jQuery(function($) {
                 /*
                  * tableINI
@@ -132,7 +142,7 @@
                 tabMesAll = $('#dynamic-table').DataTable({
                     ajax:showMes,
                     columns:[
-                        {"data":'checkBox'},
+//                      {"data":'checkBox'},
                         {"data":'formName'},
                         {"data":'uploadTime'},
                         {"data":'page'},
@@ -166,23 +176,23 @@
                         var formId = tabMesAll.row('.selected').data().formId;
                         FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/'+formId+'/sign')
                         var FormgetHis = "<?php echo site_url('Form/FormgetHis') ?>"+'/'+formId;
-                        tableHis = $('#dynamic-table_His').DataTable({
-                            ajax:FormgetHis,
-                            columns:[
-                                {"data":'HisPeo'},
-                                {"data":'HisNam'},
-                                {"data":'HisTim'},
-                            ],
-                            oLanguage: {
-                                sLengthMenu: "显示 _MENU_ 条数据",
-                            },
-                            "processing": true,
-                            "aaSorting": [],
-                            "aoColumnDefs": [{
-                                'bSortable': false,
-                                'aTargets': [0]
-                            }],
-                        });
+//                      tableHis = $('#dynamic-table_His').DataTable({
+//                          ajax:FormgetHis,
+//                          columns:[
+//                              {"data":'HisPeo'},
+//                              {"data":'HisNam'},
+//                              {"data":'HisTim'},
+//                          ],
+//                          oLanguage: {
+//                              sLengthMenu: "显示 _MENU_ 条数据",
+//                          },
+//                          "processing": true,
+//                          "aaSorting": [],
+//                          "aoColumnDefs": [{
+//                              'bSortable': false,
+//                              'aTargets': [0]
+//                          }],
+//                      });
                     }catch(e){
                         
                     }
@@ -190,7 +200,8 @@
                 /*
                  * datepicker
                  */
-                $( "#datepicker" ).datepicker({
+                $( "#datepickerForm" ).datepicker({
+                    dateFormat: "yy-mm-dd",
                     showOtherMonths: true,
                     selectOtherMonths: false,
 //                  isRTL:true,

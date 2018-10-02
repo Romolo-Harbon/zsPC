@@ -7,7 +7,7 @@ class Document_model extends CI_Model{
      */
     public function File_SelType()
     {
-        $data = $this->db->query("SELECT id,TypNam FROM `type_file` WHERE TypSta = 0")->result_array();
+        $data = $this->db->query("SELECT id,TypNam FROM `type_mes` WHERE TypeFT = 1")->result_array();
         return $data;
     }
     

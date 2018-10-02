@@ -4,7 +4,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>表单草稿 - 中山建设监理建筑工程文档协同管理系统</title>
+		<title>表单属性 - 中山建设监理建筑工程文档协同管理系统</title>
 
 		<meta name="description" content="overview &amp; stats" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -132,13 +132,16 @@
 		<script src="<?php echo base_url()."assets/js/self/MesAction.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/self/api.js"?>"></script>
 		<script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
+		<script src="<?php echo base_url()."assets/js/self/ActionModel.js"?>"></script>
 		<script type="text/javascript">
+		    $('#tabDetailMes').removeClass('col-xs-7')
+            $('#tabDetailMes').addClass('col-xs-12')
 			jQuery(function($) {
-			    FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/draf')
+                var IntIdA = GetQueryString('data')
+                FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/'+IntIdA)
                 /*
                  * INI dataTable
                  */
-                var IntIdA = GetQueryString('data')
                 var FormgetHis = "<?php echo site_url('Form/FormgetHis') ?>"+'/'+IntIdA;
 			    tableHis = $('#dynamic-table_His').DataTable({
                     ajax:FormgetHis,

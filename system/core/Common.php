@@ -880,3 +880,14 @@ function consoleShow($msg){
     header('Content-Type:text/html;charset=utf-8');
     echo"<script type='text/javascript'>console.log('$msg');</script>";
 }
+
+//function GetApiUrl()
+//{
+//  echo 'http://112.74.34.150';
+//}
+
+//获取毫秒级时间戳
+function getMillisecond() {
+    list($t1, $t2) = explode(' ', microtime());
+    return (float)sprintf('%.0f',(floatval($t1)+floatval($t2))*1000);
+}

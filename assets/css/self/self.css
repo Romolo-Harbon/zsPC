@@ -40,3 +40,13 @@
 .Select2Height {
     height: 350px;
 }
+
+/*
+ * 表单草稿
+ */
+/*未进行属性修改前*/
+.NoSelTabType {
+    pointer-events: none; /* 元素永远不会成为鼠标事件的target */
+    background-color: #A0A0A0!important;
+    border-color: #A0A0A0
+}

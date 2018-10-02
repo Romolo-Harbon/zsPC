@@ -17,16 +17,27 @@ function FormGetMes(uri){
 
 //show form mes
 function showFormMes(MesPack){
+    //clear old mes
+    $('#ChaFormName').attr('value','')
+    $('#ChaFormType').text()
+    $('#datepickerForm').attr('value','')
+    $('#ChaTabEls').text()
+    //fill change model
+    $('#ChaFormName').attr('value',MesPack['base'][0]['TabNam'])
+    $('#ChaFormType').text(MesPack['type'])
+    $('#datepickerForm').attr('value',MesPack['base'][0]['TabDTm'])
+    $('#ChaTabEls').text(MesPack['base'][0]['TabEls'])
+    
     //show baseMes
     $('#FormName').text(MesPack['base'][0]['TabNam'])
-    $('#FormType').text(MesPack['base'][0]['TabTyp'])
+    $('#FormType').text(MesPack['type'])
     $('#ReTime').text(MesPack['base'][0]['TabCTm'])
     $('#DLtime').text(MesPack['base'][0]['TabDTm'])
     $('#TabEls').text(MesPack['base'][0]['TabEls'])
         //show pic
     $('.clearfix').html('')
     var EleText = ''
-    var ImgUrl = MesPack['base'][0]['imgurl'].split('.png')
+    var ImgUrl = MesPack['base'][0]['imgurl'].split('(')
     var ApiUrl = getApiIp()
     for (var i=0;i<MesPack['base'][0]['page'];i++) {
     	EleText += "<li>"
@@ -39,7 +50,8 @@ function showFormMes(MesPack){
         EleText += "</li>"
     }
     $('.clearfix').append(EleText)
-    
+    //clear circleMes
+    $('.steps').html('')
     //show circleMes
     EleText = ''
     var MesSta = '';
@@ -51,7 +63,7 @@ function showFormMes(MesPack){
         }
         EleText += "<li data-step='"+(i+1)+"' class='"+MesSta+"'>"
         EleText += "<span class='step'>"+(i+1)+"</span>"
-        EleText += "<span class='title'>"+MesPack['cirDetali'][i]['DepIdS']+"</span>"
+        EleText += "<span class='title'>"+MesPack['cirDetali'][i]['DepNam']+"</span>"
         EleText += "</li>"
     }
     $('.steps').append(EleText)

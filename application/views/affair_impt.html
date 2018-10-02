@@ -73,7 +73,7 @@
         				<?php $this->load->view('affair_list.html'); ?>
         				<!--affair list end-->
         				<!--affair attr begin-->
-                        <?php $this->load->view('affair_attr.html'); ?>
+                        <?php // $this->load->view('affair_attr.html'); ?>
                         <!--affair attr end-->
                         
                         <!--circle model begin-->
@@ -129,25 +129,21 @@
         <!-- inline scripts related to this page -->
         <script src="<?php echo base_url()."assets/js/self/Show_LeftTreeA.js"?>"></script>
         <script type="text/javascript">
-            var MesIdAcc = '';
-            var fileSel = '';
+            projectId = sessionStorage.getItem('projectId');
             jQuery(function($) {
                 /*
                  * tableINI
                  */
-                //table_1
-                var showMes = "<?php echo site_url('Affair/affair_MesShow'); ?>"+'/1';
-                var table1 = $('#dynamic-table').DataTable({
+                //table_table
+                
+                var showMes = "<?php echo site_url('Affair/affair_MesShow'); ?>"+'/2/'+projectId;
+                var tableTab = $('#dynamic-table_table').DataTable({
                     ajax:showMes,
                     columns:[
-                        {"data":'id','visible':false},
-                        {"data":'id','visible':false},
-                        {"data":'name'},
-                        {"data":'typeC'},
-                        {"data":'type','visible':false},
-                        {"data":'id','visible':false},
-                        {"data":'id','visible':false},
-                        {"data":'id','visible':false},
+                        {"data":'formName'},
+                        {"data":'TabTyp'},
+                        {"data":'createTime'},
+                        {"data":'TabDTm'},
                     ],
                     oLanguage: {
                         sLengthMenu: "显示 _MENU_ 条数据",
@@ -156,73 +152,24 @@
                     "aaSorting": [],
                     "aoColumnDefs": [{
                         'bSortable': false,
-//                      'aTargets': [0,1]
+                        'aTargets': [0,1]
                     }],
                 });
-                $('#dynamic-table tbody').on('click', 'tr', function () {
+                $('#dynamic-table_table tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
                     }
                     else {
-                        table1.$('tr.selected').removeClass('selected');
+                        tableTab.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
                     try{
-                        sessionStorage.setItem('projectId',table1.row('.selected').data().id);
-                        fileSel = "<?php echo site_url('Affair/MesSel'); ?>"+'/'+table1.row('.selected').data().id+'/'+table1.row('.selected').data().type;
-                        console.log(fileSel);
-                        $.ajax({
-                            url:fileSel,
-                            async:true,
-                            type:'post',
-//                          dataType:'json',
-                            success:function(data){
-                                console.log(data);
-                            },
-                            error:function(s,e,t){
-                                console.log(s,e,t);
-                            }
-                        })
+                        var formId = tableTab.row('.selected').data().formId;
+                        var FormMesCheck = "<?php echo site_url('Form/FormMesLoad') ?>"+'?data='+formId;
+                        console.log(FormMesCheck)
+                        window.open(FormMesCheck)
                     }catch(e){ }
                 })
-                /*
-                 * model
-                 */
-                $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-                    _title: function(title) {
-                        var $title = this.options.title || '&nbsp;'
-                        if( ("title_html" in this.options) && this.options.title_html == true )
-                            title.html($title);
-                        else title.text($title);
-                    }
-                }));
-                
-                $( "#id-btn-dialog" ).on('click', function(e) {
-                    e.preventDefault();
-                    var dialog = $( "#dialog-message" ).removeClass('hide').dialog({
-                        modal: true,
-                        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i>工作流设置</h4></div>",
-                        title_html: true,
-                        buttons: [ 
-                            {
-                                text: "取消",
-                                "class" : "btn btn-minier",
-                                click: function() {
-                                    $( this ).dialog( "close" ); 
-                                } 
-                            },
-                            {
-                                text: "确定",
-                                "class" : "btn btn-primary btn-minier",
-                                click: function() {
-                                    $( this ).dialog( "close" ); 
-                                } 
-                            }
-                        ],
-                        width: "900px"
-                    });
-                });
-                
             })
         </script>
 	</body>

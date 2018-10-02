@@ -414,7 +414,7 @@
                         <label class="col-sm-3 control-label no-padding-right">表单名 ：</label>
                         <div class="col-sm-5">
                             <span class="block input-icon input-icon-right">
-                                <input class="NewDocMes" type="text" id="" />
+                                <input class="NewDocMes" type="text" id="ChaFormName" />
                             </span>
                         </div>
                         <div class="help-block col-xs-12 col-sm-reset inline"> </div>
@@ -424,8 +424,8 @@
                         <label class="col-sm-3 control-label no-padding-right">表单类别 ：</label>
                         <div class="col-sm-5">
                             <span class="block input-icon input-icon-right">
-                                <select>
-                                    <option></option>
+                                <select id="SelFormType">
+                                    <option id="ChaFormType"></option>
                                     <?php foreach($typeForm as $v){ ?>
                                         <option data-id-Type="<?=$v['id']?>"><?=$v['TypNam']?></option>
                                     <?php } ?>
@@ -435,11 +435,11 @@
                         <div class="help-block col-xs-12 col-sm-reset inline"> </div>
                     </div>
                     
-                    <div class="form-group has-info  page-header">
+                    <div class="form-group has-info page-header">
                         <label class="col-sm-3 control-label no-padding-right">截止时间 ：</label>
                         <div class="col-sm-5">
                             <span class="block input-icon input-icon-right">
-                                <input class="NewDocMes" type="text" id="" />
+                                <input type="text" id="datepickerForm" class="form-control" />
                             </span>
                         </div>
                         <div class="help-block col-xs-12 col-sm-reset inline"> </div>
@@ -448,7 +448,7 @@
                     <div class="form-group has-info  page-header" style="height: 100px;">
                         <label class="col-sm-3 control-label no-padding-right">表单说明 ：</label>
                         <div class="col-sm-5">
-                            <textarea cols="47" size="16" rows="2" type="text" value="value" id=""></textarea>
+                            <textarea cols="47" size="16" rows="2" type="text" value="value" id="ChaTabEls"></textarea>
                         </div>
                         <div class="help-block col-xs-12 col-sm-reset inline"> </div>
                     </div>
@@ -456,7 +456,7 @@
                 </div>
                 <br /><br />
                 <div class="modal-footer no-margin-top">
-                    <button class="btn btn-sm btn-success pull-right" data-dismiss="">
+                    <button class="btn btn-sm btn-success pull-right" data-dismiss="" onclick="FormMesSave()">
                         <i class="ace-icon fa fa-floppy-o bigger-125"></i>
                         <span>保存</span>
                     </button>
@@ -471,3 +471,44 @@
     <!--mess set end-->
     
 <!--model text end-->
+    
+<script type="text/javascript">
+//save form message change
+function FormMesSave(){
+    var formId = $('#formId').attr('value')
+    var tagName = sessionStorage.getItem("tagName");
+    var DbTab = 'table_mes'
+    if(tagName == 'formShow_Draf'){
+        var DbTab = 'table_mes_cache'
+    }
+    var ActionFormSave = "<?php echo site_url('Form/FormMesBaseSave') ?>"+'/'+formId+'/'+DbTab
+//  console.log(ActionFormSave)
+    $.ajax({
+    	type:"post",
+    	url:ActionFormSave,
+    	async:true,
+    	dataType:'json',
+    	data:{
+    	    FormName:$('#ChaFormName').val(),
+    	    FormType:$('#SelFormType option:selected').val(),
+    	    DLtime:$('#datepickerForm').val(),
+    	    TabEls:$('#ChaTabEls').val(),
+    	},
+    	success:function(data){
+    	    if(data['status'] == 'success'){
+    	        if(data['row']>0){
+    	            alert('表单信息修改成功')
+    	        }else{
+    	            alert('未对表单信息进行修改')
+    	        }
+    	    }else{
+    	        alert('出现错误，请联系管理员[MP001]')
+    	    }
+    	},
+    	error:function(s,e,t){
+    	    alert('出现错误，请联系管理员')
+    	}
+    });
+    $('#modal-EditTabMes').modal('hide')
+}
+</script>

@@ -3,17 +3,175 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MesContro_model extends CI_Model{
     /*
+     * 关于树节点
+     */
+    public function GetTreeNodePack($projectId)
+    {
+        $sql = "select * from tree_sta where projectId = '".$projectId."' and TabSta = 4";
+        $data['data'] = $this->db->query($sql)->result_array();
+        return $data;
+    }
+    /*
      * 信息状态管理
      */
-    //更改状态【0草稿,1提交,2签批,3驳回,4逾期,5归集,6撤回归集,7重新提交,8删除】
-    public function change_sta($FormN,$MesId,$CT)
+    //检测是不是有表单类型
+    public function FromTypeCheck($fromId)
     {
-        $ids = implode(',', $MesId);
-        $sql = "UPDATE ".$FormN." SET TabSta = CASE id ";
-        foreach ($MesId as $id) {
+        $sql = "select id,TabTyp,TabDTm from table_mes_cache where IntIdA = '".$fromId."'";
+        $FromMes = $this->db->query($sql)->result_array();
+        if($FromMes[0]['TabTyp'] && $FromMes[0]['TabDTm'])
+        {
+            return 'allow';
+        }
+    }
+    //更改状态【0草稿,1签批,2驳回,3逾期,4归集】
+    public function StaChange($MesIdArr,$Type,$PageType,$urlDel,$urlTree)//$url用于删除接口中的数据
+    {
+        $FormN = 'table_mes';
+        switch ($Type)
+        {
+            case 'UpLoad':$CT = 1;break;
+            case 'Reject':$CT = 2;break;
+            case 'PackUp':$CT = 4;break;
+            case 'CallBk':$CT = 5;break;
+            case 'ReUpld':$CT = 1;break;
+            default:break;
+        }
+        //如果是初次提交则需要将信息从接口数据库中转移到本系统的数据库
+        if($PageType == 'draf')
+        {
+            foreach($MesIdArr as $v)
+            {
+                //将数据复制到系统的表单信息表中'table_mes'
+                    //检测系统中有没有相同id的表单
+                $sqlCheIdCache = "select id,TabNam from table_mes_cache where IntIdA = '".$v."'";
+                $formInStaCache = $this->db->query($sqlCheIdCache)->num_rows();
+                $formMesCache = $this->db->query($sqlCheIdCache)->result_array();
+                $sqlCheId = "select id from table_mes where IntIdA = '".$v."'";
+                $formInSta = $this->db->query($sqlCheId)->num_rows();
+                //如果表单已经存在，则删除原表单
+                if($formInSta > 0 && $formInStaCache > 0)
+                {
+                    $sql_delOld = "delete from table_mes where IntIdA = '".$v."'";
+                    $this->db->query($sql_delOld);
+                }
+                $sql_copy = "insert into table_mes (IntIdA,TabMId,ProAId,TabNam,TabUDa,TabCTm,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta) ";
+                $sql_copy .= "select IntIdA,TabMId,ProAId,TabNam,TabUDa,TabCTm,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta from table_mes_cache where IntIdA = '".$v."' ";
+                $this->db->query($sql_copy);
+                $rowCopy = $this->db->affected_rows();
+                //转存节点信息
+                    //获取表单信息
+                    $url = $urlTree.$v;
+                    $ch = curl_init ();
+                    curl_setopt ( $ch, CURLOPT_URL, $url );
+                    curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+                    curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
+                    curl_setopt ( $ch, CURLOPT_POST, 1 ); //启用POST提交
+                    $file_contents = curl_exec ( $ch );
+                        //json解码
+                        $TreeMes = json_decode($file_contents,true);
+                        //计算数组长度
+                        $NumTreeNode = count($TreeMes['data']);
+                        //保存到系统数据库
+                        $NumTreeNodeAll = 0;
+                        for($i = 0;$i < $NumTreeNode;$i++)
+                        {
+                            
+                            $nodeId = $TreeMes['data'][$i]['nodeId'];
+                            $nodeName = $TreeMes['data'][$i]['nodeName'];
+                            $parentId = $TreeMes['data'][$i]['parentId'];
+                            $formId = $TreeMes['data'][$i]['formId'];
+                            $projectId = $TreeMes['data'][$i]['projectId'];
+                            $id = $TreeMes['data'][$i]['id'];
+                            if($nodeId == $v )
+                            {
+                                $nodeName = $formMesCache[0]['TabNam'];
+                            }
+                            $sql_SaveNode = "insert into tree (nodeId,nodeName,parentId,formId,id,projectId) values('".$nodeId."','".$nodeName."','".$parentId."','".$formId."','".$id."','".$projectId."')";
+                            $this->db->query($sql_SaveNode);
+                            $rowTreeNode = $this->db->affected_rows();
+                            //计算成功的操作条数
+                            if(isset($rowTreeNode)){
+                                $NumTreeNodeAll += $rowTreeNode;
+                            }
+                        }
+                    curl_close ( $ch );
+                    
+                    
+                //如果成功转存数据，则删除数据
+                if($rowCopy > 0)
+                {
+                    //删除缓存库的数据
+                    $sql_del = "delete from table_mes_cache where IntIdA = '".$v."'";
+                    $this->db->query($sql_del);
+                    //删除接口的数据
+                    $url = $urlDel.$v;
+                    $ch = curl_init ();
+                    curl_setopt ( $ch, CURLOPT_URL, $url );
+                    curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+                    curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 10 );
+                    curl_setopt ( $ch, CURLOPT_POST, 1 ); //启用POST提交
+                    $file_contents = curl_exec ( $ch );
+//                  echo $file_contents;
+                    curl_close ( $ch );
+                }
+            }
+        }
+        //执行状态修改操作
+        $ids = implode(',', $MesIdArr);
+        $sql = "UPDATE ".$FormN." SET TabSta = CASE IntIdA ";
+        foreach ($MesIdArr as $id) {
             $sql .= sprintf("WHEN %d THEN %d ", $id, $CT); // 拼接SQL语句
         }
-        $sql .= "END WHERE id IN (".$ids.")";
+        $sql .= "END WHERE IntIdA IN ('".$ids."')";
+        $this->db->query($sql);
+        $data['rows'] = $this->db->affected_rows();
+        return $data;
+    }
+    //删除表单
+    public function StaChangeDel($MesIdArr,$url)
+    {
+        foreach($MesIdArr as $v)
+        {
+            /*
+             * 删除系统数据库信息
+             */
+            //删除缓存表
+            $sqlCheIdCache = "select id from table_mes_cache where IntIdA = '".$v."'";
+            $formInStaCache = $this->db->query($sqlCheIdCache)->num_rows();
+            if($formInStaCache > 0)
+            {
+                $sql_delCha = "delete from table_mes_cache where IntIdA = '".$v."'";
+                $this->db->query($sql_delCha);
+            }
+            //删除系统表
+            $sqlCheId = "select id from table_mes where IntIdA = '".$v."'";
+            $formInSta = $this->db->query($sqlCheId)->num_rows();
+            if($formInSta > 0)
+            {
+                $sql_delOld = "delete from table_mes where IntIdA = '".$v."'";
+                $this->db->query($sql_delOld);
+            }
+            /*
+             * 删除接口数据信息
+             */
+            //
+        }
+    }
+    
+    //检测节点中的表单在不在缓存表中
+    public function ShowFormMes($formId)
+    {
+        $sql = "select IntIdA,TabMId,ProAId,TabNam,TabUDa,TabCTm,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta from table_mes_cache where IntIdA = '".$formId."'";
+        $row = $this->db->query($sql)->num_rows();
+        return $row;
+    }
+    //将接口中的数据保存到缓存表中
+    public function SaveFormMes($Mes)
+    {
+        $sql = "insert into table_mes_cache (IntIdA,TabMId,ProAId,TabNam,TabUDa,TabCTm,imgurl,page) ";
+        $sql .= "values('".$Mes['formId']."','".$Mes['nodeId']."','".$Mes['projectId']."','".$Mes['formName']."','".$Mes['uploadTime']."','".$Mes['createTime']."','".$Mes['imgurl']."','".$Mes['page']."')";
+        
         $this->db->query($sql);
     }
     /*
