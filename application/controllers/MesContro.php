@@ -47,6 +47,8 @@ class MesContro extends CI_Controller{
     public function GetTreeNodePack()
     {
         $projectId = $this->uri->segment(3);
+//      $projectId = '0b5c5b47-0927-48ec-a336-9b925881ec54';
+        
         $data = $this->MesCon->GetTreeNodePack($projectId);
         $array = array();
         $arrayNodeId = array();
@@ -97,9 +99,9 @@ class MesContro extends CI_Controller{
     //检测表单是不是包含表单类别
     public function FromTypeCheck()
     {
-        $fromId = $this->input->post('formId');
+//      $fromId = $this->input->post('formId');
 //      $data['id'] = $fromId;
-//      $fromId = 'f0d558f7-5b54-4242-bf03-d0cf2f88809f';
+        $fromId = 'f71649fe-ce6d-46af-bb4c-0c47f7a3d9c9';
         $data['TypSta'] = $this->MesCon->FromTypeCheck($fromId);
         $json = json_encode($data);
         echo $json;

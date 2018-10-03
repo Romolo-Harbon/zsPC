@@ -4,6 +4,8 @@
 .NoAction {
     cursor: pointer;
     pointer-events: none;
+    background-color: #A0A0A0!important;
+    color: #A0A0A0!important;
 }
 /*
  * 增加按钮的位置
@@ -31,9 +33,9 @@
  */
 .noidSet {
     /*width: 1000px;*/
-    height:400px;
+    height:600px;
     border:1px solid #ccc; 
-    overflow:auto; 
+    overflow:auto;
     clear:both;
 }
 

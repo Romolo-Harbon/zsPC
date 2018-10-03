@@ -71,7 +71,7 @@ class Form extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
-    //表单信息显示
+    //表单信息显示【显示表单详情页面】
     public function FormMesLoad()
     {
         $data['typeForm'] = $this->system->TypeM_selectMes(0);
@@ -110,10 +110,12 @@ class Form extends CI_Controller{
         $DLtime = $this->input->post('DLtime');
         $TabEls = $this->input->post('TabEls');
         
-//      $FormName = 'ceshi';
-//      $FormType = '建筑设计文档';
-//      $DLtime = '2018-08-16';
-//      $TabEls = 'ko';
+        $formId = '9839bff1-d004-4bd3-b27b-bee994fe4da3';
+        $TableName = 'table_mes_cache';
+        $FormName = 'ceshi';
+        $FormType = '建筑设计文档';
+        $DLtime = '2018-08-16';
+        $TabEls = 'ko';
         
         $ChangeMes = array( 'TabNam'=>$FormName,'TabEls'=>$TabEls,'TabDTm'=>$DLtime );
         //保存信息

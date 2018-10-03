@@ -3,11 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MesContro_model extends CI_Model{
     /*
-     * 关于树节点
+     * 关于树节点【归集树】
      */
     public function GetTreeNodePack($projectId)
     {
-        $sql = "select * from tree_sta where projectId = '".$projectId."' and TabSta = 4";
+        $sql = "select * from tree_sta where projectId = '".$projectId."'";
         $data['data'] = $this->db->query($sql)->result_array();
         return $data;
     }
@@ -18,8 +18,8 @@ class MesContro_model extends CI_Model{
     public function FromTypeCheck($fromId)
     {
         $sql = "select id,TabTyp,TabDTm from table_mes_cache where IntIdA = '".$fromId."'";
-        $FromMes = $this->db->query($sql)->result_array();
-        if($FromMes[0]['TabTyp'] && $FromMes[0]['TabDTm'])
+        $FromMes = $this->db->query($sql)->result_array()->fetch_assoc();
+        if($FromMes['TabTyp'] && $FromMes['TabDTm'])
         {
             return 'allow';
         }

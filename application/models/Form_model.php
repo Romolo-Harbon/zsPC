@@ -104,6 +104,17 @@ class Form_model extends CI_Model{
 	//表单基本信息
 	public function FormMesBaseSave($formId,$ChangeMes,$FormType,$TableName)
 	{
+	    /*
+	     * $formId=>表单id
+	     * $ChangeMes=>表单信息{表单名称，表单其他，表单截止时间}
+	     * $FormType=>表单类型
+	     * $TableName=>操作的数据表名
+	     * 
+	     * 根据类型名称，查询：类型的流转信息
+	     * 查询此表单是否有流转信息【如果已经有了流转信息则删除旧的流转信息，插入新的流转信息；如果没有则直接插入信息流转信息】
+	     * 保存表单除流转信息外的其他信息
+	     */
+	    
 	    $sql = "select id,CirSmp from type_mes where TypNam = '".$FormType."' and TypeFT = 0";
 	    //获取类型id和类型的流转信息
 	    $formTypeId = $this->db->query($sql)->result_array();
@@ -158,9 +169,6 @@ class Form_model extends CI_Model{
 //                          $sql_CirDetNew .= "values('".$CircliMes[0]['DepIdS']."','".$date."',1,'".$CirSmpNew.$i."','".$CirSmpNew."')";
                             $sql_CirDetNew .= "values('".$CircliMes[0]['DepIdS']."','".$date."','".$CirSmpNew.$i."','".$CirSmpNew."')";
                             $this->db->query($sql_CirDetNew);
-                            //对应信息插入主表
-                            $sql_SaveCirNode = "update circle_true set ".$CirKey[$i]." = '".$CirSmpNew.$i."' where CirSmp = '".$CirSmpNew."' ";
-                            $this->db->query($sql_SaveCirNode);
                             
                         }
                     }

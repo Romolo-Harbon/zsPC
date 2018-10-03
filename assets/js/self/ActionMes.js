@@ -4,65 +4,74 @@
 //提交/归集/驳回/逾期/撤回归集/重新提交
 function ChangeSta(uri,ActTy){
 //  if (ActTy == 'draf') {
-    	var Mes = $('#formId').attr('value')
+    	var Mes = $('#formId').val()
 //  } else{
 //  	var Mes = GetCheckMes();
 //  }
     
     if(Mes) {
         if(ActTy = 'draf'){
-            var uriCheckA = uri.split('StaChange');
-            var uriCheck = uriCheckA[0] + 'FromTypeCheck'
-//          console.log(uri)
-            $.ajax({
-            	type:"post",
-            	url:uriCheck,
-            	async:true,
-            	dataType:'json',
-            	data:{
-            	    formId:Mes,
-            	},
-            	success:function(data){
-            	    if(data.TypSta == 'allow'){
-            	        //change status
-                        $.ajax({
-                            type:"post",
-                            url:uri,
-                            async:true,
-                            data:{
-                                formId:Mes,
-                            },
-                            dataType:'json',
-                            success:function(data){
-                                if(data['status'] == 'success'){
-                                    alert(data['Name']+'成功')
-                                }
-                                else{
-                                    console.log(data)
-                                    alert('出现错误，请及时联系管理员[FSC004]')
-                                }
-                            },
-                            error:function(s,t,e){
-                                alert('出现错误，请及时联系管理员[FSC003]')
-                            }
-                        })
-            	    }
-            	    else{
-            	        alert('请检查表单的类型与截止日期是否选择')
-            	    }
-            	},
-            	error:function(s,e,t){
-            	    alert('出现错误，请及时联系管理员[FSC001]')
-            	}
-            });
+            
         }
+        var uriCheckA = uri.split('StaChange');
+        var uriCheck = uriCheckA[0] + 'FromTypeCheck'
+        $.ajax({
+        	type:"post",
+        	url:uriCheck,
+        	async:true,
+//          	dataType:'json',
+        	data:{
+        	    formId:Mes,
+        	},
+        	success:function(data){
+        	    if(data.TypSta == 'allow'){
+        	        //change status
+                    $.ajax({
+                        type:"post",
+                        url:uri,
+                        async:true,
+                        data:{
+                            formId:Mes,
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(data['status'] == 'success'){
+                                alert(data['Name']+'成功')
+                                tabMesAll.ajax.reload();
+                            }
+                            else{
+                                console.log(data)
+                                alert('出现错误，请及时联系管理员[FSC004]')
+                            }
+                        },
+                        error:function(s,t,e){
+                            alert('出现错误，请及时联系管理员[FSC003]')
+                        }
+                    })
+        	    }
+        	    else{
+        	        alert('请检查表单的类型与截止日期是否选择')
+        	    }
+        	},
+        	error:function(s,e,t){
+        	    alert('出现错误，请及时联系管理员[FSC001]')
+        	}
+        });
+        
     }else{
         alert('请选择后再进行操作');
     }
 }
 //打印
-function PrintOut(MType){
-    
+function PrintOut(printAre){
+    var headstr="<html><head><title></title></head><body>";
+    var footstr="</body>";
+    var newstr=document.all.item(printpage).innerHTML;
+    var oldstr=document.body.innerHTML;
+    document.body.innerHTML=headstr+newstr+footstr;
+    window.print(); 
+    document.body.innerHTML=oldstr;
+    return false;
 }
 /*
  * 公用函数
