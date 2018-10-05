@@ -18,6 +18,10 @@ class MesContro extends CI_Controller{
     public function GetTreeNode()
     {
         $projectId = $this->uri->segment(3);
+        
+        /*
+         * 根据工程id查接口树节点
+         * */
         $url = 'http://112.74.34.150:8080/TongXinweb/Tree/getTreeByProjectId?projectId='.$projectId;
         $ch = curl_init ();
         curl_setopt ( $ch, CURLOPT_URL, $url );
@@ -49,6 +53,9 @@ class MesContro extends CI_Controller{
         $projectId = $this->uri->segment(3);
 //      $projectId = '0b5c5b47-0927-48ec-a336-9b925881ec54';
         
+        /*
+         * 根据工程id查数据库树节点
+         * */
         $data = $this->MesCon->GetTreeNodePack($projectId);
         $array = array();
         $arrayNodeId = array();
@@ -64,14 +71,17 @@ class MesContro extends CI_Controller{
         $json = json_encode($array);
         echo $json;
     }
-    //显示表单信息
+    //显示表单信息【用于草稿显示】
     public function ShowFormMes()
     {
         $formId = $this->uri->segment(3);
-//      $formId = '61b78c07-7eb1-4d0b-9f89-9088b26212c5';
         //检测此表但是不是已经存在于缓存表中
         $FormSta = $this->MesCon->ShowFormMes($formId);
-//      echo $FormSta;
+        
+        /*
+         * 根据表单id查询：此表单是否在数据库的非缓存表（table_mes_cache）中【如果不在则将信息保存进缓存表】
+         * 查询缓存表，显示表单信息
+         * */
         //首先将接口中的信息保存进数据库的缓存表中
         if(!$FormSta)
         {
@@ -99,10 +109,15 @@ class MesContro extends CI_Controller{
     //检测表单是不是包含表单类别
     public function FromTypeCheck()
     {
-//      $fromId = $this->input->post('formId');
-//      $data['id'] = $fromId;
-        $fromId = 'f71649fe-ce6d-46af-bb4c-0c47f7a3d9c9';
-        $data['TypSta'] = $this->MesCon->FromTypeCheck($fromId);
+        $fromId = $this->input->post('formId');
+        $TabName = $this->input->post('TabName');
+//      $fromId = '5da34975-5af2-4f4b-b390-1ee0477d2928';
+//      $TabName = 'table_mes_cache';
+        
+        /*
+         * 根据表单id和数据表名称判断是不是
+         * */
+        $data['TypSta'] = $this->MesCon->FromTypeCheck($fromId,$TabName);
         $json = json_encode($data);
         echo $json;
     }
@@ -117,10 +132,16 @@ class MesContro extends CI_Controller{
         $MesId = $this->input->post('formId');
         $Type = $this->uri->segment(3);
         $PageType = $this->uri->segment(4);
-//      $url = '';
+        
 //      $PageType = 'draf';
 //      $Type = 'UpLoad';
-//      $MesId = 'b1f0623e-b21c-4242-8599-c737b7cc0007';
+//      $MesId = '5da34975-5af2-4f4b-b390-1ee0477d2928';
+        
+        /*
+         * 判断用户进行的是什么操作【分成删除和非删除】
+         *      如果进行的是删除操作=》则判断是提交前还是提交后的删除【提交前删除接口数据，提交后删除数据库数据】
+         *      否则执行改变状态操作
+         * */
         //判断是进行什么操作
         switch ($Type)
         {
@@ -162,12 +183,17 @@ class MesContro extends CI_Controller{
     
     /*
      * 功能函数-流转属性设置
+     * 【放到此文件夹：】增加针对表单的审批流程的修改功能时可复用
      */
     //新建流转属性
     public function CirSave_New()
     {
         $TypeId = $this->input->post('TypeId');
         $CirMes = $this->input->post('data');
+        
+        /*
+         * 
+         * */
         $data['mes'] = $this->MesCon->CirSave_New($TypeId,$CirMes);
         if($data['mes'])
         {
@@ -181,6 +207,10 @@ class MesContro extends CI_Controller{
     public function CirMes_Show()
     {
         $TypeId = $this->input->post('TypeId');
+        
+        /*
+         * 
+         * */
         $data['mes'] = $this->MesCon->CirMes_Show($TypeId);
         $json = json_encode($data);
         echo $json;
@@ -190,7 +220,9 @@ class MesContro extends CI_Controller{
     {
 //      $TypeId = $this->input->post('TypeId');
 //      $CirMes = $this->input->post('data');
-//      
+        /*
+         * 
+         * */
         $data['success'] = 'ok';
 //      $data['sql'] = $this->MesCon->CirSave_New($TypeId,$CirMes);
         $json = json_encode($data);

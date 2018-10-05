@@ -4,9 +4,13 @@
 .NoAction {
     cursor: pointer;
     pointer-events: none;
-    background-color: #A0A0A0!important;
-    color: #A0A0A0!important;
+    /*color: #A0A0A0!important;*/
 }
+
+.NoAction>a {
+    background-color: #A0A0A0!important;
+}
+
 /*
  * 增加按钮的位置
  */

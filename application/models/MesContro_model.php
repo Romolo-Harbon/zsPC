@@ -15,11 +15,11 @@ class MesContro_model extends CI_Model{
      * 信息状态管理
      */
     //检测是不是有表单类型
-    public function FromTypeCheck($fromId)
+    public function FromTypeCheck($fromId,$TabName)
     {
-        $sql = "select id,TabTyp,TabDTm from table_mes_cache where IntIdA = '".$fromId."'";
-        $FromMes = $this->db->query($sql)->result_array()->fetch_assoc();
-        if($FromMes['TabTyp'] && $FromMes['TabDTm'])
+        $sql = "select id,TabTyp,TabDTm from ".$TabName." where IntIdA = '".$fromId."'";
+        $FromMes = $this->db->query($sql)->result_array();
+        if($FromMes[0]['TabTyp'] && $FromMes[0]['TabDTm'])
         {
             return 'allow';
         }
@@ -27,6 +27,12 @@ class MesContro_model extends CI_Model{
     //更改状态【0草稿,1签批,2驳回,3逾期,4归集】
     public function StaChange($MesIdArr,$Type,$PageType,$urlDel,$urlTree)//$url用于删除接口中的数据
     {
+        /*
+         * 判断是什么类型操作
+         * 判断表格是不是在缓存表中，如果不在的换则将表单信息及其树节点信息从接口保存转存到系统数据库【此处保存状态决定表单状态】
+         * 删除接口信息【如果】
+         * 
+         * */
         $FormN = 'table_mes';
         switch ($Type)
         {
@@ -37,6 +43,7 @@ class MesContro_model extends CI_Model{
             case 'ReUpld':$CT = 1;break;
             default:break;
         }
+        
         //如果是初次提交则需要将信息从接口数据库中转移到本系统的数据库
         if($PageType == 'draf')
         {
@@ -97,7 +104,6 @@ class MesContro_model extends CI_Model{
                         }
                     curl_close ( $ch );
                     
-                    
                 //如果成功转存数据，则删除数据
                 if($rowCopy > 0)
                 {
@@ -134,9 +140,10 @@ class MesContro_model extends CI_Model{
         foreach($MesIdArr as $v)
         {
             /*
-             * 删除系统数据库信息
+             * 查询是缓存表还是系统表的数据，删除系统数据库信息
+             * 删除接口数据信息
              */
-            //删除缓存表
+                //删除缓存表
             $sqlCheIdCache = "select id from table_mes_cache where IntIdA = '".$v."'";
             $formInStaCache = $this->db->query($sqlCheIdCache)->num_rows();
             if($formInStaCache > 0)
@@ -144,7 +151,7 @@ class MesContro_model extends CI_Model{
                 $sql_delCha = "delete from table_mes_cache where IntIdA = '".$v."'";
                 $this->db->query($sql_delCha);
             }
-            //删除系统表
+                //删除系统表
             $sqlCheId = "select id from table_mes where IntIdA = '".$v."'";
             $formInSta = $this->db->query($sqlCheId)->num_rows();
             if($formInSta > 0)
@@ -152,10 +159,8 @@ class MesContro_model extends CI_Model{
                 $sql_delOld = "delete from table_mes where IntIdA = '".$v."'";
                 $this->db->query($sql_delOld);
             }
-            /*
-             * 删除接口数据信息
-             */
-            //
+                //删除接口数据信息
+            
         }
     }
     

@@ -8,10 +8,10 @@ function ChangeSta(uri,ActTy){
 //  } else{
 //  	var Mes = GetCheckMes();
 //  }
-    
+    var TabName_Data = 'table_mes'
     if(Mes) {
-        if(ActTy = 'draf'){
-            
+        if(ActTy == 'draf'){
+            TabName_Data = 'table_mes_cache'
         }
         var uriCheckA = uri.split('StaChange');
         var uriCheck = uriCheckA[0] + 'FromTypeCheck'
@@ -19,12 +19,14 @@ function ChangeSta(uri,ActTy){
         	type:"post",
         	url:uriCheck,
         	async:true,
-//          	dataType:'json',
+        	dataType:'json',
         	data:{
         	    formId:Mes,
+        	    TabName:TabName_Data
         	},
         	success:function(data){
         	    if(data.TypSta == 'allow'){
+//      	        console.log(uri)
         	        //change status
                     $.ajax({
                         type:"post",
@@ -37,10 +39,11 @@ function ChangeSta(uri,ActTy){
                         success:function(data){
                             if(data['status'] == 'success'){
                                 alert(data['Name']+'成功')
-                                tabMesAll.ajax.reload();
+                                if(!(ActTy == 'draf' || ActTy == 'pack')){
+                                    tabMesAll.ajax.reload();
+                                }
                             }
                             else{
-                                console.log(data)
                                 alert('出现错误，请及时联系管理员[FSC004]')
                             }
                         },

@@ -110,12 +110,12 @@ class Form extends CI_Controller{
         $DLtime = $this->input->post('DLtime');
         $TabEls = $this->input->post('TabEls');
         
-        $formId = '9839bff1-d004-4bd3-b27b-bee994fe4da3';
-        $TableName = 'table_mes_cache';
-        $FormName = 'ceshi';
-        $FormType = '建筑设计文档';
-        $DLtime = '2018-08-16';
-        $TabEls = 'ko';
+//      $formId = '9839bff1-d004-4bd3-b27b-bee994fe4da3';
+//      $TableName = 'table_mes_cache';
+//      $FormName = 'ceshi';
+//      $FormType = '建筑设计文档';
+//      $DLtime = '2018-08-16';
+//      $TabEls = 'ko';
         
         $ChangeMes = array( 'TabNam'=>$FormName,'TabEls'=>$TabEls,'TabDTm'=>$DLtime );
         //保存信息
