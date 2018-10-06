@@ -2,20 +2,20 @@
     require('../conn.php');
     //获取用户信息
     session_start();
-    $RolIdS = $_SESSION['RolIdS'];
-    $UseId = $_SESSION['useId'];
+    $RolIdS = $_SESSION['RolIdS'];//角色名
+    $UseId = $_SESSION['useId'];//用户id
 //  //获取表单信息
-    $formId = $_POST['formId'];
+    $formId = $_POST['formId'];//表单id
 //  //获取签名信息
-    $SignPX= $_POST['SignPX'];
-    $SignPY = $_POST['SignPY'];
-    $FormW = $_POST['FormW'];
-    $FormH = $_POST['FormH'];
-    $SignW = $_POST['SignW'];
-    $SignH = $_POST['SignH'];
-    $PageFinal = $_POST['PageFinal'];
-    $SignFinal = $_POST['SignFinal'];
-    $SignDate = date('Y-m-d H:i:s');
+    $SignPX= $_POST['SignPX'];//签名X坐标
+    $SignPY = $_POST['SignPY'];//签名Y坐标
+    $FormW = $_POST['FormW'];//表单宽
+    $FormH = $_POST['FormH'];//表单高
+    $SignW = $_POST['SignW'];//签名宽
+    $SignH = $_POST['SignH'];//签名高
+    $PageFinal = $_POST['PageFinal'];//签名保存位置
+    $SignFinal = $_POST['SignFinal'];//签名保存地址
+    $SignDate = date('Y-m-d H:i:s');//签名时间
 
 //  $UseId = '1';
 //  $RolIdS = '4';
