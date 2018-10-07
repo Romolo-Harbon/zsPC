@@ -2,6 +2,8 @@
     require("../conn.php");
     $falg = $_POST['falg'];
 //  $falg = 'listMesType_detail';
+    $showtime=date("Y-m-d");
+//  echo $showtime;
     
     switch($falg){
         //获取表单类型信息
@@ -35,7 +37,7 @@
                     $data['data'][$i]['TypNam'] = $row['TypNam'];
                     //计算类型对应的表单数量
 //                  $CountForm = "select COUNT(id) as num from table_mes where TabTyp = '".$row['id']."' and TabSta = 1";
-                    $CountForm = "select COUNT(signId) as num from sign_check where TabTyp = '".$row['id']."' and TabSta = 1 and ProAId = '".$projectId."' and DepIdS = '".$DepIdS."'";
+                    $CountForm = "select COUNT(signId) as num from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = '".$row['id']."' and TabSta = 1 and ProAId = '".$projectId."' and DepIdS = '".$DepIdS."'";
                     $result_CountForm = $conn->query($CountForm)->fetch_assoc();
                     $data['data'][$i]['Num'] = $result_CountForm['num'];
 //                  print_r($data);echo '<br/>';
@@ -67,7 +69,7 @@
                 //表单查询
             $data['status'] = 'fail';
 //          $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
-            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
+            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
             $result_GetMes = $conn->query($sql_GetMes);
             if($result_GetMes->num_rows>0)
             {
@@ -138,7 +140,7 @@
                 //表单查询
             $data['status'] = 'fail';
 //          $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
-            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
+            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
             $result_GetMes = $conn->query($sql_GetMes);
             if($result_GetMes->num_rows>0)
             {
