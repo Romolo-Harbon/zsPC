@@ -119,6 +119,55 @@
             $json = json_encode($data);
             echo $json;
             break;
+            
+            //获取表单信息
+        case 'listMesType_search':
+            session_start();
+            $DepIdS = $_SESSION['RolIdS'];
+            $SearchVal = $_POST['SearchVal'];
+            $TypeId = $_POST['TypeId'];
+            $projectId = $_POST['projectId'];
+//          $TypeId = '8';
+//          $projectId = '0b5c5b47-0927-48ec-a336-9b925881ec54';
+//          $DepIdS = 4;
+            
+            /*
+             * 根据类型id，项目id，文件类型，角色id查询表单当前状态视图【sign_check】 ：此项目对应类型对应觉得的应处理信息条数
+             */
+            //根据类型id查找表单信息
+                //表单查询
+            $data['status'] = 'fail';
+//          $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
+            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
+            $result_GetMes = $conn->query($sql_GetMes);
+            if($result_GetMes->num_rows>0)
+            {
+                $i = 0;
+                $data['row'] = 0;
+                while($row = $result_GetMes->fetch_assoc())
+                {
+                    $data['CirSmp'][$i] = $row['CirSmp'];
+                    $data['data'][$i]['id'] = $row['id'];
+                    $data['data'][$i]['TabNam'] = $row['TabNam'];
+                    $data['data'][$i]['TabCTm'] = $row['TabCTm'];
+                    $data['data'][$i]['TabDTm'] = $row['TabDTm'];
+                    $i++;
+                }
+                $data['row'] = $i;
+
+                if($data['row'] > 0)
+                {
+                    $data['status'] = 'success';
+                }
+            }
+            else
+            {
+                $data['status'] = 'fail';
+            }
+            
+            $json = json_encode($data);
+            echo $json;
+            break;
         
         default:break;
     }
