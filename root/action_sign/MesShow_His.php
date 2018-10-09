@@ -7,8 +7,8 @@
     require'../conn.php';
     
     //获取表单id
-//  $CId = $_POST['CId'];
-    $CId = 55;
+    $CId = $_POST['CId'];
+//  $CId = 55;
     
     //获取所有流程
     $sql = "select TabUDa,RolNam,SigCTm,id,SigSta,CirSmp from circle_detail where tableId = '".$CId."'";

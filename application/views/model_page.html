@@ -498,10 +498,11 @@ function FormMesSave(){
     	    if(data['status'] == 'success'){
     	        if(data['row']>0){
     	            alert('表单信息修改成功')
-    	            
-    	            $('#UpLoad').removeClass('NoSelTabType')
-                    $('#PackUp').removeClass('NoSelTabType')
-                    $('#Delete').removeClass('NoSelTabType')
+    	            if($('#SelFormType option:selected').val()){
+    	                $('#UpLoad').removeClass('NoSelTabType')
+                        $('#PackUp').removeClass('NoSelTabType')
+                        $('#Delete').removeClass('NoSelTabType')
+    	            }
     	        }else{
     	            alert('未对表单信息进行修改')
     	        }

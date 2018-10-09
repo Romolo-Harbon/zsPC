@@ -59,11 +59,16 @@ class Form extends CI_Controller{
     public function FormSta()
     {
         $Type = $this->uri->segment(3);
+        $ProId = $this->uri->segment(4);
 //      $Type = 'sign';
-        $data['aaData'] = $this->form->FormSta($Type);
+        $data['aaData'] = $this->form->FormSta($Type,$ProId);
         $i=1;
         foreach($data['aaData'] as &$v)
         {
+            //查询表单的类型
+            $v['typeName'] = $this->form->CheckTypeName($v['TabTyp'],0);
+            
+            //数量&选择框
             $v['rowNum'] = $i;
             $v['checkBox'] = "<label class='pos-rel'><input type='checkbox' class='ace'/><span class='lbl'></span></label>";
             $i++;

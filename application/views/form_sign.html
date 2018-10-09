@@ -138,14 +138,14 @@
                 /*
                  * tableINI
                  */
-                var showMes = "<?php echo site_url('Form/FormSta') ?>"+'/sign';
+                var showMes = "<?php echo site_url('Form/FormSta') ?>"+'/sign/'+sessionStorage.getItem('projectId');
                 tabMesAll = $('#dynamic-table').DataTable({
                     ajax:showMes,
                     columns:[
 //                      {"data":'checkBox'},
                         {"data":'formName'},
                         {"data":'uploadTime'},
-                        {"data":'page'},
+                        {"data":'typeName'},
                         {"data":'page','visible':false},
                         {"data":'page','visible':false},
                         {"data":'page','visible':false},

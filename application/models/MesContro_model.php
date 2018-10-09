@@ -123,6 +123,17 @@ class MesContro_model extends CI_Model{
                 }
             }
         }
+        //如果是重新提交需要删除表单现有的签名
+//      if($CT == 2)
+//      {
+//          //查找现有的表单的流转时间戳
+//          
+//          //清空有此时间戳的circle_td
+//          
+//          //清空有此时间戳的签名
+//          
+//      }
+        
         //执行状态修改操作
         $ids = implode(',', $MesIdArr);
         $sql = "UPDATE ".$FormN." SET TabSta = CASE IntIdA ";

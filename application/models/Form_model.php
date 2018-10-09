@@ -5,7 +5,7 @@ class Form_model extends CI_Model{
      * 页面加载
      */
     //按状态查询表单列表
-    public function FormSta($FormType)
+    public function FormSta($FormType,$ProId)
     {
         /*
          * 根据状态查询表单【1：签批；2：驳回；3：逾期；】
@@ -23,11 +23,16 @@ class Form_model extends CI_Model{
                 break;
             default:break;
         }
-        $sql = "SELECT IntIdA as formId,TabMId as nodeId,ProAId as projectId,TabNam as formName,TabUDa as uploadTime,TabCTm as createTime,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta,TabMNa FROM table_mes WHERE TabSta = '".$formSta."' ";
+        $sql = "SELECT IntIdA as formId,TabMId as nodeId,ProAId as projectId,TabNam as formName,TabUDa as uploadTime,TabCTm as createTime,imgurl,page,CirSmp,ImpSta,CasSta,TabEls,TabTyp,TabDTm,TabSta,TabMNa FROM table_mes WHERE TabSta = '".$formSta."' and ProAId = '".$ProId."'";
         $data = $this->db->query($sql)->result_array();
         return $data;
     }
-    
+    //按表单类型id查询表单类型名称
+    public function CheckTypeName($TypeId,$type)
+    {
+        $result = $this->db->query("select TypNam FROM type_mes where TypeFT = '".$type."' and id = '".$TypeId."'")->result_array();
+        return $result[0]['TypNam'];
+    }
     //按模板列表查询
     public function TreeShowSelect($id,$typeSta)
     {
