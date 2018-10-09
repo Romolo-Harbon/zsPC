@@ -52,7 +52,9 @@ function showFormMes(MesPack){
     EleText = ''
     var MesSta = '';
     for (var i=0;i<MesPack['cirNum'];i++) {
-        if(MesPack['cirDetali'][i]['SigUrl']) {
+//      console.log(MesPack['cirDetali'][i]['DepNam'])
+//      console.log(MesPack['cirDetali'][i]['SigSta'])
+        if(MesPack['cirDetali'][i]['SigSta'] == 5) {
             MesSta = 'active'
         }else{
             MesSta = ''
