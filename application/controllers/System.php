@@ -206,6 +206,8 @@ class System extends CI_Controller{
     public function RoleLinUse_Sel()
     {
         $TypeId = $this->input->post('TypeId');
+//      $TypeId = 3;
+        
         $data = $this->system->SelPeoMesED($TypeId);
         $json = json_encode($data);
         echo $json;
@@ -216,12 +218,15 @@ class System extends CI_Controller{
         $RoleId = $this->input->post('RId');
         $PeoMes = $this->input->post('UseLim');
         
-//      $RoleId = 2;
-//      $PeoMes = array('DT-Kim=>admin','胖子=>adminPang','顺子=>SHUNZI');
+//      $RoleId = 3;
+//      $PeoMes = array('羊=>yangshen');
         //获取时间戳
         list($t1, $t2) = explode(' ', microtime());
         $CirSmp = (float)sprintf('%.0f',(floatval($t1)+floatval($t2))*1000);
-        for($i=0;$i<count($PeoMes);$i++)
+        //删除本部门绑定的所有的用户信息
+        $this->system->RoleLinUse_Del($RoleId,$CirSmp);
+        //创建新的用户部门信息
+        for($i = 0;$i < count($PeoMes);$i++)
         {
             $UseMes = explode('=>',$PeoMes[$i]);
             $data['sta'] = $this->system->RoleLinUse_Set($RoleId,$UseMes[0],$UseMes[1],$CirSmp);
@@ -249,6 +254,7 @@ class System extends CI_Controller{
     public function Account_ShowDetail()
     {
         $MId = $this->input->post('MesId');
+//      $MId = 15;
         $data['id'] = $MId;
         $data['AccountMes'] = $this->system->Account_ShowDetail($MId);
         $json = json_encode($data);
@@ -263,12 +269,15 @@ class System extends CI_Controller{
         //判断账号状态
         switch($ActType)
         {
-            case 'login':
-                $AccSta = 1;
-                break;
-            case 'pass':
+            //注销
+            case 'loginOut':
                 $AccSta = 2;
                 break;
+            //通过
+            case 'pass':
+                $AccSta = 1;
+                break;
+            //删除
             case 'del':
                 $AccSta = 3;
                 break;

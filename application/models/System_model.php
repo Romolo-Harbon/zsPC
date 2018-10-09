@@ -95,20 +95,58 @@ class System_model extends CI_Model
         $this->db->select('id,UseAcc,UsePeo');
         $data['roleMesSelNo'] = $this->db->get('user')->result_array();
         
+//      /*
+//       * 根据部门id，查询：【check_userol】中的部门id为指定id的用户，并组建返回值
+//       * 查询表【user】中部门分配状态为0的用户，并组建返回值
+//       * */
+//      $data['roleMesSelEd'] = $this->db->query('SELECT id,UseAcc,UsePeo FROM check_userol WHERE RolIdS = '.$id.' ')->result_array();
+//      $this->db->where('UseSta',1);
+//      $this->db->where('RolSta',0);
+//      $this->db->select('id,UseAcc,UsePeo');
+//      $data['roleMesSelNo'] = $this->db->get('user')->result_array();
+////      $sql = $this->db->get_compiled_select('user');
+////      echo $sql;
         return $data;
     }
+    //删除旧的用户分配数据和分配信息
+    public function RoleLinUse_Del($RoleId,$CirSmp)
+    {
+        //根据部门id删除用户分配标志，删除旧的部门关联数据
+        /*
+         * 根据部门ID查询表link_userol：查出此部门相关的用户id
+         * 根据用户id删除用户的部门状态【将其改成未分配部门的状态】
+         * 并根据用户id删除用户相关的部分信息
+         * */
+        //获取相关的用户id
+        $query = $this->db->select('UseIdS,RolIdS');
+        $this->db->where('RolIdS',$RoleId);
+        $query = $this->db->get('link_userol');
+//      $query = $this->db->select('UseIdS,RolIdS');
+//      $this->db->where('RolIdS',$RoleId);
+//      $sql = $this->db->get_compiled_select('link_userol');
+//      echo $sql;
+        foreach($query -> result() as $row)
+        {
+//          echo $row->UseIdS;
+            //删除用户表的旧分配标志
+            $this->db->where('id',$row->UseIdS);
+            $this->db->update('user',array('RolSta'=>0));
+            //删除旧部门关联数据
+            $this->db->where('LinSmp !=', $CirSmp);
+            $this->db->delete('link_userol',array('RolIdS'=>$RoleId));
+        }
+    }
+    
     //保存部门人员设置
     public function RoleLinUse_Set($RoleId,$UsePeo,$UseAcc,$CirSmp)
     {
-        //查询id【用户id】
+        /*
+         * 根据用户名称，用户账号，查询：用户id
+         * 重新分配用户分配标志
+         * 重新创建用户信息和相关数据
+         * */
         $sql = "SELECT id FROM `user` WHERE UseAcc='".$UseAcc."' and UsePeo='".$UsePeo."'";
         $UseId = $this->db->query($sql)->result_array();
-        //删除用户表的旧分配标志
-        $this->db->where('id',$UseId[0]['id']);
-        $this->db->update('user',array('RolSta'=>0));
-        //删除旧部门关联数据
-        $this->db->where('LinSmp !=', $CirSmp);
-        $this->db->delete('link_userol',array('RolIdS'=>$RoleId));
         //更新用户表【创建新分配标志】
         $sqlUpdate = "UPDATE user set RolSta=1 where id=".$UseId[0]['id']."";
         $this->db->query($sqlUpdate);
@@ -167,7 +205,10 @@ class System_model extends CI_Model
         
         foreach( $data as &$v )
         {
-            $v['depart'] = $DepartMea;
+            if(isset($DepartMea)){
+                $v['depart'] = $DepartMea;
+            }
+            
             switch( $v['UseSta'] )
             {
                 case 0:

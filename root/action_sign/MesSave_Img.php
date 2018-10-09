@@ -15,7 +15,8 @@
     $SignH = $_POST['SignH'];//签名高
     $PageFinal = $_POST['PageFinal'];//签名保存位置
     $SignFinal = $_POST['SignFinal'];//签名保存地址
-    $SignDate = date('Y-m-d H:i:s');//签名时间
+    $msg = $_POST['msg'];//签名备注
+    $SignDate = date('Y-m-d H:i:s');//签名时间msg
 
 //  $UseId = '1';
 //  $RolIdS = '4';
@@ -33,7 +34,7 @@
     require'../conn.php';
     //根据当前的表单id和部门信息更新表单的流转信息
         //更新表【sign_mes】
-    $sql_Save = "insert into sign_mes (SignPa,HisIdS,HisFrm,SignPX,SignPY,FormW,FormH,SignW,SignH,PageFinal,SignPeoId,SignDate) values('".$SignFinal."','','0','".$SignPX."','".$SignPY."','".$FormW."','".$FormH."','".$SignW."','".$SignH."','".$PageFinal."','".$UseId."','".$SignDate."')";
+    $sql_Save = "insert into sign_mes (SignPa,HisIdS,HisFrm,SignPX,SignPY,FormW,FormH,SignW,SignH,PageFinal,SignPeoId,SignDate,SignEls) values('".$SignFinal."','','0','".$SignPX."','".$SignPY."','".$FormW."','".$FormH."','".$SignW."','".$SignH."','".$PageFinal."','".$UseId."','".$SignDate."','".$msg."')";
     $result_Save = $conn->query($sql_Save);
     
     if($result_Save)
@@ -51,23 +52,24 @@
             
             if($result_Stamp)
             {
-                        //获取流转流程的id
-                $sql_Circle = "select id from circle_td where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc";
-                $result_Circle = $conn->query($sql_Circle)->fetch_assoc();
-                
-                if($result_Circle)
-                {
+//                      //获取流转流程的id
+//              $sql_Circle = "select id from circle_td";
+//              $result_Circle = $conn->query($sql_Circle)->fetch_assoc();
+//              
+//              if($result_Circle)
+//              {
                         //更新流转信息表【circle_td】
-                    $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."' where id = '".$result_Circle['id']."'";
+//                  $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."' where id = '".$result_Circle['id']."'";
+                    $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."',HisIdS = '' where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc";
                     $result_Updata = $conn->query($sql_Update);
 //                  echo $sql_Update;
                     if(!($result_Updata))
                     {
                         $data['ErrorMes'] = '更新流转信息表出现错误';
                     }
-                }else{
-                    $data['ErrorMes'] = '获取流转流程的id出现错误';
-                }
+//              }else{
+//                  $data['ErrorMes'] = '获取流转流程的id出现错误';
+//              }
             }else{
                 $data['ErrorMes'] = '获取流转时间戳出现错误';
             }

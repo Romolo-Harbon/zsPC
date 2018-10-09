@@ -1,8 +1,8 @@
 <?php
     require("../conn.php");
     $falg = $_POST['falg'];
-//  $falg = 'listMesType_detail';
-    $showtime=date("Y-m-d");
+//  $falg = 'listMesType';
+    $showtime = date("Y-m-d");
 //  echo $showtime;
     
     switch($falg){
@@ -35,8 +35,31 @@
                 {
                     $data['data'][$i]['id'] = $row['id'];
                     $data['data'][$i]['TypNam'] = $row['TypNam'];
+                    //判断表单状态
+                    $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp,SigSta from sign_check where ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
+                    $result_GetMes = $conn->query($sql_GetMes);
+                    if($result_GetMes->num_rows>0)
+                    {
+                        while($row_GetMes = $result_GetMes->fetch_assoc())
+                        {
+                            //如果当前日期大于时间期限则判断为逾期，改变表单状态【逾期状态为3】
+                            if($row_GetMes['TabDTm'] <= $showtime)
+                            {
+                                $sql_ChangeSta01 = "update table_mes set TabSta = 3 where id = '".$row_GetMes['id']."'";
+                                $result_ChangeSta = $conn->query($sql_ChangeSta01);
+                                continue;
+                            }
+                            //判断表单是不是已经走完签批流程，改变表单状态【归集状态为4】
+                            if($row_GetMes['SigSta'] == 5)
+                            {
+                                $sql_ChangeSta02 = "update table_mes set TabSta = 4 where id = '".$row_GetMes['id']."'";
+                                $result_ChangeSta = $conn->query($sql_ChangeSta02);
+                                continue;
+                            }
+                        }
+                    }
+                    
                     //计算类型对应的表单数量
-//                  $CountForm = "select COUNT(id) as num from table_mes where TabTyp = '".$row['id']."' and TabSta = 1";
                     $CountForm = "select COUNT(signId) as num from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = '".$row['id']."' and TabSta = 1 and ProAId = '".$projectId."' and DepIdS = '".$DepIdS."'";
                     $result_CountForm = $conn->query($CountForm)->fetch_assoc();
                     $data['data'][$i]['Num'] = $result_CountForm['num'];
@@ -68,8 +91,8 @@
             //根据类型id查找表单信息
                 //表单查询
             $data['status'] = 'fail';
-//          $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
-            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
+            $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp,SigSta from sign_check where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
+//          $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
             $result_GetMes = $conn->query($sql_GetMes);
             if($result_GetMes->num_rows>0)
             {
@@ -77,6 +100,8 @@
                 $data['row'] = 0;
                 while($row = $result_GetMes->fetch_assoc())
                 {
+                    
+                    //否则输出表单
                     $data['CirSmp'][$i] = $row['CirSmp'];
                     $data['data'][$i]['id'] = $row['id'];
                     $data['data'][$i]['TabNam'] = $row['TabNam'];
@@ -85,29 +110,7 @@
                     $i++;
                 }
                 $data['row'] = $i;
-
-//              if($result_GetMes->num_rows>0)
-//              {
-//                  //遍历表单信息
-//                  while($row = $result_GetMes->fetch_assoc())
-//                  {
-//                      $data['CirSmp'][$i] = $row['CirSmp'];
-//                      //获取表单当前程序【当前审批状态】
-//                      $sql_Cir = "select DepIdS from circle_td where SigSta = 0 and CirSmp = '".$row['CirSmp']."' order by id desc";
-//                      $result_Cir = $conn->query($sql_Cir)->fetch_assoc();
-//                      $data['RolIdS'][$i] = $result_Cir['DepIdS'];
-//                      if($result_Cir['DepIdS'] == $DepIdS)
-//                      {
-//                          $data['data'][$i]['id'] = $row['id'];
-//                          $data['data'][$i]['TabNam'] = $row['TabNam'];
-//                          $data['data'][$i]['TabCTm'] = $row['TabCTm'];
-//                          $data['data'][$i]['TabDTm'] = $row['TabDTm'];
-//                          $i++;
-//                      }
-//                  }
-//                  $data['row'] = $i;
-//              }
-
+                
                 if($data['row'] > 0)
                 {
                     $data['status'] = 'success';

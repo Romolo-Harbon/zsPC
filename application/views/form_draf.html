@@ -85,7 +85,7 @@
                             <button class="btn btn-primary NoSelTabType" id="PackUp" onclick="ChangeSta(StaChange+'/PackUp/draf','draf')">归集</button>
                             <button class="btn btn-primary NoSelTabType" id="Delete" onclick="HardWroking()">删除</button><!--ChangeSta(StaChange+'/Delete/draf','draf')-->
                             <button class="btn btn-primary" href="#modal-EditTabMes" role="button" data-toggle="modal">修改基本属性</button>
-                            <button class="btn btn-primary" role="button" data-toggle="modal">打印</button>
+                            <button class="btn btn-primary" role="button" data-toggle="modal" id="printOut">打印</button>
                         </div>
                         <!--Action Button End-->
                         <!--model part begin-->
@@ -183,6 +183,11 @@
                 })
                 //tree action
                 function onSelect(note) {
+                    //clear old mes
+                    $('#ChaFormName').attr('value','')
+                    $('#ChaFormType').text()
+                    $('#datepickerForm').attr('value','')
+                    $('#ChaTabEls').text()
                     if(!note.data.children){
                         $('#formId').attr('value',note.data.nodeId)
                         var MesShow = "<?php echo site_url('MesContro/ShowFormMes') ?>"+'/'+note.data.nodeId
@@ -231,6 +236,11 @@
                         }, 0);
                     }
                 });
+                //printOut
+                $('#printOut').click(function(){
+                    var IntIdA = $('#formId').attr('value')
+//                  window.open("<?php //echo $this->load->view('printOut.html?data="+IntIdA+"') ?>")
+                })
 			});
 			/*
 			 * Path Function

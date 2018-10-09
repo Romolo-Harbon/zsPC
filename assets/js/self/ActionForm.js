@@ -17,11 +17,7 @@ function FormGetMes(uri){
 
 //show form mes
 function showFormMes(MesPack){
-    //clear old mes
-    $('#ChaFormName').attr('value','')
-    $('#ChaFormType').text()
-    $('#datepickerForm').attr('value','')
-    $('#ChaTabEls').text()
+    
     //fill change model
     $('#ChaFormName').attr('value',MesPack['base'][0]['TabNam'])
     $('#ChaFormType').text(MesPack['type'])

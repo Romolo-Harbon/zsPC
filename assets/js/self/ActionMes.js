@@ -66,16 +66,16 @@ function ChangeSta(uri,ActTy){
     }
 }
 //打印
-function PrintOut(printAre){
-    var headstr="<html><head><title></title></head><body>";
-    var footstr="</body>";
-    var newstr=document.all.item(printpage).innerHTML;
-    var oldstr=document.body.innerHTML;
-    document.body.innerHTML=headstr+newstr+footstr;
-    window.print(); 
-    document.body.innerHTML=oldstr;
-    return false;
-}
+//function PrintOut(printAre){
+//  var headstr="<html><head><title></title></head><body>";
+//  var footstr="</body>";
+//  var newstr=document.all.item(printpage).innerHTML;
+//  var oldstr=document.body.innerHTML;
+//  document.body.innerHTML=headstr+newstr+footstr;
+//  window.print(); 
+//  document.body.innerHTML=oldstr;
+//  return false;
+//}
 /*
  * 公用函数
  */
@@ -88,7 +88,7 @@ function GetCheckMes() {
         try{
         	CheckSta = tab.rows[i].cells[0].getElementsByTagName('input')[0];
             if(CheckSta.checked == 1) {
-                StrId+=tab.rows[i].cells[1].getElementsByTagName('a')[0].innerHTML+',';
+                StrId += tab.rows[i].cells[1].getElementsByTagName('a')[0].innerHTML+',';
             }
         }catch(e){
         	alert('没有相关数据，请选择数据后操作');
