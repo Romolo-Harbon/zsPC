@@ -141,7 +141,7 @@
             //根据类型id查找表单信息
                 //表单查询
             $data['status'] = 'fail';
-            $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp,TabSta from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' order by TabDTm";
+            $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp,TabSta from circle_detail where cast(TabDTm as datetime) >= '$showtime' and TabTyp = ".$TypeId." and DepIdS = '".$DepIdS."' and ProAId = '".$projectId."' order by TabDTm";
 //          $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
             $result_GetMes = $conn->query($sql_GetMes);
             if($result_GetMes->num_rows>0)
@@ -195,7 +195,8 @@
                 //表单查询
             $data['status'] = 'fail';
 //          $sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp from table_mes where TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 order by TabDTm";
-            $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm from sign_check where cast(TabDTm as datetime) >= '$showtime' and TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and TabSta = 1 and DepIdS = '".$DepIdS."' order by TabDTm";
+//          $sql_GetMes = "select id,CirSmp,TabDTm,TabNam,TabCTm,TabSta from circle_detail where cast(TabDTm as datetime) <= '$showtime' and TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and ProAId = '".$projectId."' and DepIdS = '".$DepIdS."' order by TabDTm";
+			$sql_GetMes = "select id,TabNam,TabCTm,TabDTm,CirSmp,TabSta from circle_detail where cast(TabDTm as datetime) >= '$showtime' and TabNam LIKE '%".$SearchVal."%' and TabTyp = ".$TypeId." and DepIdS = '".$DepIdS."' and ProAId = '".$projectId."' order by TabDTm";
             $result_GetMes = $conn->query($sql_GetMes);
             if($result_GetMes->num_rows>0)
             {
@@ -208,6 +209,7 @@
                     $data['data'][$i]['TabNam'] = $row['TabNam'];
                     $data['data'][$i]['TabCTm'] = $row['TabCTm'];
                     $data['data'][$i]['TabDTm'] = $row['TabDTm'];
+                    $data['data'][$i]['TabSta'] = $row['TabSta'];
                     $i++;
                 }
                 $data['row'] = $i;
