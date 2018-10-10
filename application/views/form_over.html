@@ -131,6 +131,7 @@
         <script src="<?php echo base_url()."assets/js/self/ActionForm.js"?>"></script>
         <script type="text/javascript">
             var tabMesAll;
+            var StaChange = "<?php echo site_url('MesContro/StaChange') ?>"
             jQuery(function($) {
                 /*
                  * tableINI
@@ -171,6 +172,7 @@
                     }
                     try{
                         var formId = tabMesAll.row('.selected').data().formId;
+                        $('#formId').val(formId)
                         FormGetMes("<?php echo site_url('Form/FormgetBC') ?>"+'/'+formId+'/over')
                         var FormgetHis = "<?php echo site_url('Form/FormgetHis') ?>"+'/'+formId;
 //                      tableHis = $('#dynamic-table_His').DataTable({
