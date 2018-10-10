@@ -69,7 +69,7 @@
                             <input id="formId" hidden="hidden"/>
                             <button class="btn btn-primary" id="Reject" onclick="ChangeSta(StaChange+'/Reject/sign','sign')">驳回</button>
                             <button class="btn btn-primary" id="PackUp" onclick="ChangeSta(StaChange+'/PackUp/sign','sign')">归集</button>
-                            <button class="btn btn-primary" id="Delete" onclick="HardWroking()">删除</button><!--ChangeSta(StaChange+'/Delete/sign','draf')-->
+                            <a class="btn btn-primary" role="button" data-toggle="modal" id="printOut" href="#" >浏览</a>
                         </div>
                         <!--Action Button End-->
                         <!--form mess begin-->
@@ -200,6 +200,11 @@
                             buttons.wrapInner('<span class="bigger-110" />');
                         }, 0);
                     }
+                })
+                $('#printOut').click(function(){
+                    var IntIdA = $('#formId').attr('value')
+                    
+                    window.open("<?php echo site_url('MesContro/PrintOut'); ?>"+"/"+$('#formId').val())
                 })
             });
         </script>

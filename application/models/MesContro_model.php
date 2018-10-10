@@ -280,5 +280,51 @@ class MesContro_model extends CI_Model{
     {
         
     }
-    
+    /*
+     * 打印功能
+     * */
+    //获取需要打印的表单及其签名信息
+    public function PrintOutGetMes($FormIdA)
+    {
+        /*
+         * 根据表单id，查询：表单图片信息和表单的页数信息,及其签名后的签名信息id
+         * */
+        $query = $this->db->query("SELECT ImgUrl,SigId,page FROM circle_detail WHERE IntIdA = '".$FormIdA."'")->result_array();
+        $data['ImgUrl'] = $query[0]['ImgUrl'];
+        $data['page'] = $query[0]['page'];
+        return $data;
+    }
+    //获取签名信息
+    public function PrintOutGetSign($FormIdA)
+    {
+        /*
+         * 根据表单id，查询：表单图片信息和表单的页数信息,及其签名后的签名信息id
+         * 根据签名信息id，查询：签名信息的详细信息并组成返回值返回页面
+         * */
+        $query = $this->db->query("SELECT ImgUrl,SigId,page FROM circle_detail WHERE IntIdA = '".$FormIdA."'")->result_array();
+//      $data['ImgUrl'] = $query[0]['ImgUrl'];
+//      $data['page'] = $query[0]['page'];
+        $i = 0;
+        foreach ($query as $v)
+        {
+//          echo $v['ImgUrl'];
+//          echo '<br />';
+            if(isset($v['SigId'])){
+                $signMes = $this->db->query("SELECT SignPa,SignPX,SignPY,FormW,FormH,SignW,SignH,PageFinal FROM sign_mes WHERE id = '".$v['SigId']."'")->result_array();
+                $data['Sign'][$i]['SignPa'] = $signMes[0]['SignPa'];
+                $data['Sign'][$i]['SignPX'] = $signMes[0]['SignPX'];
+                $data['Sign'][$i]['SignPY'] = $signMes[0]['SignPY'];
+                $data['Sign'][$i]['FormW'] = $signMes[0]['FormW'];
+                $data['Sign'][$i]['FormH'] = $signMes[0]['FormH'];
+                $data['Sign'][$i]['SignW'] = $signMes[0]['SignW'];
+                $data['Sign'][$i]['SignH'] = $signMes[0]['SignH'];
+                $data['Sign'][$i]['PageFinal'] = $signMes[0]['PageFinal'];
+                $i++;
+//              echo $v['SigId'];
+//              echo '<br/>';
+            }
+        }
+        $data['Num'] = $i;
+        return $data;
+    }
 }

@@ -180,6 +180,26 @@ class MesContro extends CI_Controller{
         $json = json_encode($data);
         echo $json;
     }
+    /*
+     * 打印
+     *  */
+    //打印页面跳转
+    public function PrintOut()
+    {
+        $FormIdA = $this->uri->segment(3);
+        $data = $this->MesCon->PrintOutGetMes($FormIdA);
+        $this->load->view('printOut.html',$data);
+    }
+    //获取签名信息
+    public function PrintOutGetSign()
+    {
+        $FormId = $this->input->post('formId');
+//      $FormId = '12d9d360-8e6b-49d1-8884-8320c14f014e';
+        $data = $this->MesCon->PrintOutGetSign($FormId);
+//      print_r($data);
+        $json = json_encode($data);
+        echo $json;
+    }
     
     /*
      * 功能函数-流转属性设置
