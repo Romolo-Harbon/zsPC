@@ -60,6 +60,10 @@
                 width: 210mm;
                 height: 297mm;
             }
+            .paneImg{
+                width: 210mm;
+                height: 297mm;
+            }
         </style>
     </head>
 
@@ -99,56 +103,65 @@
                 var EleText = ""
                 var page = "<?php echo $page; ?>"
                 page ++
-                for (var i = 1;i<page;i++) {
-                	EleText += "<div class='pane'>"
-//              	console.log(FormUrl[0]+"("+i+").png")
-                	EleText += "<img src='"+URL_API+FormUrl[0]+"("+i+").png"+"' style='width:100%;height:100%;' />"
-                	EleText += "</div>"
-                }
-                $('#printDiv').append(EleText)
-                //show sign
-                var FormId = window.location.pathname
-                FormId = FormId.split('PrintOut/')
-//              console.log(FormId[1])
-                var SignMesLoc = "<?php echo site_url('MesContro/PrintOutGetSign') ?>"
-                $.ajax({
-                	type:"post",
-                	url:SignMesLoc,
-                	async:true,
-                	dataType:'json',
-                	data:{
-                	    formId:FormId[1]
-                	},
-                	success:function(data){
-                	    console.log(data)
-                        if(data['Num']>0){
-                            for (var i=0;i<data['Num'];i++) {
-                            	var SinSignPa  = data['Sign'][i]['SignPa']
-                                var SinSignPX  = data['Sign'][i]['SignPX']
-                                var SinSignPY  = data['Sign'][i]['SignPY']
-                                var SinFormW  = data['Sign'][i]['FormW']
-                                var SinFormH  = data['Sign'][i]['FormH']
-                                var SinSignW  = data['Sign'][i]['SignW']
-                                var SinSignH  = data['Sign'][i]['SignH']
-                                var SinPageFinal  = data['Sign'][i]['PageFinal']
-                                showSignSvg(SinSignPX,SinSignPY,SinFormW,SinFormH,SinSignW,SinSignH,SinPageFinal,SinSignPa,'pane')
+                //form
+                var SignForm = new Image()
+                SignForm.src = URL_API+FormUrl[0]+"(1).png"
+//              $('.paneImg').attr('width',canvasWidth)
+//              $('.paneImg').attr('height',canvasHeight)
+                SignForm.onload = function()
+                {
+                    for (var i = 1;i<page;i++) {
+                    	EleText += "<div class='pane'>"
+    //              	console.log(FormUrl[0]+"("+i+").png")
+                    	EleText += "<img class='paneImg' src='"+URL_API+FormUrl[0]+"("+i+").png"+"' style='width:100%;height:100%;' />"
+                    	EleText += "</div>"
+                    }
+                    $('#printDiv').append(EleText)
+                    //show sign
+                    var FormId = window.location.pathname
+                    FormId = FormId.split('PrintOut/')
+    //              console.log(FormId[1])
+                    var SignMesLoc = "<?php echo site_url('MesContro/PrintOutGetSign') ?>"
+                    $.ajax({
+                    	type:"post",
+                    	url:SignMesLoc,
+                    	async:true,
+                    	dataType:'json',
+                    	data:{
+                    	    formId:FormId[1]
+                    	},
+                    	success:function(data){
+    //              	    console.log(data)
+                            if(data['Num']>0){
+                                for (var i=0;i<data['Num'];i++) {
+                                	var SinSignPa  = data['Sign'][i]['SignPa']
+                                    var SinSignPX  = data['Sign'][i]['SignPX']
+                                    var SinSignPY  = data['Sign'][i]['SignPY']
+                                    var SinFormW  = data['Sign'][i]['FormW']
+                                    var SinFormH  = data['Sign'][i]['FormH']
+                                    var SinSignW  = data['Sign'][i]['SignW']
+                                    var SinSignH  = data['Sign'][i]['SignH']
+                                    var SinPageFinal  = data['Sign'][i]['PageFinal']
+                                    showSignSvg(SinSignPX,SinSignPY,SinFormW,SinFormH,SinSignW,SinSignH,SinPageFinal,SinSignPa,'pane')
+                                }
                             }
-                        }
-                	},
-                	error:function(s,e,t){
-                	    console.log("出现错误，请联系管理员；错误类型："+e)
-                	}
-                });
+                    	},
+                    	error:function(s,e,t){
+                    	    console.log("出现错误，请联系管理员；错误类型："+e)
+                    	}
+                    });
+                }
             })
             /*
              * FUNCTION
              * */
             function showSignSvg(SignPX,SignPY,FormW,FormH,SignW,SignH,PageFinal,SignFinal,placeImg){
                 PageFinal --;
-                var imgArr = document.getElementsByClassName(placeImg)
+                var imgArr = document.getElementsByClassName('paneImg')
                 //计算表单缩放比
                 var scaleFromX = (imgArr[0].width)/FormW
                 var scaleFromY = (imgArr[0].height)/FormH
+//              console.log(imgArr[0].width)
                 //签名缩放
                 var SignSvg = new Image()
                 var SignWidth = SignW*scaleFromX*2
@@ -168,6 +181,8 @@
                     $('.pane').eq(PageFinal).append(EleSvgText)
 //                  console.log(SignWidth)
 //                  console.log(SignHeight)
+//                  console.log(PlaceX)
+//                  console.log(PlaceY)
 //                  console.log(SignSvg.src)
                 }
             }
