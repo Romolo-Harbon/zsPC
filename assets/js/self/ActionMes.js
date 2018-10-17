@@ -65,17 +65,21 @@ function ChangeSta(uri,ActTy){
         alert('请选择后再进行操作');
     }
 }
-//打印
-//function PrintOut(printAre){
-//  var headstr="<html><head><title></title></head><body>";
-//  var footstr="</body>";
-//  var newstr=document.all.item(printpage).innerHTML;
-//  var oldstr=document.body.innerHTML;
-//  document.body.innerHTML=headstr+newstr+footstr;
-//  window.print(); 
-//  document.body.innerHTML=oldstr;
-//  return false;
-//}
+/*
+ * 打印【不对表单草稿的浏览负责】
+ * */
+$('#printOut').click(function(){
+    var IntIdA = $('#formId').val()
+    var AimUrlAll = AimUrl+"/"+IntIdA
+    if(IntIdA.length)
+    {
+        window.open(AimUrlAll)
+    }else{
+        IntIdA = 'null'
+        alert('请指定表单后在进行操作')
+    }
+})
+
 /*
  * 公用函数
  */

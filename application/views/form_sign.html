@@ -69,7 +69,7 @@
                             <input id="formId" hidden="hidden"/>
                             <button class="btn btn-primary" id="Reject" onclick="ChangeSta(StaChange+'/Reject/sign','sign')">驳回</button>
                             <button class="btn btn-primary" id="PackUp" onclick="ChangeSta(StaChange+'/PackUp/sign','sign')">归集</button>
-                            <a class="btn btn-primary" role="button" data-toggle="modal" id="printOut" href="#" >浏览</a>
+                            <button class="btn btn-primary" id="printOut" href="#" >浏览</button>
                         </div>
                         <!--Action Button End-->
                         <!--form mess begin-->
@@ -134,6 +134,7 @@
             var tabMesAll;
             projectId = sessionStorage.getItem('projectId')
             var StaChange = "<?php echo site_url('MesContro/StaChange') ?>"
+            AimUrl = "<?php echo site_url('MesContro/PrintOut'); ?>"
             jQuery(function($) {
                 /*
                  * tableINI
@@ -200,11 +201,6 @@
                             buttons.wrapInner('<span class="bigger-110" />');
                         }, 0);
                     }
-                })
-                $('#printOut').click(function(){
-                    var IntIdA = $('#formId').attr('value')
-                    
-                    window.open("<?php echo site_url('MesContro/PrintOut'); ?>"+"/"+$('#formId').val())
                 })
             });
         </script>

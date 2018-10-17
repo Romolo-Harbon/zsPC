@@ -187,8 +187,22 @@ class MesContro extends CI_Controller{
     public function PrintOut()
     {
         $FormIdA = $this->uri->segment(3);
-        $data = $this->MesCon->PrintOutGetMes($FormIdA);
-        $this->load->view('printOut.html',$data);
+        $Type = $this->uri->segment(4);
+        if($FormIdA == 'null')
+        {
+            $data['typeForm'] = $this->system->TypeM_selectMes(0);
+            $this->load->view('form_rejt.html',$data);
+            exit;
+        }
+        if(isset($Type))
+        {
+//          echo $Type;
+            $data = $this->MesCon->PrintOutGetMes($FormIdA,'table_mes_cache');
+            $this->load->view('printOutDraf.html',$data);
+        }else{
+            $data = $this->MesCon->PrintOutGetMes($FormIdA,'table_mes');
+            $this->load->view('printOut.html',$data);
+        }
     }
     //获取签名信息
     public function PrintOutGetSign()

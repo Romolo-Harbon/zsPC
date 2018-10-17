@@ -284,12 +284,12 @@ class MesContro_model extends CI_Model{
      * 打印功能
      * */
     //获取需要打印的表单及其签名信息
-    public function PrintOutGetMes($FormIdA)
+    public function PrintOutGetMes($FormIdA,$tabName)
     {
         /*
          * 根据表单id，查询：表单图片信息和表单的页数信息,及其签名后的签名信息id
          * */
-        $query = $this->db->query("SELECT ImgUrl,SigId,page FROM circle_detail WHERE IntIdA = '".$FormIdA."'")->result_array();
+        $query = $this->db->query("SELECT ImgUrl,page FROM ".$tabName." WHERE IntIdA = '".$FormIdA."'")->result_array();
         $data['ImgUrl'] = $query[0]['ImgUrl'];
         $data['page'] = $query[0]['page'];
         return $data;

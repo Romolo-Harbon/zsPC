@@ -84,8 +84,9 @@
                             <button class="btn btn-primary NoSelTabType" id="UpLoad" onclick="ChangeSta(StaChange+'/UpLoad/draf','draf')">提交</button>
                             <button class="btn btn-primary NoSelTabType" id="PackUp" onclick="ChangeSta(StaChange+'/PackUp/draf','draf')">归集</button>
                             <button class="btn btn-primary NoSelTabType" id="Delete" onclick="HardWroking()">删除</button><!--ChangeSta(StaChange+'/Delete/draf','draf')-->
+                            <button class="btn btn-primary NoSelTabType" id="printOutDraf" href="#" >浏览</button>
                             <button class="btn btn-primary" href="#modal-EditTabMes" role="button" data-toggle="modal">修改基本属性</button>
-                            <a class="btn btn-primary" role="button" data-toggle="modal" id="printOut" href="#" >浏览</a>
+                            
                         </div>
                         <!--Action Button End-->
                         <!--model part begin-->
@@ -205,10 +206,12 @@
                         	        $('#UpLoad').removeClass('NoSelTabType')
                             	    $('#PackUp').removeClass('NoSelTabType')
                             	    $('#Delete').removeClass('NoSelTabType')
+                            	    $('#printOutDraf').removeClass('NoSelTabType')
                         	    }else{
                                     $('#UpLoad').addClass('NoSelTabType')
                                     $('#PackUp').addClass('NoSelTabType')
                                     $('#Delete').addClass('NoSelTabType')
+                                    $('#printOutDraf').addClass('NoSelTabType')
                                 }
                         	},
                         	error:function(s,e,t){
@@ -241,7 +244,17 @@
 			/*
 			 * Path Function
 			 */
-			
+			$('#printOutDraf').click(function(){
+                var IntIdA = $('#formId').val()
+                var AimUrl = "<?php echo site_url('MesContro/PrintOut'); ?>"+"/"+IntIdA+"/draf"
+                if(IntIdA.length)
+                {
+                    window.open(AimUrl)
+                }else{
+                    IntIdA = 'null'
+                    alert('请指定表单后在进行操作')
+                }
+            })
 		</script>
 	</body>
 

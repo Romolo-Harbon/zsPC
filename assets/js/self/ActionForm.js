@@ -25,7 +25,9 @@ function showFormMes(MesPack){
     $('#ChaTabEls').text(MesPack['base'][0]['TabEls'])
     
     //show baseMes
+    $('#ModelName').text(MesPack['base'][0]['TabNam'])
     $('#FormName').text(MesPack['base'][0]['TabNam'])
+    $('#FormPage').text(MesPack['base'][0]['TabNam'])
     $('#FormType').text(MesPack['type'])
     $('#ReTime').text(MesPack['base'][0]['TabCTm'])
     $('#DLtime').text(MesPack['base'][0]['TabDTm'])
