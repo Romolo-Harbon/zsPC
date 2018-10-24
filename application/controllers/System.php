@@ -254,11 +254,12 @@ class System extends CI_Controller{
     public function Account_ShowDetail()
     {
         $MId = $this->input->post('MesId');
-//      $MId = 15;
+//      $MId = 18;
         $data['id'] = $MId;
         $data['AccountMes'] = $this->system->Account_ShowDetail($MId);
         $json = json_encode($data);
         echo $json;
+//      print_r($data);
     }
     //账号注销通过删除
     public function Account_ChangeSta()

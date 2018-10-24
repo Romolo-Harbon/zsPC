@@ -503,6 +503,13 @@ function FormMesSave(){
                         $('#PackUp').removeClass('NoSelTabType')
                         $('#Delete').removeClass('NoSelTabType')
                         $('#printOutDraf').removeClass('NoSelTabType')
+                        //clear old mes
+                        $('#ChaFormName').attr('value','')
+                        $('#ChaFormName').val('')
+                        $('#ChaFormType').text('')
+                        $('#datepickerForm').attr('value','')
+                        $('#datepickerForm').val('')
+                        $('#ChaTabEls').text()
     	            }
     	        }else{
     	            alert('未对表单信息进行修改')

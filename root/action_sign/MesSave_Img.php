@@ -29,6 +29,7 @@
 //  $SignH = '15';
 //  $PageFinal = '1';
 //  $SignFinal = '9';
+//  $msg = '00';
 //  $SignDate = date('Y-m-d H:i:s');
     
     require'../conn.php';
@@ -60,34 +61,36 @@
 //              {
                         //更新流转信息表【circle_td】
 //                  $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."' where id = '".$result_Circle['id']."'";
-                    $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."',HisIdS = '' where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc";
+//                  $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."',HisIdS = '' where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc";
+                    $sql_GetId = "select id from circle_td where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc limit 1";
+                    $result_GetId = $conn->query($sql_GetId)->fetch_assoc();
+                    $CirId = $result_GetId['id'];
+//                  echo $CirId;
+//                  echo $result_Stamp['CirSmp'];
+                    
+                    $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."',HisIdS = '' where id = '".$CirId."'" ;
+//                  $sql_Update = "update circle_td set SigSta = '5',SigCTm = '".$SignDate."',SigId='".$result_Sel['id']."',HisIdS = '' where id=(select top 1 id from circle_td where DepIdS = '".$RolIdS."' and CirSmp = '".$result_Stamp['CirSmp']."' and  SigSta = 0 order by id asc)" ;
                     $result_Updata = $conn->query($sql_Update);
 //                  echo $sql_Update;
                     if(!($result_Updata))
                     {
-                        $data['ErrorMes'] = '更新流转信息表出现错误';
+                        $data['ErrorMes'] = 'ErrorMesA';
                     }
-//              }else{
-//                  $data['ErrorMes'] = '获取流转流程的id出现错误';
-//              }
             }else{
-                $data['ErrorMes'] = '获取流转时间戳出现错误';
+                $data['ErrorMes'] = 'ErrorMesB';
             }
         }else{
-            $data['ErrorMes'] = '查询签名id出现错误';
+            $data['ErrorMes'] = 'ErrorMesC';
         }
     }else{
-        $data['ErrorMes'] = '保存签名信息出现错误';
+        $data['ErrorMes'] = 'ErrorMesD';
     }
     
     //更新表单历史信息
-    
-    
     $data['status'] = 'error';
     if($result_Updata)
     {
         $data['status'] = 'success';
     }
-//  print_r($data) ;
     $json = json_encode($data);
     echo $json;

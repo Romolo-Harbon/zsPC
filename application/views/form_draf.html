@@ -184,11 +184,7 @@
                 })
                 //tree action
                 function onSelect(note) {
-                    //clear old mes
-                    $('#ChaFormName').attr('value','')
-                    $('#ChaFormType').text()
-                    $('#datepickerForm').attr('value','')
-                    $('#ChaTabEls').text()
+                    
                     if(!note.data.children){
                         $('#formId').attr('value',note.data.nodeId)
                         var MesShow = "<?php echo site_url('MesContro/ShowFormMes') ?>"+'/'+note.data.nodeId
@@ -199,7 +195,14 @@
                         	async:true,
                         	dataType:'json',
                         	success:function(data){
-//                      	    console.log(data)
+                        	    //clear old mes
+                                $('#ChaFormName').attr('value','')
+                                $('#ChaFormName').val('')
+                                $('#ChaFormType').text('')
+                                $('#datepickerForm').attr('value','')
+                                $('#datepickerForm').val('')
+                                $('#ChaTabEls').text()
+                                //console.log(data)
                         	    showFormMes(data)
                         	    
                         	    if(data['base'][0]['TabTyp']){

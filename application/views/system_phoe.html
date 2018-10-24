@@ -333,6 +333,7 @@
                         var MesId = table.row('.selected').data().id;
                         //selectINI
                         var ShowAss = "<?php echo site_url('System/Account_ShowDetail'); ?>";
+//                      console.log(ShowAss)
                         $.ajax({
                             type:"post",
                             url:ShowAss,
@@ -353,10 +354,10 @@
                                 $('#UsePassTim').text(data['AccountMes'][0]['UsePTm'])
                                 $('#ChangePeo').text(data['AccountMes'][0]['UseCPe'])
                                 $('#ReTime').text(data['AccountMes'][0]['UseCTm'])
-                                try{
+                                if(data['AccountMes'][0]['depart']){
                                 	$('#UseBelong').text(data['AccountMes'][0]['depart'])
-                                }catch(e){
-                                	//
+                                }else{
+                                	$('#UseBelong').text('')
                                 }
                             },
                             error:function(s,t,e)

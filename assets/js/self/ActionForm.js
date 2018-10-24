@@ -20,12 +20,14 @@ function showFormMes(MesPack){
     
     //fill change model
     $('#ChaFormName').attr('value',MesPack['base'][0]['TabNam'])
+    $('#ChaFormName').val(MesPack['base'][0]['TabNam'])
     $('#ChaFormType').text(MesPack['type'])
     $('#datepickerForm').attr('value',MesPack['base'][0]['TabDTm'])
+    $('#datepickerForm').val(MesPack['base'][0]['TabDTm'])
     $('#ChaTabEls').text(MesPack['base'][0]['TabEls'])
     
     //show baseMes
-    $('#ModelName').text(MesPack['base'][0]['TabNam'])
+//  $('#ModelName').text(MesPack['base'][0]['TabNam'])
     $('#FormName').text(MesPack['base'][0]['TabNam'])
     $('#FormPage').text(MesPack['base'][0]['TabNam'])
     $('#FormType').text(MesPack['type'])
